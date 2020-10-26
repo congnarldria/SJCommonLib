@@ -37,13 +37,24 @@ namespace ATMTCommonLib
         private static StackTrace st = new StackTrace(true);
         private static Exception ex = null;
         
-        public static void SendLog<T>(T cc, string log)
+        public static void SendLog<T>(T cc, string log , Exception e = null)
         {
             StackFrame[] sfs = st.GetFrames();
-            int Line = sfs[2].GetFileLineNumber();
+            int Line = 0;
+            string IError = string.Empty;
+            if (e != null)
+            {
+                Line = new StackTrace(e, true).GetFrame(0).GetFileLineNumber();
+                IError = "Ex";
+            }
+            else
+            {
+                Line = sfs[2].GetFileLineNumber();
+                IError = "No.";
+            }
             string Function = sfs[2].GetMethod().Name;
             IntPtr maindHwnd = FindWindow(null, "ATMTLog");
-            string strSend = cc.ToString() + "," + log + "," + Function + "," + Line + cc.ToString() + "," + log + "," + Function + "," + Line;
+            string strSend = cc.ToString() + "," + log + "," + Function + "," +  IError +  Line + cc.ToString() + "," + log + "," + Function + "," + IError + Line;
             IntPtr ptr = Marshal.StringToHGlobalAnsi(strSend);
             COPYDATASTRUCT cds = new COPYDATASTRUCT();
             cds.dwData = IntPtr.Zero;

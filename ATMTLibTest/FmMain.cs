@@ -38,9 +38,9 @@ namespace ATMTLibTest
                 throw new Exception("xxxxx");
                 LogMgr.SendLog(logs.App, textBox1.Text);
             }
-            catch
+            catch(Exception ex)
             {
-                LogMgr.SendLog(logs.App, textBox1.Text);
+                LogMgr.SendLog(logs.App, textBox1.Text , ex);
             }
         }
     }
