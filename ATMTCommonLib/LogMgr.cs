@@ -40,19 +40,26 @@ namespace ATMTCommonLib
         public static void SendLog<T>(T cc, string log , Exception e = null)
         {
             StackFrame[] sfs = st.GetFrames();
+            
             int Line = 0;
             string IError = string.Empty;
+            log = log.Replace(",", "+");
+            log = log.Replace("/r/n", "||");
+            string Function = string.Empty;
             if (e != null)
             {
-                Line = new StackTrace(e, true).GetFrame(0).GetFileLineNumber();
+                StackFrame[] efs = new StackTrace(e, true).GetFrames();
+                Line = new StackTrace(e, true).GetFrame(efs.Length - 1).GetFileLineNumber();
+                Function = new StackTrace(e, true).GetFrame(efs.Length - 1).GetMethod().ToString();
                 IError = "Err:";
             }
             else
             {
                 Line = sfs[2].GetFileLineNumber();
                 IError = "No:";
+                Function = sfs[2].GetMethod().Name;
             }
-            string Function = sfs[2].GetMethod().Name;
+           
             IntPtr maindHwnd = FindWindow(null, "ATMTLog");
             string strSend = cc.ToString() + "," + log + "," + Function + "," +  IError +  Line + cc.ToString() + "," + log + "," + Function + "," + IError + Line;
             IntPtr ptr = Marshal.StringToHGlobalAnsi(strSend);
