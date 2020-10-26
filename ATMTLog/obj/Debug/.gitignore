@@ -1,0 +1,7 @@
+*.AssemblyAttributes.cs
+*.cache
+/ATMTLog.Properties.Resources.resources
+/ATMTLog.FmLog.resources
+/ATMTLog.pdb
+/ATMTLog.csproj.CopyComplete
+/ATMTLog.csproj.FileListAbsolute.txt

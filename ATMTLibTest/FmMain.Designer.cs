@@ -28,34 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.cbForBind = new System.Windows.Forms.ComboBox();
-            this.bsCombo = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.bsCombo)).BeginInit();
+            this.atmtComboBox1 = new ATMTCommonLib.ATMTComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // cbForBind
-            // 
-            this.cbForBind.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bsCombo, "DropString", true));
-            this.cbForBind.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.bsCombo, "Selected", true));
-            this.cbForBind.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.bsCombo, "DropString", true));
-            this.cbForBind.DataSource = this.bsCombo;
-            this.cbForBind.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cbForBind.FormattingEnabled = true;
-            this.cbForBind.Location = new System.Drawing.Point(531, 226);
-            this.cbForBind.Name = "cbForBind";
-            this.cbForBind.Size = new System.Drawing.Size(223, 29);
-            this.cbForBind.TabIndex = 1;
-            // 
-            // bsCombo
-            // 
-            this.bsCombo.DataSource = typeof(ATMTLibTest.TComboLList);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(615, 286);
+            this.button1.Location = new System.Drawing.Point(628, 287);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 40);
             this.button1.TabIndex = 2;
@@ -65,35 +46,51 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(646, 149);
+            this.textBox1.Location = new System.Drawing.Point(450, 139);
             this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(131, 22);
+            this.textBox1.Size = new System.Drawing.Size(235, 22);
             this.textBox1.TabIndex = 3;
+            // 
+            // atmtComboBox1
+            // 
+            this.atmtComboBox1.Align = ATMTCommonLib.ATMTComboBox.EAlign.center;
+            this.atmtComboBox1.Location = new System.Drawing.Point(296, 107);
+            this.atmtComboBox1.Name = "atmtComboBox1";
+            this.atmtComboBox1.Size = new System.Drawing.Size(128, 31);
+            this.atmtComboBox1.TabIndex = 4;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(341, 195);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(126, 40);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 431);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.atmtComboBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.cbForBind);
             this.Name = "FmMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FmMain_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.bsCombo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cbForBind;
-        private System.Windows.Forms.BindingSource bsCombo;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
+        private ATMTCommonLib.ATMTComboBox atmtComboBox1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

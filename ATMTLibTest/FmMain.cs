@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ATMTCommonLib;
+using System.Diagnostics;
 
 namespace ATMTLibTest
 {
@@ -16,7 +18,6 @@ namespace ATMTLibTest
         {
             InitializeComponent();
         }
-        TComboLList comboLList;
         private void FmMain_Load(object sender, EventArgs e)
         {
 
@@ -28,7 +29,20 @@ namespace ATMTLibTest
             fmLogIn.ShowDialog();
             int Level = fmLogIn.atmtLogIn1.GetAuthorityLevel();
         }
-
+        enum logs {App }
+        private static StackTrace st = new StackTrace(new StackFrame(true));
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                throw new Exception("xxxxx");
+                LogMgr.SendLog(logs.App, textBox1.Text);
+            }
+            catch
+            {
+                LogMgr.SendLog(logs.App, textBox1.Text);
+            }
+        }
     }
     public class TComboLList
     {

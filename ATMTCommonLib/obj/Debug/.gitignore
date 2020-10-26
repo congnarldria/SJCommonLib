@@ -9,3 +9,5 @@
 /ATMTCommonLib.pdb
 /DesignTimeResolveAssemblyReferences.cache
 /DesignTimeResolveAssemblyReferencesInput.cache
+*.AssemblyAttributes.cs
+/ATMTCommonLib.ATMTComboBox.resources

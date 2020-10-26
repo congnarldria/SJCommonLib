@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.m_btnLogOut = new System.Windows.Forms.Button();
             this.m_btnCancel = new System.Windows.Forms.Button();
             this.m_btnLogin = new System.Windows.Forms.Button();
@@ -38,13 +40,13 @@
             this.txtAccount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvAccountList = new System.Windows.Forms.DataGridView();
+            this.cms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.刪除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkAccountManager = new System.Windows.Forms.CheckBox();
             this.accountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.passWordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.levelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cms = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.刪除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bsAccount = new System.Windows.Forms.BindingSource(this.components);
-            this.chkAccountManager = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccountList)).BeginInit();
             this.cms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsAccount)).BeginInit();
@@ -151,6 +153,14 @@
             // dgvAccountList
             // 
             this.dgvAccountList.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAccountList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAccountList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAccountList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.accountDataGridViewTextBoxColumn,
@@ -158,16 +168,55 @@
             this.levelDataGridViewTextBoxColumn});
             this.dgvAccountList.ContextMenuStrip = this.cms;
             this.dgvAccountList.DataSource = this.bsAccount;
-            this.dgvAccountList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgvAccountList.Location = new System.Drawing.Point(0, 197);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAccountList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvAccountList.Location = new System.Drawing.Point(0, 192);
             this.dgvAccountList.Name = "dgvAccountList";
             this.dgvAccountList.RowHeadersVisible = false;
             this.dgvAccountList.RowTemplate.Height = 24;
-            this.dgvAccountList.Size = new System.Drawing.Size(332, 167);
+            this.dgvAccountList.Size = new System.Drawing.Size(332, 348);
             this.dgvAccountList.TabIndex = 21;
             this.dgvAccountList.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvAccountList_CellBeginEdit);
             this.dgvAccountList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvAccountList_CellFormatting);
             this.dgvAccountList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvAccountList_EditingControlShowing);
+            // 
+            // cms
+            // 
+            this.cms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.刪除ToolStripMenuItem});
+            this.cms.Name = "cms";
+            this.cms.Size = new System.Drawing.Size(99, 26);
+            // 
+            // 刪除ToolStripMenuItem
+            // 
+            this.刪除ToolStripMenuItem.Name = "刪除ToolStripMenuItem";
+            this.刪除ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.刪除ToolStripMenuItem.Text = "刪除";
+            this.刪除ToolStripMenuItem.Click += new System.EventHandler(this.刪除ToolStripMenuItem_Click);
+            // 
+            // chkAccountManager
+            // 
+            this.chkAccountManager.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkAccountManager.BackColor = System.Drawing.Color.SkyBlue;
+            this.chkAccountManager.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.chkAccountManager.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.chkAccountManager.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.chkAccountManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkAccountManager.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.chkAccountManager.Location = new System.Drawing.Point(3, 157);
+            this.chkAccountManager.Name = "chkAccountManager";
+            this.chkAccountManager.Size = new System.Drawing.Size(326, 29);
+            this.chkAccountManager.TabIndex = 51;
+            this.chkAccountManager.Text = "帳號管理";
+            this.chkAccountManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkAccountManager.UseVisualStyleBackColor = false;
+            this.chkAccountManager.CheckedChanged += new System.EventHandler(this.chkAccountManager_CheckedChanged);
             // 
             // accountDataGridViewTextBoxColumn
             // 
@@ -191,43 +240,11 @@
             this.levelDataGridViewTextBoxColumn.FillWeight = 50F;
             this.levelDataGridViewTextBoxColumn.HeaderText = "Level";
             this.levelDataGridViewTextBoxColumn.Name = "levelDataGridViewTextBoxColumn";
-            this.levelDataGridViewTextBoxColumn.Width = 50;
-            // 
-            // cms
-            // 
-            this.cms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.刪除ToolStripMenuItem});
-            this.cms.Name = "cms";
-            this.cms.Size = new System.Drawing.Size(99, 26);
-            // 
-            // 刪除ToolStripMenuItem
-            // 
-            this.刪除ToolStripMenuItem.Name = "刪除ToolStripMenuItem";
-            this.刪除ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.刪除ToolStripMenuItem.Text = "刪除";
-            this.刪除ToolStripMenuItem.Click += new System.EventHandler(this.刪除ToolStripMenuItem_Click);
+            this.levelDataGridViewTextBoxColumn.Width = 58;
             // 
             // bsAccount
             // 
             this.bsAccount.DataSource = typeof(ATMTCommonLib.TAccount);
-            // 
-            // chkAccountManager
-            // 
-            this.chkAccountManager.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkAccountManager.BackColor = System.Drawing.Color.SkyBlue;
-            this.chkAccountManager.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.chkAccountManager.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.chkAccountManager.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.chkAccountManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkAccountManager.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.chkAccountManager.Location = new System.Drawing.Point(3, 157);
-            this.chkAccountManager.Name = "chkAccountManager";
-            this.chkAccountManager.Size = new System.Drawing.Size(326, 29);
-            this.chkAccountManager.TabIndex = 51;
-            this.chkAccountManager.Text = "帳號管理";
-            this.chkAccountManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkAccountManager.UseVisualStyleBackColor = false;
-            this.chkAccountManager.CheckedChanged += new System.EventHandler(this.chkAccountManager_CheckedChanged);
             // 
             // ATMTLogIn
             // 
@@ -245,7 +262,7 @@
             this.Controls.Add(this.m_lblStatus);
             this.Controls.Add(this.label2);
             this.Name = "ATMTLogIn";
-            this.Size = new System.Drawing.Size(332, 364);
+            this.Size = new System.Drawing.Size(334, 543);
             this.Load += new System.EventHandler(this.ATMTLogIn_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccountList)).EndInit();
             this.cms.ResumeLayout(false);
@@ -267,11 +284,11 @@
         private System.Windows.Forms.DataGridView dgvAccountList;
         private System.Windows.Forms.BindingSource bsAccount;
         private System.Windows.Forms.CheckBox chkAccountManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn passWordDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn levelDataGridViewTextBoxColumn;
         public System.Windows.Forms.Button m_btnLogin;
         private System.Windows.Forms.ContextMenuStrip cms;
         private System.Windows.Forms.ToolStripMenuItem 刪除ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn passWordDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn levelDataGridViewTextBoxColumn;
     }
 }
