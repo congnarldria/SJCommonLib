@@ -80,7 +80,6 @@ namespace ATMTLog
         }
         private void FmLog_Load(object sender, EventArgs e)
         {
-            this.Text = "ATMT LogManager (v" + ProductVersion + ")";
             bsLogList.DataSource = LogList;
             notifyIconSystem.Visible = true;
             this.Hide();
