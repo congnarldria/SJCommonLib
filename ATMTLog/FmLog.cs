@@ -88,7 +88,9 @@ namespace ATMTLog
 
         private void notifyIconSystem_DoubleClick(object sender, EventArgs e)
         {
+            this.TopMost = true;
             this.Show();
+            this.TopMost = false;
             this.WindowState = FormWindowState.Normal;
         }
 

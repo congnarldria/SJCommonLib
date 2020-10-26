@@ -45,12 +45,12 @@ namespace ATMTCommonLib
             if (e != null)
             {
                 Line = new StackTrace(e, true).GetFrame(0).GetFileLineNumber();
-                IError = "Ex";
+                IError = "Err:";
             }
             else
             {
                 Line = sfs[2].GetFileLineNumber();
-                IError = "No.";
+                IError = "No:";
             }
             string Function = sfs[2].GetMethod().Name;
             IntPtr maindHwnd = FindWindow(null, "ATMTLog");
