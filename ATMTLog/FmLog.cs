@@ -13,24 +13,26 @@ using System.Threading;
 using System.IO;
 using System.Collections.Concurrent;
 using Microsoft.VisualBasic;
+using System.Diagnostics;
 
 namespace ATMTLog
 {
     public partial class FmLog : Form
     {
+        [DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         public List<TLogContent> LogList = new List<TLogContent>();
         private string LogPath = string.Empty;
         const int WM_COPYDATA = 0x4A;
+        IntPtr cc;
         public FmLog()
         {
             InitializeComponent();
             if (!Directory.Exists(Application.StartupPath + "\\Log\\"))
                 Directory.CreateDirectory(Application.StartupPath + "\\Log\\");
             LogPath = Application.StartupPath + "\\Log\\";
-            
         }
         //[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
-        private Thread LogThread;
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == WM_COPYDATA)
@@ -70,7 +72,7 @@ namespace ATMTLog
                 if (LogList.Count > 10000) LogList.Clear();
                 LogList.Insert(0, lc);
                 string ToLine = (lc.Date + "," + lc.Time + "," + lc.Function + "," + lc.Line + "," + lc.Content);
-                sw = new StreamWriter(LogPath + lc.Date.Replace("/", string.Empty) + ".txt", true);
+                sw = new StreamWriter(LogPath + lc.Date.Replace("/", string.Empty) + ".txt", true, Encoding.Unicode);
                 sw.WriteLine(ToLine);
                 sw.Close();
 
@@ -78,8 +80,10 @@ namespace ATMTLog
                 bsLogList.ResetBindings(false);
             }
         }
+        private Thread PeekThread;
         private void FmLog_Load(object sender, EventArgs e)
         {
+
             bsLogList.DataSource = LogList;
             notifyIconSystem.Visible = true;
             this.Hide();
@@ -102,7 +106,6 @@ namespace ATMTLog
                 this.Hide();
             }
         }
-
         private void FmLog_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -110,7 +113,6 @@ namespace ATMTLog
             this.Hide();
             return;
         }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TopMost = false;
@@ -145,5 +147,4 @@ namespace ATMTLog
 
         }
     }
-
 }

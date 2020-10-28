@@ -42,12 +42,13 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tpApp = new System.Windows.Forms.TabPage();
             this.dgvApp = new System.Windows.Forms.DataGridView();
-            this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.functionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.functionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcLog = new System.Windows.Forms.TabControl();
+            this.timerPeekMessage = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsLogList)).BeginInit();
             this.tpApp.SuspendLayout();
@@ -159,18 +160,17 @@
             this.dgvApp.Size = new System.Drawing.Size(1038, 391);
             this.dgvApp.TabIndex = 0;
             // 
-            // contentDataGridViewTextBoxColumn
+            // dateDataGridViewTextBoxColumn
             // 
-            this.contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
-            this.contentDataGridViewTextBoxColumn.HeaderText = "Content";
-            this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
-            this.contentDataGridViewTextBoxColumn.Width = 2500;
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
             // 
-            // lineDataGridViewTextBoxColumn
+            // timeDataGridViewTextBoxColumn
             // 
-            this.lineDataGridViewTextBoxColumn.DataPropertyName = "Line";
-            this.lineDataGridViewTextBoxColumn.HeaderText = "Line";
-            this.lineDataGridViewTextBoxColumn.Name = "lineDataGridViewTextBoxColumn";
+            this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
+            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
+            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
             // 
             // functionDataGridViewTextBoxColumn
             // 
@@ -179,17 +179,18 @@
             this.functionDataGridViewTextBoxColumn.Name = "functionDataGridViewTextBoxColumn";
             this.functionDataGridViewTextBoxColumn.Width = 150;
             // 
-            // timeDataGridViewTextBoxColumn
+            // lineDataGridViewTextBoxColumn
             // 
-            this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
-            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
-            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
+            this.lineDataGridViewTextBoxColumn.DataPropertyName = "Line";
+            this.lineDataGridViewTextBoxColumn.HeaderText = "Line";
+            this.lineDataGridViewTextBoxColumn.Name = "lineDataGridViewTextBoxColumn";
             // 
-            // dateDataGridViewTextBoxColumn
+            // contentDataGridViewTextBoxColumn
             // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
+            this.contentDataGridViewTextBoxColumn.HeaderText = "Content";
+            this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
+            this.contentDataGridViewTextBoxColumn.Width = 2500;
             // 
             // tcLog
             // 
@@ -201,6 +202,11 @@
             this.tcLog.SelectedIndex = 0;
             this.tcLog.Size = new System.Drawing.Size(1052, 426);
             this.tcLog.TabIndex = 1;
+            // 
+            // timerPeekMessage
+            // 
+            this.timerPeekMessage.Enabled = true;
+            this.timerPeekMessage.Tick += new System.EventHandler(this.timerPeekMessage_Tick);
             // 
             // FmLog
             // 
@@ -248,6 +254,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lineDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
         private System.Windows.Forms.TabControl tcLog;
+        private System.Windows.Forms.Timer timerPeekMessage;
     }
 }
 
