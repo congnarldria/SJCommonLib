@@ -48,7 +48,6 @@
             this.lineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcLog = new System.Windows.Forms.TabControl();
-            this.timerPeekMessage = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsLogList)).BeginInit();
             this.tpApp.SuspendLayout();
@@ -203,11 +202,6 @@
             this.tcLog.Size = new System.Drawing.Size(1052, 426);
             this.tcLog.TabIndex = 1;
             // 
-            // timerPeekMessage
-            // 
-            this.timerPeekMessage.Enabled = true;
-            this.timerPeekMessage.Tick += new System.EventHandler(this.timerPeekMessage_Tick);
-            // 
             // FmLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -254,7 +248,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lineDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
         private System.Windows.Forms.TabControl tcLog;
-        private System.Windows.Forms.Timer timerPeekMessage;
     }
 }
 

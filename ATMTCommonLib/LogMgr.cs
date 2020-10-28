@@ -31,7 +31,7 @@ namespace ATMTCommonLib
         private static extern long SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
         //异步消息发送API
         [DllImport("user32.dll", EntryPoint = "PostMessage")]
-        public static extern int PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+        private static extern int PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
         [DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
