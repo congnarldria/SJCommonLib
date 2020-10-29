@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.Runtime.ExceptionServices;
 using System.Reflection;
+using System.Drawing.Drawing2D;
+using System.Runtime.CompilerServices;
 
 namespace ATMTCommonLib
 {
@@ -74,12 +76,12 @@ namespace ATMTCommonLib
                 structurePtr = Marshal.AllocHGlobal(sSize);
             }
             Marshal.StructureToPtr(cds, structurePtr, true);
-            long result = PostMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero , structurePtr);
+            long result = PostMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
             ex = null;
         }
-        private static void SendLogMethod(string log, Exception e = null)
+        public static void SendLog(string log, Exception e = null, [CallerLineNumber] int line = 0, [CallerMemberName] string caller = null)
         {
             StackFrame[] sfs = st.GetFrames();
 
@@ -97,9 +99,13 @@ namespace ATMTCommonLib
             }
             else
             {
-                Line = sfs[2].GetFileLineNumber();
+
+                Line = line;// sfs[2].GetFileLineNumber();
                 IError = "No:";
-                Function = sfs[2].GetMethod().Name;
+                if (caller != null)
+                    Function = caller;// sfs[2].GetMethod().Name;
+                else
+                    Function = sfs[sfs.Length - 1].GetMethod().Name;
             }
 
             IntPtr maindHwnd = FindWindow(null, "ATMTLog");
@@ -121,10 +127,6 @@ namespace ATMTCommonLib
             Marshal.FreeHGlobal(structurePtr);
             ex = null;
         }
-        public static void SendLog(string log, Exception e = null)
-        {
-            SendLogMethod(log, e);
-        }
         public static void PostLog(string log, Exception e = null)
         {
             PostLogMethod(log, e);
@@ -136,7 +138,7 @@ namespace ATMTCommonLib
         /// <param name="Page">使用列舉項目</param>
         /// <param name="log">要傳遞的字串</param>
         /// <param name="e">Exception</param>
-        public static void SendLog<T>(T Page, string log, Exception e = null)
+        public static void SendLog<T>(T Page, string log, Exception e = null, [CallerLineNumber] int line = 0, [CallerMemberName] string caller = null)
         {
             StackFrame[] sfs = st.GetFrames();
 
@@ -154,9 +156,12 @@ namespace ATMTCommonLib
             }
             else
             {
-                Line = sfs[2].GetFileLineNumber();
+                Line = line;// sfs[sfs.Length - 1].GetFileLineNumber();
                 IError = "No:";
-                Function = sfs[2].GetMethod().Name;
+                if (caller != null)
+                    Function = caller;//sfs[sfs.Length - 1].GetMethod().Name;
+                else
+                    Function = sfs[sfs.Length - 1].GetMethod().Name;
             }
 
             IntPtr maindHwnd = FindWindow(null, "ATMTLog");
