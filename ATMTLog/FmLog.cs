@@ -73,6 +73,7 @@ namespace ATMTLog
                 LogList.Insert(0, lc);
                 string ToLine = (lc.Date + "," + lc.Time + "," + lc.Function + "," + lc.Line + "," + lc.Content);
                 sw = new StreamWriter(LogPath + lc.Date.Replace("/", string.Empty) + ".txt", true, Encoding.Unicode);
+                ToLine = ToLine.Replace("\r\n", " ↲ ");
                 sw.WriteLine(ToLine);
                 sw.Close();
 

@@ -81,6 +81,13 @@ namespace ATMTCommonLib
             Marshal.FreeHGlobal(structurePtr);
             ex = null;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="log"></param>
+        /// <param name="e"></param>
+        /// <param name="line"></param>
+        /// <param name="caller"></param>
         public static void SendLog(string log, Exception e = null, [CallerLineNumber] int line = 0, [CallerMemberName] string caller = null)
         {
             StackFrame[] sfs = st.GetFrames();
@@ -89,6 +96,7 @@ namespace ATMTCommonLib
             string IError = string.Empty;
             log = log.Replace(",", "+");
             log = log.Replace(@"/r/n", "||");
+            
             string Function = string.Empty;
             if (e != null)
             {
