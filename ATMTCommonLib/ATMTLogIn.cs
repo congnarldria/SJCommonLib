@@ -108,7 +108,7 @@ namespace ATMTCommonLib
                     using (var zip = new ZipFile(Environment.CurrentDirectory + "\\Account.md"))
                     {
                         zip.Password = "ATMT";
-                        zip.ExtractAll("\\", ExtractExistingFileAction.OverwriteSilently);
+                        zip.ExtractAll(Environment.CurrentDirectory, ExtractExistingFileAction.OverwriteSilently);
 
                     }
                 }
@@ -121,7 +121,7 @@ namespace ATMTCommonLib
                     using (var zip = new ZipFile())
                     {
                         zip.Password = "ATMT";
-                        zip.AddFile(Environment.CurrentDirectory + "\\Account.xml");
+                        zip.AddFile("Account.xml");
                         zip.Save(Environment.CurrentDirectory + "\\Account.md");
                         File.Delete(Environment.CurrentDirectory + "\\Account.xml");
                     }
@@ -135,7 +135,7 @@ namespace ATMTCommonLib
         }
         public void Save()
         {
-            XmlSerializer ser = new XmlSerializer(typeof(List<TAccount>));
+             XmlSerializer ser = new XmlSerializer(typeof(List<TAccount>));
             using (TextWriter writer = new StreamWriter(Environment.CurrentDirectory + "\\Account.xml"))
             {
                 ser.Serialize(writer, AccountList);
@@ -144,7 +144,7 @@ namespace ATMTCommonLib
             using(var zip = new ZipFile())
             {
                 zip.Password = "ATMT";
-                zip.AddFile(Environment.CurrentDirectory + "\\Account.xml");
+                zip.AddFile("Account.xml");
                 zip.Save(Environment.CurrentDirectory + "\\Account.md");
                 File.Delete(Environment.CurrentDirectory + "\\Account.xml");
             }

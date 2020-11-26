@@ -96,6 +96,7 @@ namespace ATMTLog
             this.TopMost = true;
             this.Show();
             this.TopMost = false;
+            topMostToolStripMenuItem.Checked = false;
             this.WindowState = FormWindowState.Normal;
         }
 

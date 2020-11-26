@@ -64,7 +64,7 @@
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1052, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1108, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -85,7 +85,7 @@
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -100,7 +100,7 @@
             // topMostToolStripMenuItem
             // 
             this.topMostToolStripMenuItem.Name = "topMostToolStripMenuItem";
-            this.topMostToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.topMostToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.topMostToolStripMenuItem.Text = "TopMost";
             this.topMostToolStripMenuItem.Click += new System.EventHandler(this.topMostToolStripMenuItem_Click);
             // 
@@ -132,7 +132,7 @@
             this.tpApp.Location = new System.Drawing.Point(4, 25);
             this.tpApp.Name = "tpApp";
             this.tpApp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpApp.Size = new System.Drawing.Size(1044, 397);
+            this.tpApp.Size = new System.Drawing.Size(1100, 459);
             this.tpApp.TabIndex = 0;
             this.tpApp.Text = "運行紀錄";
             this.tpApp.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             this.dgvApp.Name = "dgvApp";
             this.dgvApp.RowHeadersVisible = false;
             this.dgvApp.RowTemplate.Height = 24;
-            this.dgvApp.Size = new System.Drawing.Size(1038, 391);
+            this.dgvApp.Size = new System.Drawing.Size(1094, 453);
             this.dgvApp.TabIndex = 0;
             // 
             // dateDataGridViewTextBoxColumn
@@ -199,14 +199,14 @@
             this.tcLog.Location = new System.Drawing.Point(0, 24);
             this.tcLog.Name = "tcLog";
             this.tcLog.SelectedIndex = 0;
-            this.tcLog.Size = new System.Drawing.Size(1052, 426);
+            this.tcLog.Size = new System.Drawing.Size(1108, 488);
             this.tcLog.TabIndex = 1;
             // 
             // FmLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1052, 450);
+            this.ClientSize = new System.Drawing.Size(1108, 512);
             this.Controls.Add(this.tcLog);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
