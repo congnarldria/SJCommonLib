@@ -22,8 +22,14 @@ namespace ATMTCommonLib
         public int cbData;
         public IntPtr lpData;
     }
+    /// <summary>
+    /// ATMT Log Manager Send to "ATMTLog" named Window Title
+    /// </summary>
     public class LogMgr
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public LogMgr()
         {
 
@@ -135,6 +141,11 @@ namespace ATMTCommonLib
             Marshal.FreeHGlobal(structurePtr);
             ex = null;
         }
+        /// <summary>
+        /// Test Post , Currrent Invalid
+        /// </summary>
+        /// <param name="log"></param>
+        /// <param name="e"></param>
         public static void PostLog(string log, Exception e = null)
         {
             PostLogMethod(log, e);
