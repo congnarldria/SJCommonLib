@@ -16,6 +16,7 @@ namespace ATMTLog
         {
 
         }
+        public string Category { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
         public string Function { get; set; }

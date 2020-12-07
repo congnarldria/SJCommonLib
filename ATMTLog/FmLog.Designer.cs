@@ -37,22 +37,23 @@
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topMostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bsLogList = new System.Windows.Forms.BindingSource(this.components);
             this.notifyIconSystem = new System.Windows.Forms.NotifyIcon(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tpApp = new System.Windows.Forms.TabPage();
             this.dgvApp = new System.Windows.Forms.DataGridView();
+            this.tcLog = new System.Windows.Forms.TabControl();
+            this.bsLogList = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.functionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tcLog = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsLogList)).BeginInit();
             this.tpApp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApp)).BeginInit();
             this.tcLog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bsLogList)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -85,7 +86,7 @@
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
@@ -100,7 +101,7 @@
             // topMostToolStripMenuItem
             // 
             this.topMostToolStripMenuItem.Name = "topMostToolStripMenuItem";
-            this.topMostToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.topMostToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.topMostToolStripMenuItem.Text = "TopMost";
             this.topMostToolStripMenuItem.Click += new System.EventHandler(this.topMostToolStripMenuItem_Click);
             // 
@@ -110,10 +111,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // bsLogList
-            // 
-            this.bsLogList.DataSource = typeof(ATMTLog.TLogContent);
             // 
             // notifyIconSystem
             // 
@@ -144,6 +141,7 @@
             this.dgvApp.AutoGenerateColumns = false;
             this.dgvApp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvApp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.categoryDataGridViewTextBoxColumn,
             this.dateDataGridViewTextBoxColumn,
             this.timeDataGridViewTextBoxColumn,
             this.functionDataGridViewTextBoxColumn,
@@ -158,6 +156,27 @@
             this.dgvApp.RowTemplate.Height = 24;
             this.dgvApp.Size = new System.Drawing.Size(1094, 453);
             this.dgvApp.TabIndex = 0;
+            // 
+            // tcLog
+            // 
+            this.tcLog.Controls.Add(this.tpApp);
+            this.tcLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcLog.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tcLog.Location = new System.Drawing.Point(0, 24);
+            this.tcLog.Name = "tcLog";
+            this.tcLog.SelectedIndex = 0;
+            this.tcLog.Size = new System.Drawing.Size(1108, 488);
+            this.tcLog.TabIndex = 1;
+            // 
+            // bsLogList
+            // 
+            this.bsLogList.DataSource = typeof(ATMTLog.TLogContent);
+            // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn.HeaderText = "Category";
+            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
             // 
             // dateDataGridViewTextBoxColumn
             // 
@@ -176,7 +195,6 @@
             this.functionDataGridViewTextBoxColumn.DataPropertyName = "Function";
             this.functionDataGridViewTextBoxColumn.HeaderText = "Function";
             this.functionDataGridViewTextBoxColumn.Name = "functionDataGridViewTextBoxColumn";
-            this.functionDataGridViewTextBoxColumn.Width = 150;
             // 
             // lineDataGridViewTextBoxColumn
             // 
@@ -189,18 +207,7 @@
             this.contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
             this.contentDataGridViewTextBoxColumn.HeaderText = "Content";
             this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
-            this.contentDataGridViewTextBoxColumn.Width = 2500;
-            // 
-            // tcLog
-            // 
-            this.tcLog.Controls.Add(this.tpApp);
-            this.tcLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tcLog.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tcLog.Location = new System.Drawing.Point(0, 24);
-            this.tcLog.Name = "tcLog";
-            this.tcLog.SelectedIndex = 0;
-            this.tcLog.Size = new System.Drawing.Size(1108, 488);
-            this.tcLog.TabIndex = 1;
+            this.contentDataGridViewTextBoxColumn.Width = 5000;
             // 
             // FmLog
             // 
@@ -219,10 +226,10 @@
             this.Resize += new System.EventHandler(this.FmLog_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bsLogList)).EndInit();
             this.tpApp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvApp)).EndInit();
             this.tcLog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bsLogList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,12 +249,13 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TabPage tpApp;
         public System.Windows.Forms.DataGridView dgvApp;
+        private System.Windows.Forms.TabControl tcLog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn functionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
-        private System.Windows.Forms.TabControl tcLog;
     }
 }
 

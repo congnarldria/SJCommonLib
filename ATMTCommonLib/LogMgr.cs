@@ -9,17 +9,29 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Threading;
 using System.Runtime.ExceptionServices;
-using System.Reflection;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 
 namespace ATMTCommonLib
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct COPYDATASTRUCT
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public IntPtr dwData;
+        /// <summary>
+        /// 
+        /// </summary>
         public int cbData;
+        /// <summary>
+        /// 
+        /// </summary>
         public IntPtr lpData;
     }
     /// <summary>
@@ -123,7 +135,7 @@ namespace ATMTCommonLib
             }
 
             IntPtr maindHwnd = FindWindow(null, "ATMTLog");
-            string strSend = "NoUse" + "," + log + "," + Function + "," + IError + Line + "NoUse" + "," + log + "," + Function + "," + IError + Line;
+            string strSend = "App" + "," + log + "," + Function + "," + IError + Line + "App" + "," + log + "," + Function + "," + IError + Line;
             IntPtr ptr = Marshal.StringToHGlobalAnsi(strSend);
             COPYDATASTRUCT cds = new COPYDATASTRUCT();
             cds.dwData = IntPtr.Zero;
@@ -150,13 +162,15 @@ namespace ATMTCommonLib
         {
             PostLogMethod(log, e);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T">泛型(建議列舉)</typeparam>
-        /// <param name="Page">使用列舉項目</param>
-        /// <param name="log">要傳遞的字串</param>
-        /// <param name="e">Exception</param>
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <typeparam name="T"></typeparam>
+       /// <param name="Page"></param>
+       /// <param name="log"></param>
+       /// <param name="e"></param>
+       /// <param name="line"></param>
+       /// <param name="caller"></param>
         public static void SendLog<T>(T Page, string log, Exception e = null, [CallerLineNumber] int line = 0, [CallerMemberName] string caller = null)
         {
             StackFrame[] sfs = st.GetFrames();
@@ -197,7 +211,7 @@ namespace ATMTCommonLib
                 structurePtr = Marshal.AllocHGlobal(sSize);
             }
             Marshal.StructureToPtr(cds, structurePtr, true);
-            long result = SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
+            _= SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
             ex = null;

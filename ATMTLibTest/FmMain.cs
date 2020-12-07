@@ -39,7 +39,6 @@ namespace ATMTLibTest
                 LogMgr.SendLog("this is send");
                 LogMgr.SendLog(logs.App, "this is Page");
                 throw new Exception("xxxxx");
-                LogMgr.SendLog(logs.App, textBox1.Text);
             }
             catch(Exception ex)
             {

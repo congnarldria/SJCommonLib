@@ -24,7 +24,6 @@ namespace ATMTLog
         public List<TLogContent> LogList = new List<TLogContent>();
         private string LogPath = string.Empty;
         const int WM_COPYDATA = 0x4A;
-        IntPtr cc;
         public FmLog()
         {
             InitializeComponent();
@@ -49,7 +48,6 @@ namespace ATMTLog
             }
             base.WndProc(ref m);
         }
-        private FileStream fs = null;
         private StreamWriter sw = null;
         string LastDate = string.Empty;
         private void Addlog(string log)
@@ -64,24 +62,23 @@ namespace ATMTLog
 
                 string[] Sp = new string[] { "," };
                 string[] logs = log.Split(Sp, StringSplitOptions.None);
+                lc.Category = logs[0];
                 lc.Date = DateTime.Now.ToString("yyyyMMdd");
                 lc.Time = DateTime.Now.ToString("HH:mm:ss.ffff");
                 lc.Function = logs[2];
                 lc.Line = logs[3];
                 lc.Content = logs[1];
-                if (LogList.Count > 10000) LogList.Clear();
+                if (LogList.Count > 6000) LogList.Clear();
                 LogList.Insert(0, lc);
                 string ToLine = (lc.Date + "," + lc.Time + "," + lc.Function + "," + lc.Line + "," + lc.Content);
                 sw = new StreamWriter(LogPath + lc.Date.Replace("/", string.Empty) + ".txt", true, Encoding.Unicode);
                 ToLine = ToLine.Replace("\r\n", " ↲ ");
                 sw.WriteLine(ToLine);
                 sw.Close();
-
                 LastDate = lc.Date;
                 bsLogList.ResetBindings(false);
             }
         }
-        private Thread PeekThread;
         private void FmLog_Load(object sender, EventArgs e)
         {
 
@@ -146,7 +143,8 @@ namespace ATMTLog
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            LogList.Clear();
+            bsLogList.ResetBindings(false);
         }
     }
 }
