@@ -64,11 +64,20 @@ namespace ATMTCommonLib
         #endregion
 
         #region KeyBoard
-        public static void key_down(Keys key)
+        public static void KeyClick(Keys key)
         { 
-
             //第三個參數 0 按下 2 鬆開
             keybd_event(key, 0, 0, 0);
+            keybd_event(key, 0, 2, 0);
+        }
+        public static void KeyCDown(Keys key)
+        {
+            //第三個參數 0 按下 2 鬆開
+            keybd_event(key, 0, 0, 0);
+        }
+        public static void KeyUp(Keys key)
+        {
+            //第三個參數 0 按下 2 鬆開
             keybd_event(key, 0, 2, 0);
         }
         #endregion
@@ -80,7 +89,7 @@ namespace ATMTCommonLib
             {
                 Process poc = Process.Start(AppName);
                 IntPtr hwnd = poc.Handle;
-                SetForegroundWindow(hwnd);//設置記事本的焦點
+                SetForegroundWindow(hwnd);//設置App的焦點
             }
             catch(Exception e)
             {
