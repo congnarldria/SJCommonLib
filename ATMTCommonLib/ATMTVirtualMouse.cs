@@ -70,7 +70,7 @@ namespace ATMTCommonLib
             keybd_event(key, 0, 0, 0);
             keybd_event(key, 0, 2, 0);
         }
-        public static void KeyCDown(Keys key)
+        public static void KeyDown(Keys key)
         {
             //第三個參數 0 按下 2 鬆開
             keybd_event(key, 0, 0, 0);
