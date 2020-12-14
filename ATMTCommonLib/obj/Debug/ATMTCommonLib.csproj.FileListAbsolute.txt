@@ -39,3 +39,4 @@ C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Debug\ATMTCommonLib
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Debug\ATMTCommonLib.csproj.CopyComplete
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Debug\ATMTCommonLib.dll
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Debug\ATMTCommonLib.pdb
+C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Debug\ATMTCommonLib.csprojAssemblyReference.cache

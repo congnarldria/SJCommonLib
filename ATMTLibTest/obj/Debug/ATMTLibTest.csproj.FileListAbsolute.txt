@@ -39,7 +39,6 @@ C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\ATMTLibTest.exe
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\ATMTLibTest.exe
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\ATMTLibTest.pdb
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\ATMTCommonLib.dll
-C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\Bunifu_UI_v1.5.3.dll
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\DotNetZip.dll
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\ATMTCommonLib.pdb
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTLibTest\bin\Debug\DotNetZip.pdb
