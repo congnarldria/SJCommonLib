@@ -1,0 +1,87 @@
+2020/10/26,12:53:21.1703,button2_Click,38,11111
+2020/10/26,12:53:21.2973,button2_Click,38,11111
+2020/10/26,12:53:21.4517,button2_Click,38,11111
+2020/10/26,12:54:01.1390,button2_Click,38,11111
+2020/10/26,12:54:01.2952,button2_Click,38,11111
+2020/10/26,12:54:01.4699,button2_Click,38,11111
+2020/10/26,12:54:01.6269,button2_Click,38,11111
+2020/10/26,12:54:01.8920,button2_Click,38,11111
+2020/10/26,12:54:27.3263,button2_Click,38,11111
+2020/10/26,12:54:27.4714,button2_Click,38,11111
+2020/10/26,12:54:27.6077,button2_Click,38,11111
+2020/10/26,12:54:27.7635,button2_Click,38,11111
+2020/10/26,12:54:27.9193,button2_Click,38,11111
+2020/10/26,12:54:28.0895,button2_Click,38,11111
+2020/10/26,12:54:28.2456,button2_Click,38,11111
+2020/10/26,13:13:08.4698,FmMain_Load,46,No License.
+2020/10/26,13:13:09.5279,FmMain_Load,46,開啟相機 00 失敗
+2020/10/26,13:13:09.5768,FmMain_Load,46,開啟相機 01 失敗
+2020/10/26,13:13:09.6297,FmMain_Load,46,開啟相機 02 失敗
+2020/10/26,13:13:09.6906,FmMain_Load,46,開啟相機 03 失敗
+2020/10/26,13:13:09.7584,FmMain_Load,46,開啟相機 04 失敗
+2020/10/26,13:13:09.8234,FmMain_Load,46,開啟相機 05 失敗
+2020/10/26,13:13:09.9004,FmMain_Load,46,光源連線失敗
+2020/10/26,13:13:09.9074,FmMain_Load,46,光源連線失敗
+2020/10/26,13:13:09.9921,FmMain_Load,46,System Online. v1.0.0.0
+20201026,14:17:03.9902,button2_Click,38,1111
+20201026,14:18:35.8021,button2_Click,Exception行數38,11111
+20201026,14:20:08.5569,button2_Click,Ex38,1111
+20201026,14:22:47.5850,button2_Click,Err:38,111
+20201026,14:22:50.6239,button2_Click,Err:38,111
+20201026,14:22:50.7759,button2_Click,Err:38,111
+20201026,14:22:50.9378,button2_Click,Err:38,111
+20201026,14:45:19.4922,FmMain_Load,No:46,No License.
+20201026,14:45:20.6821,FmMain_Load,No:46,開啟相機 00 失敗
+20201026,14:45:20.7339,FmMain_Load,No:46,開啟相機 01 失敗
+20201026,14:45:20.7728,FmMain_Load,No:46,開啟相機 02 失敗
+20201026,14:45:20.8127,FmMain_Load,No:46,開啟相機 03 失敗
+20201026,14:45:20.8576,FmMain_Load,No:46,開啟相機 04 失敗
+20201026,14:45:20.9085,FmMain_Load,No:46,開啟相機 05 失敗
+20201026,14:45:20.9594,FmMain_Load,No:46,光源連線失敗
+20201026,14:45:20.9644,FmMain_Load,No:46,光源連線失敗
+20201026,14:45:21.0282,FmMain_Load,No:46,System Online. v1.0.0.0
+20201026,16:00:56.7159,FmMain_Load,No:46,No License.
+20201026,16:00:57.4213,FmMain_Load,No:46,開啟相機 00 失敗
+20201026,16:00:57.4452,FmMain_Load,No:46,開啟相機 01 失敗
+20201026,16:00:57.4863,FmMain_Load,No:46,開啟相機 02 失敗
+20201026,16:00:57.5193,FmMain_Load,No:46,開啟相機 03 失敗
+20201026,16:00:57.5242,FmMain_Load,No:46,開啟相機 04 失敗
+20201026,16:00:57.5611,FmMain_Load,No:46,開啟相機 05 失敗
+20201026,16:00:57.5671,FmMain_Load,No:46,光源連線失敗
+20201026,16:00:57.6359,FmMain_Load,No:46,光源連線失敗
+20201026,16:00:57.6489,FmMain_Load,No:46,System Online. v1.0.0.0
+20201026,16:01:31.1953,FmMain_Load,Err:0,HalconDotNet.HOperatorException: HALCON error #1301: Wrong value of control parameter 1 in operator dilation_circle
+   於 HalconDotNet.HOperatorException.throwOperator(Int32 err+ Int32 procIndex)
+   於 HalconDotNet.HalconAPI.PostCall(IntPtr proc+ Int32 procResult)
+   於 HalconDotNet.HOperatorSet.DilationCircle(HObject region+ HObject& regionDilation+ HTuple radius)
+   於 CPA.UI.FmDicernEditor.SetAsGolden() 於 C:\Users\ATMT\source\repos\CPA\CPA\UI\FmDicernEditor.cs: 行 1274
+20201026,16:03:26.7135,FmMain_Load,No:46,No License.
+20201026,16:03:27.3049,FmMain_Load,No:46,開啟相機 00 失敗
+20201026,16:03:27.3558,FmMain_Load,No:46,開啟相機 01 失敗
+20201026,16:03:27.4117,FmMain_Load,No:46,開啟相機 02 失敗
+20201026,16:03:27.4685,FmMain_Load,No:46,開啟相機 03 失敗
+20201026,16:03:27.5283,FmMain_Load,No:46,開啟相機 04 失敗
+20201026,16:03:27.5877,FmMain_Load,No:46,開啟相機 05 失敗
+20201026,16:03:27.6475,FmMain_Load,No:46,光源連線失敗
+20201026,16:03:27.6545,FmMain_Load,No:46,光源連線失敗
+20201026,16:03:27.7433,FmMain_Load,No:46,System Online. v1.0.0.0
+20201026,16:10:40.2073,FmMain_Load,No:46,No License.
+20201026,16:10:40.7932,FmMain_Load,No:46,開啟相機 00 失敗
+20201026,16:10:40.8511,FmMain_Load,No:46,開啟相機 01 失敗
+20201026,16:10:40.9090,FmMain_Load,No:46,開啟相機 02 失敗
+20201026,16:10:40.9658,FmMain_Load,No:46,開啟相機 03 失敗
+20201026,16:10:41.0197,FmMain_Load,No:46,開啟相機 04 失敗
+20201026,16:10:41.0745,FmMain_Load,No:46,開啟相機 05 失敗
+20201026,16:10:41.1294,FmMain_Load,No:46,光源連線失敗
+20201026,16:10:41.1374,FmMain_Load,No:46,光源連線失敗
+20201026,16:10:41.2102,FmMain_Load,No:46,System Online. v1.0.0.0
+20201026,16:11:05.9227,FmMain_Load,No:46,No License.
+20201026,16:11:12.3710,FmMain_Load,No:46,開啟相機 00 失敗
+20201026,16:11:13.1739,FmMain_Load,No:46,開啟相機 01 失敗
+20201026,16:11:13.6847,FmMain_Load,No:46,開啟相機 02 失敗
+20201026,16:11:14.0248,FmMain_Load,No:46,開啟相機 03 失敗
+20201026,16:11:14.1940,FmMain_Load,No:46,開啟相機 04 失敗
+20201026,16:11:14.3679,FmMain_Load,No:46,開啟相機 05 失敗
+20201026,16:11:14.5276,FmMain_Load,No:46,光源連線失敗
+20201026,16:11:14.7021,FmMain_Load,No:46,光源連線失敗
+20201026,16:11:14.8618,FmMain_Load,No:46,System Online. v1.0.0.0

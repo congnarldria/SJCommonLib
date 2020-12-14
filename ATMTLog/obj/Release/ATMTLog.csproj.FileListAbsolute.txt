@@ -1,0 +1,15 @@
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\ATMTLog.exe.config
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\ATMTLog.exe
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\ATMTLog.pdb
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\ATMTCommonLib.dll
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\DotNetZip.dll
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\ATMTCommonLib.pdb
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\DotNetZip.pdb
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\bin\Release\DotNetZip.xml
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.FmLog.resources
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.Properties.Resources.resources
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.csproj.GenerateResource.cache
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.csproj.CoreCompileInputs.cache
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.csproj.CopyComplete
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.exe
+C:\Users\ATMT\source\repos\ATMTCommonLib\ATMTLog\obj\Release\ATMTLog.pdb
