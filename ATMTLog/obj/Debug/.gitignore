@@ -6,3 +6,6 @@
 /ATMTLog.csproj.CopyComplete
 /ATMTLog.csproj.FileListAbsolute.txt
 *.exe
+/ATMTLog.exe
+/ATMTLog.csproj.CoreCompileInputs.cache
+/ATMTLog.csprojAssemblyReference.cache

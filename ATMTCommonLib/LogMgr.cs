@@ -100,7 +100,7 @@ namespace ATMTCommonLib
             ex = null;
         }
         /// <summary>
-        /// 
+        /// SendLog
         /// </summary>
         /// <param name="log"></param>
         /// <param name="e"></param>
@@ -114,7 +114,7 @@ namespace ATMTCommonLib
             string IError = string.Empty;
             log = log.Replace(",", "+");
             log = log.Replace(@"/r/n", "||");
-            
+
             string Function = string.Empty;
             if (e != null)
             {
@@ -162,15 +162,15 @@ namespace ATMTCommonLib
         {
             PostLogMethod(log, e);
         }
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <typeparam name="T"></typeparam>
-       /// <param name="Page"></param>
-       /// <param name="log"></param>
-       /// <param name="e"></param>
-       /// <param name="line"></param>
-       /// <param name="caller"></param>
+        /// <summary>
+        /// SendLog
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Page"></param>
+        /// <param name="log"></param>
+        /// <param name="e"></param>
+        /// <param name="line"></param>
+        /// <param name="caller"></param>
         public static void SendLog<T>(T Page, string log, Exception e = null, [CallerLineNumber] int line = 0, [CallerMemberName] string caller = null)
         {
             StackFrame[] sfs = st.GetFrames();
@@ -211,7 +211,7 @@ namespace ATMTCommonLib
                 structurePtr = Marshal.AllocHGlobal(sSize);
             }
             Marshal.StructureToPtr(cds, structurePtr, true);
-            _= SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
+            _ = SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
             ex = null;

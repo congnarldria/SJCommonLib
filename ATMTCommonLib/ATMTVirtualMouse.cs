@@ -61,12 +61,27 @@ namespace ATMTCommonLib
         public static extern long SetCursorPos(long x, long y);
         [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
         private static extern long GetWindowRect(IntPtr hdl, out RECT rec);
+        /// <summary>
+        /// RECT
+        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
+            /// <summary>
+            /// Left
+            /// </summary>
             public int Left;
+            /// <summary>
+            /// Top
+            /// </summary>
             public int Top;
+            /// <summary>
+            /// Right
+            /// </summary>
             public int Right;
+            /// <summary>
+            /// Bottom
+            /// </summary>
             public int Bottom;
 
         }
@@ -75,17 +90,31 @@ namespace ATMTCommonLib
         private const UInt32 MouseEventLeftUp = 0x0004;
         private const UInt32 MouseEventRightDown = 0x0008;
         private const UInt32 MouseEventRightUp = 0x0010;
-
+        /// <summary>
+        /// LeftClick
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posY"></param>
         public static void LeftClick(UInt32 posX, UInt32 posY)
         {
             mouse_event(MouseEventLeftDown, posX, posY, 0, new System.IntPtr());
             mouse_event(MouseEventLeftUp, posX, posY, 0, new System.IntPtr());
         }
+        /// <summary>
+        /// RightClick
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posY"></param>
         public static void RightClick(UInt32 posX, UInt32 posY)
         {
             mouse_event(MouseEventRightDown, posX, posY, 0, new System.IntPtr());
             mouse_event(MouseEventRightUp, posX, posY, 0, new System.IntPtr());
         }
+        /// <summary>
+        /// 將滑鼠移動範圍鎖定在Control內
+        /// </summary>
+        /// <param name="ctl">要鎖定的控制項</param>
+        /// <returns>是否鎖定成功</returns>
         public static bool LockCursor(Control ctl)
         {
             RECT rec = new RECT();
@@ -96,6 +125,9 @@ namespace ATMTCommonLib
             else
                 return false;
         }
+        /// <summary>
+        /// 解鎖滑鼠移動範圍
+        /// </summary>
         public static void UnLockCursor()
         {
             ClipCursor(Screen.PrimaryScreen.Bounds);
@@ -104,25 +136,39 @@ namespace ATMTCommonLib
         private const int KEYEVENTF_KEYUP = 0x0002;
         private const int KEYEVENTF_KEYDOWN = 0x0000;
         #region KeyBoard
-        public static void KeyClick(Control ctl ,  Keys key)
+        public static void KeyClick(Control ctl, Keys key)
         {
             ctl.Focus();
             keybd_event((byte)key, 0x45, KEYEVENTF_KEYDOWN, 0);
             keybd_event((byte)key, 0x45, KEYEVENTF_KEYUP, 0);
         }
-        public static void KeyDown(Control ctl ,  Keys key)
+        /// <summary>
+        /// KeyDown
+        /// </summary>
+        /// <param name="ctl"></param>
+        /// <param name="key"></param>
+        public static void KeyDown(Control ctl, Keys key)
         {
             ctl.Focus();
             keybd_event((byte)key, 0x45, KEYEVENTF_KEYDOWN, 0);
         }
-        public static void KeyUp(Control ctl , Keys key)
+        /// <summary>
+        /// KeyUp
+        /// </summary>
+        /// <param name="ctl"></param>
+        /// <param name="key"></param>
+        public static void KeyUp(Control ctl, Keys key)
         {
             ctl.Focus();
             keybd_event((byte)key, 0x45, KEYEVENTF_KEYUP, 0);
         }
         #endregion
 
-        #region Proma
+        #region Progma
+        /// <summary>
+        /// RunApp
+        /// </summary>
+        /// <param name="AppName"></param>
         public static void RunApp(string AppName)
         {
             try

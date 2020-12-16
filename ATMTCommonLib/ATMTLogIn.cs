@@ -26,10 +26,17 @@ namespace ATMTCommonLib
         /// 權限等級
         /// </summary>
         public int AuthorityLevel { get; set; } = 0;
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ATMTLogIn()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// 取得權限等級
+        /// </summary>
+        /// <returns></returns>
         public  int GetAuthorityLevel()
         {
             return AuthorityLevel;
@@ -97,6 +104,10 @@ namespace ATMTCommonLib
             AuthorityLevel = 0;
             ((Form)(this.Parent)).Close();
         }
+        /// <summary>
+        /// 載入設定檔
+        /// </summary>
+        /// <returns></returns>
         public static List<TAccount> LoadAccountList()
         {
             List<TAccount> la = new List<TAccount>();
@@ -133,6 +144,9 @@ namespace ATMTCommonLib
             }
             return la;
         }
+        /// <summary>
+        /// 儲存設定檔
+        /// </summary>
         public void Save()
         {
              XmlSerializer ser = new XmlSerializer(typeof(List<TAccount>));
@@ -212,9 +226,18 @@ namespace ATMTCommonLib
             }
         }
     }
+    /// <summary>
+    /// TAccount
+    /// </summary>
     [Serializable]
     public class TAccount
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="passWord"></param>
+        /// <param name="level"></param>
         public TAccount(string account, string passWord, int level)
         {
             Account = account;
@@ -222,10 +245,18 @@ namespace ATMTCommonLib
             Level = level;
             
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public TAccount()
         {
 
         }
+        /// <summary>
+        /// md5加密
+        /// </summary>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         static public string Encode(string Value)
         {
             if ("" == Value) return "";
@@ -235,7 +266,13 @@ namespace ATMTCommonLib
 
             return Value;
         }
+        /// <summary>
+        /// Account
+        /// </summary>
         public string Account { get; set; }
+        /// <summary>
+        /// PassWordByte
+        /// </summary>
         public byte[] PassWordByte { get; set; }
         [XmlIgnore]
         private string _PassWord = string.Empty;
