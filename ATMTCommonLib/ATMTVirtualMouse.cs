@@ -191,7 +191,7 @@ namespace ATMTCommonLib
         //        SendMessage(Edit.Handle, WM_SETTEXT, 255, Integer(PChar('abc'))); //傳遞文本
 
         //          SendMessage(Edit.Handle, WM_Char, Wparam('Q'), 2); //傳遞字符
-
+            
         //          SendMessage(Button.Handle, BM_SETSTYLE, BS_RADIOBUTTON, 1); //改變Button風格
 
         //        SendMessage(ComboBox.Handle, CB_SETDROPPEDWIDTH, 300, 0); //改變CBDownWidth

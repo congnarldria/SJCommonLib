@@ -1,0 +1,1674 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WHD.BaseControl</name>
+    </assembly>
+    <members>
+        <member name="T:WHD.BaseControl.DataMemory">
+            <summary> 資料記憶體 Data Memory </summary>
+        </member>
+        <member name="P:WHD.BaseControl.DataMemory.SyncInvoke">
+            <summary> UI Thread Invoke </summary>
+        </member>
+        <member name="E:WHD.BaseControl.DataMemory.PropertyChanged">
+            <summary> 屬性變更的事件 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.DataMemory.OnPropertyChanged(System.String)">
+            <summary> 觸發屬性變更的事件 </summary>
+            <param name="propertyName"> 變更的屬性名稱 </param>
+        </member>
+        <member name="T:WHD.BaseControl.DataMemory`1">
+            <summary> 資料記憶體 Data Memory </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DataMemory`1.SendLog">
+            <summary> 記錄Log </summary>
+            <param name="tType">Log Type</param>
+            <param name="sCommentCode">Log訊息</param>
+        </member>
+        <member name="M:WHD.BaseControl.DataMemory`1.#ctor">
+            <summary> 建構式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.DataMemory`1.Log">
+            <summary> 取得或設定 SendLog 的委派 </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsUserAccount">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsUserAccount.UserTableDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsUserAccount.UserTableRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsUserAccount.UserTableRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.ParameterDecimalAttribute">
+            <summary> 十進位的參數特性類別 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.ParameterDecimalAttribute.#ctor(System.String,System.Double,System.String,System.String,System.String)">
+            <summary> 建構式 </summary>
+            <param name="name"> 參數名稱 </param>
+            <param name="def"> 參數預設值 </param>
+            <param name="max"> 參數最大值 </param>
+            <param name="min"> 參數最小值 </param>
+            <param name="waring"> 參數警告值 </param>
+        </member>
+        <member name="P:WHD.BaseControl.ParameterDecimalAttribute.Name">
+            <summary> 取得或設定參數名稱 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.ParameterDecimalAttribute.Default">
+            <summary> 取得或設定參數預設值 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.ParameterDecimalAttribute.Max">
+            <summary> 取得或設定參數最大值 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.ParameterDecimalAttribute.Min">
+            <summary> 取得或設定參數最小值 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.ParameterDecimalAttribute.Waring">
+            <summary> 取得或設定參數警告值 </summary>
+        </member>
+        <member name="T:WHD.BaseControl.Nameof`1">
+            <summary> 取得屬性的 String 名稱 </summary>
+            <typeparam name="T"> 類別名稱 </typeparam>
+        </member>
+        <member name="M:WHD.BaseControl.Nameof`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary> 取得屬性的名稱 </summary>
+            <typeparam name="TProp"> 類別參數 </typeparam>
+            <param name="expression"></param>
+            <returns> 屬性名稱 </returns>
+        </member>
+        <member name="T:WHD.BaseControl.UserAccount">
+            <summary> 使用者管理的類別 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.UserAccount._Lock">
+            <summary> double lock </summary>
+        </member>
+        <member name="F:WHD.BaseControl.UserAccount._DsUserAccount">
+            <summary> 使用者的資料集 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.UserAccount.Sgt">
+            <summary> 取得Singleton </summary>
+        </member>
+        <member name="P:WHD.BaseControl.UserAccount.Item(System.String)">
+            <summary> 取得對應名稱的使用者資料 </summary>
+            <param name="name"> 使用者名稱 </param>
+            <returns> 使用者資料 </returns>
+        </member>
+        <member name="P:WHD.BaseControl.UserAccount.Users">
+            <summary> 取得或設定使用者的集合 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.UserAccount.#ctor">
+            <summary> for singleton pattern private construct </summary>
+        </member>
+        <member name="M:WHD.BaseControl.UserAccount.CheckPassWord(System.String,System.String)">
+            <summary> 判斷使用者名稱與密碼是否正確 </summary>
+            <param name="userName"> 使用者名稱 </param>
+            <param name="passWord"> 使用者密碼 </param>
+            <returns> 回傳名稱密碼是否正確 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.UserAccount.Save(System.String)">
+            <summary> 儲存使用者資料 </summary>
+            <param name="path"> 存檔路徑 </param>
+        </member>
+        <member name="M:WHD.BaseControl.UserAccount.Load(System.String)">
+            <summary> 載入指定的檔案到使用者資料 </summary>
+            <param name="path"> 檔案路徑 </param>
+            <returns> 是否成功載入 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.UserAccount.desEncryptBase64(System.String)">
+            <summary> 對字串加密 </summary>
+            <param name="source"> 來源資料 </param>
+            <returns> 加密後的資料 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.UserAccount.desDecryptBase64(System.String)">
+            <summary> 將字串解密 </summary>
+            <param name="encrypt"> 要解密的字串 </param>
+            <returns> 解密後的資料 </returns>
+        </member>
+        <member name="T:WHD.BaseControl.CM">
+            <summary> Control Manager
+            
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.CM.EnuPropertyType">
+            <summary> 儲存種類的列舉 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuPropertyType.SLimit">
+            <summary> 系統限制值
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuPropertyType.SValue">
+            <summary> 系統參數值
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuPropertyType.PValue">
+            <summary> 產品參數值
+            
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.CM.EnuFileLoadSts">
+            <summary> 讀取檔案的狀態 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuFileLoadSts.FileError">
+            <summary> 檔案錯誤 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuFileLoadSts.ParameterMiss">
+            <summary> 參數遺失 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuFileLoadSts.LoadControlErr">
+            <summary> 將參數載入元件時發生錯誤 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuFileLoadSts.Finish">
+            <summary> 讀檔成功 </summary>
+        </member>
+        <member name="T:WHD.BaseControl.CM.EnuWhdControlType">
+            <summary> WHD 元件種類的列舉 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuWhdControlType.NumericBox">
+            <summary> WHD 數字數入元件 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM.EnuWhdControlType.CheckBox">
+            <summary> WHD Check Box 元件 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._DictWhdNumericBox">
+            <summary> 存放所有程式內 WhdNumericBox 元件的 Dictionary </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._DictWhdCheckBox">
+            <summary> 存放所有程式內 WhdCheckBox 元件的 Dictionary </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._SLDict">
+            <summary> System Limit Dictionary </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._PVDict">
+            <summary> Product Value Dictionary </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._SVDict">
+            <summary> System Value Dictionary </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._IsSuperUser">
+            <summary> 是否為Super User </summary>
+        </member>
+        <member name="F:WHD.BaseControl.CM._Log">
+            <summary> 建立要Log物件 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.CM.IsSuperUser">
+            <summary> 取得或設定 是否為Super user
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.CM.Save(System.String,System.String,System.String)">
+            <summary> 儲存元件參數
+            
+            </summary>
+            <param name="sdmPath">限制範圍儲存路徑</param>
+            <param name="sValuePath">系統參數儲存路徑</param>
+            <param name="pValuePath">產品參數儲存路徑</param>
+        </member>
+        <member name="M:WHD.BaseControl.CM.Save(WHD.BaseControl.CM.EnuPropertyType,System.String)">
+            <summary> 儲存元件參數
+            
+            </summary>
+            <param name="propertyType">儲存參數種類</param>
+            <param name="path">儲存路徑</param>
+        </member>
+        <member name="M:WHD.BaseControl.CM.Load(System.String,System.String,System.String)">
+            <summary> 載入元件參數
+            
+            </summary>
+            <param name="sdmPath">限制範圍載入路徑</param>
+            <param name="sValuePath">系統參數載入路徑</param>
+            <param name="pValuePath">產品參數載入路徑</param>
+            <returns>回傳是否載入成功</returns>
+        </member>
+        <member name="M:WHD.BaseControl.CM.Load(WHD.BaseControl.CM.EnuPropertyType,System.String)">
+            <summary> 載入元件參數
+            
+            </summary>
+            <param name="propertyType">載入參數種類</param>
+            <param name="path">載路路徑</param>
+            <returns>回傳是否載入成功</returns>
+        </member>
+        <member name="T:WHD.BaseControl.SLProperty">
+            <summary> System Limit Property </summary>
+        </member>
+        <member name="T:WHD.BaseControl.ValueProperty">
+            <summary> ValueProperty </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdNB`1">
+            <summary> 依據名稱取得 WhdNumericBox 的類別
+            
+            </summary>
+            <typeparam name="TNB">WhdNumericBox 的名稱列舉</typeparam>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNB`1.#ctor">
+            <summary> 建構式
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNB`1.Item(`0)">
+            <summary> 取得指定列舉名稱的 WhdNumericBox 元件
+            
+            </summary>
+            <param name="EnuWhdNB">指定的名稱</param>
+            <returns>回傳指定的 WhdNumericBox 元件</returns>
+        </member>
+        <member name="T:WHD.BaseControl.WhdCB`1">
+            <summary> 依據名稱取得 WhdCheckBox 的類別
+            
+            </summary>
+            <typeparam name="TCB">WhdCheckBox 的名稱列舉</typeparam>
+        </member>
+        <member name="M:WHD.BaseControl.WhdCB`1.#ctor">
+            <summary> 建構式
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCB`1.Item(`0)">
+            <summary> 取得指定列舉名稱的 WhdCheckBox 元件
+            
+            </summary>
+            <param name="EnuWhdCB">指定的名稱</param>
+            <returns>回傳指定的 WhdCheckBox 元件</returns>
+        </member>
+        <member name="T:WHD.BaseControl.Types">
+            <summary>
+            Types
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Types.FILE">
+            <summary>
+            File
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Types.FOLDER">
+            <summary>
+            Folder
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.FileFolderList">
+            <summary>
+            FileFolderList
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.DefaultPath">
+            <summary>
+            DefaultPath
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.SelectedPath">
+            <summary>
+            SelectedPath
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.isSoloBrowser">
+            <summary>
+            isSoloBrowser
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.FileFolderList._isLockDefPath">
+            <summary> 鎖定為Default路徑 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.isLockDefPath">
+            <summary>
+            isLockDefPath
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.FileFolderList._SelectedType">
+            <summary> 選擇的檔案型態 FILE or FOLDER </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.SelectedType">
+            <summary>
+            SelectedType
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.FileFolderList._FolderPath">
+            <summary> 選擇的資料夾路徑 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.FolderPath">
+            <summary>
+            FolderPath
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.FileFolderList._FileName">
+            <summary> 選擇的檔案名稱 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FileFolderList.FileName">
+            <summary>
+            FileName
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FileFolderList.ListRefresh">
+            <summary>
+            ListRefresh
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FileFolderList.#ctor">
+            <summary>
+            Construct
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FileFolderList.Load">
+            <summary>
+            Load
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FileFolderList.Browse(System.String,System.String)">
+            <summary>
+            Browse
+            </summary>
+            <param name="path"></param>
+            <param name="extension"></param>
+        </member>
+        <member name="T:WHD.BaseControl.Purview">
+            <summary> 控制元件在不同權限是否可修改或可視，SuperUser 為 Id = 0 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._Purview">
+            <summary> Singleton </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._Lock">
+            <summary> double lock </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._UserSecurity">
+            <summary> All Identity Data </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._ControlSecurity">
+            <summary> 現在身分的權限資料 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._EditControlSecurity">
+            <summary> 要編輯的身分的權限資料 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._EditControls">
+            <summary> 要編輯的頁面 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._EditSecurity">
+            <summary> 要編輯的頁面的權限資料 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._AllControl">
+            <summary> 儲存所有元件的指標 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._ControlColor">
+            <summary> 要編輯的頁面，元件原始的顏色 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._Identity">
+            <summary> 現在的身分 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._IsEditMode">
+            <summary> 是否在編輯模式下 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.Purview._SuperUser">
+            <summary> 最高權限的 ID </summary>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.#ctor">
+            <summary> for singleton pattern private construct </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Purview.Sgt">
+            <summary> 取得Singleton </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Purview.UserSecurity">
+            <summary> 取得所有身分的資料 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.AddIdentity(System.Int32)">
+            <summary> 加入新的身分 </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.AddToControlDict(System.Windows.Forms.Control)">
+            <summary> 將元件加入元件字典中 </summary>
+            <param name="control"> 要加入字典的元件 </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.GetSelfAndChildrenRecursive(System.Windows.Forms.Control)">
+            <summary> 使用遞回的方式尋找 Control 裡的所有 Controls ，包含 parnet</summary>
+            <param name="parent"> 要尋找的 Control </param>
+            <returns> 回傳所有 Control 的集合 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.GetAllChildControl(System.Windows.Forms.Control)">
+            <summary> 使用遞回的方式尋找 Control 裡的所有 Controls ，不包含 parnet</summary>
+            <param name="parent"> 要尋找的 Control </param>
+            <returns> 回傳所有 Control 的集合 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.ControlUpdata(System.Windows.Forms.Control,System.Int32)">
+            <summary> 更新指定的 Control 以符合現在身分權限 </summary>
+            <param name="control"> 要更新的 Control </param>
+            <param name="identity"> 要切換的身分 </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.EditControl(System.Windows.Forms.Control)">
+            <summary> 編輯指定的 Control 權限 </summary>
+            <param name="control"> 指定的 Control </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.Save(System.String)">
+            <summary> 儲存權限到指定檔案 </summary>
+            <param name="path"> 檔案路徑 </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.Load(System.String)">
+            <summary> 載入指定檔案到權限 </summary>
+            <param name="path"> 檔案路徑 </param>
+            <returns> 是否載入成功 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.StartEditControl(System.Int32)">
+            <summary> 開始編輯指定身分的功能 </summary>
+            <param name="editIdentity"> 指定的身分 </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.EndEditControl">
+            <summary> 結束編輯指定身分的功能 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.UpdataAllIdenityData(System.String,System.Collections.Generic.List{System.Windows.Forms.Control})">
+            <summary> 更新所有身分的 Control 資料 </summary>
+            <param name="parentName"> 要更新的父容器名稱 </param>
+            <param name="newControls"> 新的內容元件 </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.CheckNewControls(System.Collections.Generic.List{System.Windows.Forms.Control},System.Collections.Generic.Dictionary{System.String,WHD.BaseControl.Security}@,System.Boolean)">
+            <summary> 確認檔案內是否有這些元件的資料 </summary>
+            <param name="newControls"> 新的元件集合 </param>
+            <param name="securitys"> 原始的元件資料 </param>
+            <param name="isSuperUser"> 是否為 SuperUser </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.SwitchIdentity(System.Int32)">
+            <summary> 切換現在的身分 </summary>
+            <param name="identity"> 要切換的身分 </param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.Control_MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary> 編輯權限時要加入的滑鼠按下事件 </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:WHD.BaseControl.Purview.SetControlColor(System.Windows.Forms.Control,WHD.BaseControl.Security)">
+            <summary> 設定元件像對應權限的顏色 </summary>
+            <param name="control"> 要設定的元件 </param>
+            <param name="security"> 依據的權限資料 </param>
+        </member>
+        <member name="T:WHD.BaseControl.Security">
+            <summary> 權限的類別 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.Security.#ctor(System.Boolean,System.Boolean)">
+            <summary> 建構式 </summary>
+            <param name="isEdit"> 是否可以編輯 </param>
+            <param name="isView"> 是否可見 </param>
+        </member>
+        <member name="P:WHD.BaseControl.Security.IsEdit">
+            <summary> 是否可修改 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Security.IsView">
+            <summary> 是否可看 </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdCheckBox">
+            <summary> WHD Ckeck Box 元件
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdCheckBox.#ctor">
+            <summary> 建構式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.Name">
+            <summary> 取得或設定控制項的名稱。 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.CheckedImage">
+            <summary> 取得或設定 Checked 時顯示的圖片 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.UncheckedImage">
+            <summary> 取得或設定 Unchecked 時顯示的圖片
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.IndeterminateImage">
+            <summary> 取得或設定 Indeterminate 時顯示的圖片
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.IsBackground">
+            <summary> 取得或設定 是否要將圖片顯示在BackgroundImage
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.IsSave">
+            <summary> 取得或設定 是否啟用存檔功能
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdCheckBox.SaveType">
+            <summary> 取得或設定 存檔的種類
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdCheckBox.Dispose">
+            <summary> 釋放 Component 所使用的所有資源。
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdCheckBox.OnCheckStateChanged(System.EventArgs)">
+            <summary> 引發 CheckStateChanged 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。 </param>
+        </member>
+        <member name="F:WHD.BaseControl.WhdCheckBox.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdCheckBox.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdCheckBox.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdNsNumericBox">
+            <summary> WHD 無存檔功能，有數字鍵盤的上下數值
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.#ctor">
+            <summary> NonScrollingNumericUpDown 建構式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.WarningRange">
+            <summary> 取得或設定警告範圍
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.IsAutoShowNumBox">
+            <summary> 取得或設定是否自動顯示數字鍵盤
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.DefaultValue">
+            <summary> 取得或設定 預設值
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.Value">
+            <summary> 取得或設定指定給微調方塊 (也稱為上下按鈕控制項) 的數值。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.Maximum">
+            <summary> 取得或設定微調方塊 (也稱為上下按鈕控制項) 的最大值。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.Minimum">
+            <summary> 取得或設定微調方塊 (也稱為上下按鈕控制項) 的最小值。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.ReadOnly">
+            <summary> 取得，指出文字是否只能使用向上或向下按鈕變更。 (繼承自 UpDownBase)。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsNumericBox.NormalColor">
+            <summary> 取得或設定 存檔的種類
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.OnMouseWheel(System.Windows.Forms.MouseEventArgs)">
+            <summary> 當未處理的 Mouse.MouseWheel 附加事件到達其路由中衍生自此類別的項目時叫用。實作這個方法可以為這個事件加入類別處理。 
+            
+            </summary>
+            <param name="e">包含事件資料的 MouseWheelEventArgs。 </param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.OnGotFocus(System.EventArgs)">
+            <summary> 引發 GotFocus 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.OnMouseClick(System.Windows.Forms.MouseEventArgs)">
+            <summary> 當滑鼠指標在儲存格上，使用者按一下滑鼠按鈕時呼叫。 
+            
+            </summary>
+            <param name="e">包含事件資料的 DataGridViewCellMouseEventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.OnKeyPress(System.Windows.Forms.KeyPressEventArgs)">
+            <summary> 引發 KeyPress 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 KeyPressEventArgs。 </param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary> 引發 Paint 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 PaintEventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.OnNumBoxOk(System.EventArgs)">
+            <summary> 引發 數字鍵盤按下確定的事件
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。</param>
+        </member>
+        <member name="E:WHD.BaseControl.WhdNsNumericBox.NumBoxOk">
+            <summary> 數字鍵盤按下確定的事件
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNsNumericBox.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsNumericBox.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdNumericBox">
+            <summary> WHD 有數字鍵盤的上下數值
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.#ctor">
+            <summary> NonScrollingNumericUpDown 建構式
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.Name">
+            <summary> 取得或設定控制項的名稱。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.IsSave">
+            <summary> 取得或設定 是否啟用存檔功能
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.WarningRange">
+            <summary> 取得或設定警告範圍
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.IsAutoShowNumBox">
+            <summary> 取得或設定是否自動顯示數字鍵盤
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.DefaultValue">
+            <summary> 取得或設定 預設值
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.Value">
+            <summary> 取得或設定指定給微調方塊 (也稱為上下按鈕控制項) 的數值。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.Maximum">
+            <summary> 取得或設定微調方塊 (也稱為上下按鈕控制項) 的最大值。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.Minimum">
+            <summary> 取得或設定微調方塊 (也稱為上下按鈕控制項) 的最小值。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.SaveType">
+            <summary> 取得或設定 存檔的種類
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.ReadOnly">
+            <summary> 取得，指出文字是否只能使用向上或向下按鈕變更。 (繼承自 UpDownBase)。
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.NormalColor">
+            <summary> 取得或設定 存檔的種類
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumericBox.IsSuperUser">
+            <summary> 取得或設定 是否為Super user
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.Dispose">
+            <summary> 釋放 Component 所使用的所有資源。
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.OnMouseWheel(System.Windows.Forms.MouseEventArgs)">
+            <summary> 當未處理的 Mouse.MouseWheel 附加事件到達其路由中衍生自此類別的項目時叫用。實作這個方法可以為這個事件加入類別處理。 
+            
+            </summary>
+            <param name="e">包含事件資料的 MouseWheelEventArgs。 </param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.OnGotFocus(System.EventArgs)">
+            <summary> 引發 GotFocus 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.OnMouseClick(System.Windows.Forms.MouseEventArgs)">
+            <summary> 當滑鼠指標在儲存格上，使用者按一下滑鼠按鈕時呼叫。 
+            
+            </summary>
+            <param name="e">包含事件資料的 DataGridViewCellMouseEventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.OnKeyPress(System.Windows.Forms.KeyPressEventArgs)">
+            <summary> 引發 KeyPress 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 KeyPressEventArgs。 </param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary> 引發 Paint 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 PaintEventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary> 引發 MouseDown 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 MouseEventArgs。 </param>
+        </member>
+        <member name="E:WHD.BaseControl.WhdNumericBox.PropertyChanged">
+            <summary> 紀錄參數被修改的事件
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumericBox.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumericBox.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.EnuSaveType">
+            <summary> 存檔類型的列舉
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.EnuSaveType.Product">
+            <summary> 產品檔案
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.EnuSaveType.System">
+            <summary> 系統檔案
+            
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdRoTextBox">
+            <summary> 唯獨的TextBox
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdRoTextBox.HideCaret(System.IntPtr)">
+            <summary> 隱藏插入符號
+            
+            </summary>
+            <param name="hWnd">視窗控制代碼</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:WHD.BaseControl.WhdRoTextBox.#ctor">
+            <summary> 建構式
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdRoTextBox.OnGotFocus(System.EventArgs)">
+            <summary> 引發 GotFocus 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。</param>
+        </member>
+        <member name="F:WHD.BaseControl.WhdRoTextBox.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdRoTextBox.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdRoTextBox.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdStaticButton">
+            <summary> DIO 狀態按鈕元件 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton.Di1Data">
+            <summary> 取得或設定 Di1 的資料
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton.Di2Data">
+            <summary> 取得或設定 Di2 的資料
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton.Do1Data">
+            <summary> 取得或設定 Do1 的資料
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._DI1">
+            <summary>取得或設定是否有Di1</summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._DI1_Invert">
+            <summary>取得或設定DI1參數是否反向</summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._DI2">
+            <summary>取得或設定DI2對應參數名稱</summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._DI2_Invert">
+            <summary>取得或設定DI2參數是否反向</summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._DO1">
+            <summary>取得或設定DO1對應參數名稱</summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._DO1_Invert">
+            <summary>取得或設定DO1參數是否反向</summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdStaticButton._IsLedOnly">
+            <summary>是否只顯示狀態 (只能顯示一個)</summary>
+        </member>
+        <member name="E:WHD.BaseControl.WhdStaticButton.DoEvent">
+            <summary> 汽缸輸出事件
+            
+            </summary>
+        </member>
+        <member name="E:WHD.BaseControl.WhdStaticButton.DiEvent">
+            <summary> 汽缸輸入事件
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdStaticButton.#ctor">
+            <summary> DIO 狀態按鈕元件建構式 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdStaticButton.RefreshStatic">
+            <summary> 更新DIO 狀態 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdStaticButton.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdStaticButton.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdStaticButton.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdReadOnlyNumericBox">
+            <summary> 唯讀 WHD 數值輸入元件 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.#ctor">
+            <summary> NonScrollingNumericUpDown 建構式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdReadOnlyNumericBox.ReadOnly">
+            <summary> 取得，指出文字是否只能使用向上或向下按鈕變更。 (繼承自 UpDownBase)。
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.OnMouseWheel(System.Windows.Forms.MouseEventArgs)">
+            <summary> 當未處理的 Mouse.MouseWheel 附加事件到達其路由中衍生自此類別的項目時叫用。實作這個方法可以為這個事件加入類別處理。 
+            
+            </summary>
+            <param name="e">包含事件資料的 MouseWheelEventArgs。 </param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.OnGotFocus(System.EventArgs)">
+            <summary> 引發 GotFocus 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.OnKeyPress(System.Windows.Forms.KeyPressEventArgs)">
+            <summary> 引發 KeyPress 事件。 </summary>
+            <param name="e">包含事件資料的 KeyPressEventArgs。 </param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary> 引發 Paint 事件。 </summary>
+            <param name="e">包含事件資料的 PaintEventArgs。</param>
+        </member>
+        <member name="F:WHD.BaseControl.WhdReadOnlyNumericBox.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdReadOnlyNumericBox.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdNsCheckBox">
+            <summary> WHD No Save Ckeck Box 元件 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsCheckBox.#ctor">
+            <summary> 建構式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsCheckBox.CheckedImage">
+            <summary> 取得或設定 Checked 時顯示的圖片 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsCheckBox.UncheckedImage">
+            <summary> 取得或設定 Unchecked 時顯示的圖片 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsCheckBox.IndeterminateImage">
+            <summary> 取得或設定 Indeterminate 時顯示的圖片 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNsCheckBox.IsBackground">
+            <summary> 取得或設定 是否要將圖片顯示在BackgroundImage </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsCheckBox.OnCheckStateChanged(System.EventArgs)">
+            <summary> 引發 CheckStateChanged 事件。 </summary>
+            <param name="e">包含事件資料的 EventArgs。 </param>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNsCheckBox.components">
+            <summary>
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsCheckBox.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNsCheckBox.InitializeComponent">
+            <summary>
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DebugForm">
+            <summary>
+            DebugForm
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.DebugForm.#ctor">
+            <summary>
+            Construct
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.DebugForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.DebugForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WHD.BaseControl.DebugForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog.LogTableDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog.LogListDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog.LogTableRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog.LogListRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog.LogTableRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DsLog.LogListRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.LogParm`2">
+            <summary> 具有紀錄功能的 </summary>
+            <typeparam name="Tenu"> 索引鍵型別 </typeparam>
+            <typeparam name="T"> 值型別 </typeparam>
+        </member>
+        <member name="M:WHD.BaseControl.LogParm`2.#ctor(System.String)">
+            <summary> 建構式 </summary>
+            <param name="name"> 類別名稱 </param>
+        </member>
+        <member name="M:WHD.BaseControl.LogParm`2.#ctor(System.String,WHD.BaseControl.DelLog)">
+            <summary> 建構式 </summary>
+            <param name="name"> 類別名稱 </param>
+            <param name="delLog"> 紀錄參數的委派 </param>
+        </member>
+        <member name="P:WHD.BaseControl.LogParm`2.DelLog">
+            <summary> 取得或設定 紀錄參數的委派 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.LogParm`2.Name">
+            <summary> 取得或設定 紀錄參數的名稱 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.LogParm`2.Item(`0)">
+            <summary> 取得或設定 指定的參數 </summary>
+            <param name="enu"> 指定的列舉 </param>
+            <returns> 參數數值 </returns>
+        </member>
+        <member name="M:WHD.BaseControl.LogParm`2.Add(`0,`1)">
+            <summary> 加入參數 </summary>
+            <param name="enu"> 列舉名稱 </param>
+            <param name="t"> 要加入的參數 </param>
+        </member>
+        <member name="T:WHD.BaseControl.WhdLog">
+            <summary> WHD 的流程紀錄功能 </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdLog.LogStatus">
+            <summary> 記錄資料的時間取得方式 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdLog.LogStatus.NowTime">
+            <summary> 直接使用系統時間 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdLog.LogStatus.UserCustom">
+            <summary> 使用者給定時間 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.#ctor(WHD.BaseControl.WhdLog.LogStatus)">
+            <summary> WhdLog 建構式 </summary>
+            <param name="logStatus"> 用來紀錄 Log 時間的 Stopwatch </param>
+        </member>
+        <member name="P:WHD.BaseControl.WhdLog.LogBufferSize">
+            <summary> 取得或設定儲存資料的筆數 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdLog.LogList">
+            <summary> 取得 Log的顯示表 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdLog.TimeTicks">
+            <summary> 存檔的時間 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.Log(System.String,System.String)">
+            <summary> Log 資料 </summary>
+            <param name="name">name </param>
+            <param name="message">紀錄的資訊</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.SaveLog(System.String)">
+            <summary> 儲存 Log 資料 </summary>
+            <param name="path">儲存路徑</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.LoadLog(System.String)">
+            <summary> 載入 Log 資料 </summary>
+            <param name="path">載入路徑</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.AddColumn(System.String)">
+            <summary> 增加一個資料列 </summary>
+            <param name="name">要加入的 name</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.RemoveColumn(System.String)">
+            <summary> 移除一個資料列 </summary>
+            <param name="name">要移除的 name</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdLog.GetTableGroupNames">
+            <summary> 取得表單裡所有的名稱 </summary>
+            <returns> 回傳的所有名稱 </returns>
+        </member>
+        <member name="T:WHD.BaseControl.DelLog">
+            <summary> 紀錄屬性參數的委派 </summary>
+            <param name="name"> 屬性名稱 </param>
+            <param name="message"> 要紀錄的數值 </param>
+        </member>
+        <member name="T:WHD.BaseControl.Properties.Resources">
+            <summary>
+              用於查詢當地語系化字串等的強類型資源類別。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.ResourceManager">
+            <summary>
+              傳回這個類別使用的快取的 ResourceManager 執行個體。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Culture">
+            <summary>
+              覆寫目前執行緒的 CurrentUICulture 屬性，對象是所有
+              使用這個強類型資源類別的資源查閱。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Check">
+            <summary>
+              查詢類似 (圖示) 的類型 System.Drawing.Icon 當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Check256">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Done_1">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Error">
+            <summary>
+              查詢類似 (圖示) 的類型 System.Drawing.Icon 當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Error256">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.FcStartFinish">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.FcStartRuning">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Left_1">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Right_1">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Rl">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Rr">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Stop_1">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Tl">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Tr">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Properties.Resources.Up_1">
+            <summary>
+              查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.ProvideToolboxControlAttribute">
+            <summary>
+            This attribute adds a ToolboxControlsInstaller key for the assembly to install toolbox controls from the assembly
+            </summary>
+            <remarks>
+            For example
+                [$(Rootkey)\ToolboxControlsInstaller\$FullAssemblyName$]
+                    "Codebase"="$path$"
+                    "WpfControls"="1"
+            </remarks>
+        </member>
+        <member name="M:WHD.BaseControl.ProvideToolboxControlAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new ProvideToolboxControl attribute to register the assembly for toolbox controls installer
+            </summary>
+            <param name="name"></param>
+            <param name="isWpfControls"></param>
+        </member>
+        <member name="P:WHD.BaseControl.ProvideToolboxControlAttribute.IsWpfControls">
+            <summary>
+            Gets whether the toolbox controls are for WPF.
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.ProvideToolboxControlAttribute.Name">
+            <summary>
+            Gets the name for the controls
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.ProvideToolboxControlAttribute.Register(Microsoft.VisualStudio.Shell.RegistrationAttribute.RegistrationContext)">
+            <summary>
+            Called to register this attribute with the given context.  The context
+            contains the location where the registration information should be placed.
+            It also contains other information such as the type being registered and path information.
+            </summary>
+            <param name="context">Given context to register in</param>
+        </member>
+        <member name="M:WHD.BaseControl.ProvideToolboxControlAttribute.Unregister(Microsoft.VisualStudio.Shell.RegistrationAttribute.RegistrationContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:WHD.BaseControl.EnuTime">
+            <summary> 時間單位的列舉
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.EnuTime.Sec">
+            <summary> 秒
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.EnuTime.Ms">
+            <summary> 毫秒
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.EnuTime.Tick">
+            <summary> 100ns
+            
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.Timer`1">
+            <summary> WHD Timer
+            
+            </summary>
+            <typeparam name="T">Timer 名稱的型別</typeparam>
+        </member>
+        <member name="F:WHD.BaseControl.Timer`1._DictStartTime">
+            <summary> 要倒數的Timeout 時間 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.Timer`1.TimeTick">
+            <summary> 取得計時器循環開始的時間計數(100ns)
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.GetNowTime">
+            <summary> 重新取得現在的時間記數 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.AddTimer(`0,System.Decimal,WHD.BaseControl.EnuTime)">
+            <summary> 加入一個 Timer
+            
+            </summary>
+            <param name="t">Timer 的唯一名稱</param>
+            <param name="enuTime">時間單位的列舉</param>
+            <param name="timeout">Timerout 時間</param>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.ResetTimer(`0)">
+            <summary> 重新設定Timer 的開始時間
+            
+            </summary>
+            <param name="t">Timer 的唯一名稱</param>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.ResetTimer(`0,System.Decimal,WHD.BaseControl.EnuTime)">
+            <summary> 重新設定Timer 的開始時間，並設定Timeout的時間 </summary>
+            <param name="t">Timer 的唯一名稱</param>
+            <param name="enuTime">時間單位的列舉</param>
+            <param name="timeout">Timer 的 Timeout時間</param>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.SetTimeout(`0,System.Decimal,WHD.BaseControl.EnuTime)">
+            <summary> 設定Timeout的時間 </summary>
+            <param name="t">Timer 的唯一名稱</param>
+            <param name="timeout">Timer 的 Timeout時間</param>
+            <param name="enuTime">時間單位的列舉</param>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.GetTimeInterval(`0,WHD.BaseControl.EnuTime)">
+            <summary> 取得時間間隔(ms) </summary>
+            <param name="t">Timer 的唯一名稱</param>
+            <param name="enuTime">時間單位的列舉</param>
+            <returns>經過的時間(ms)</returns>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.CheckTimeout(`0,System.Boolean)">
+            <summary> 判斷Timer 是否已經發生Timeout </summary>
+            <param name="t">Timer 的唯一名稱</param>
+            <param name="autoReset">是否自動重置 Timer</param>
+            <returns>回傳是否已經 Timeout</returns>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.CheckTimeout(`0,System.Decimal,WHD.BaseControl.EnuTime)">
+            <summary> 判斷Timer 是否大於指定的時間 </summary>
+            <param name="t">Timer 的唯一名稱</param>
+            <param name="timeout">要判斷Timeout的時間</param>
+            <param name="enuTime">時間單位的列舉</param>
+            <returns>回傳是否已經 Timeout</returns>
+        </member>
+        <member name="M:WHD.BaseControl.Timer`1.Stop(`0)">
+            <summary> 停止計時器 </summary>
+            <param name="t">Timer 的唯一名稱</param>
+        </member>
+        <member name="T:WHD.BaseControl.FastSetup">
+            <summary> 快速設定元件
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FastSetup.#ctor(System.String,System.String,System.Int32,System.Decimal,System.Boolean,System.Decimal,System.Decimal,System.String)">
+            <summary> 建構式
+            
+            </summary>
+            <param name="remake">DataLinkRemark</param>
+            <param name="name">DataLinkName</param>
+            <param name="index">DataLinkId</param>
+            <param name="value">DataLinkValue</param>
+            <param name="isDecimal">DataLinkDecimal</param>
+            <param name="max">DataLinkMax</param>
+            <param name="min">DataLinkMin</param>
+            <param name="uintName">DataLinkUint</param>
+        </member>
+        <member name="P:WHD.BaseControl.FastSetup.DataLinkId">
+            <summary> 取得DataLinkId
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.FastSetup.Value">
+            <summary> 取得Valeu
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FastSetup.OnBackColorChanged(System.EventArgs)">
+            <summary> 引發 BackColorChanged 事件。
+            
+            </summary>
+            <param name="e">包含事件資料的 EventArgs。 </param>
+        </member>
+        <member name="E:WHD.BaseControl.FastSetup.ValueChanged">
+            <summary> 當數值發生變化時
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.FastSetup.components">
+            <summary> 
+            設計工具所需的變數。
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.FastSetup.Dispose(System.Boolean)">
+            <summary> 
+            清除任何使用中的資源。
+            </summary>
+            <param name="disposing">如果應該處置 Managed 資源則為 true，否則為 false。</param>
+        </member>
+        <member name="M:WHD.BaseControl.FastSetup.InitializeComponent">
+            <summary> 
+            此為設計工具支援所需的方法 - 請勿使用程式碼編輯器
+            修改這個方法的內容。
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.DIOMonitor">
+            <summary> DIO Monitor 顯示父類別 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.DIOMonitor.#ctor">
+            <summary> 建構式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.DIOMonitor.InputTable">
+            <summary> 取得 Input 的資料表 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.DIOMonitor.OutputTable">
+            <summary> 取得 Output 的資料表 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.DIOMonitor.LoadFile(System.String)">
+            <summary> 讀取 Dio 名稱的 excel 檔案
+            
+            </summary>
+            <param name="fileName">檔案路徑</param>
+        </member>
+        <member name="F:WHD.BaseControl.DIOMonitor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.DIOMonitor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WHD.BaseControl.DIOMonitor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdNumBox">
+            <summary>數字鍵盤視窗</summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._NumBox">
+            <summary> NumBox Singleton
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._NumBoxMaxLength">
+            <summary> 數字鍵盤最大字串長度
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._SourceValue">
+            <summary> 原始值
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._MaxValue">
+            <summary> 最大值
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._MinValue">
+            <summary> 最小值
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._WarningRange">
+            <summary> 警告範圍
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._PressBtnProced">
+            <summary> 是否已處理完鍵盤事件
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox._DecimalPlaces">
+            <summary> 小數點位數
+            
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdNumBox.NumBoxValue">
+            <summary> 數字鍵盤數值
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumBox.GetSgt(System.Double,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Int32},System.Nullable{System.Double})">
+            <summary> 取得 NumBox
+            
+            </summary>
+            <param name="sourceValue">原始資料</param>
+            <param name="max">最大值</param>
+            <param name="min">最小值</param>
+            <param name="decimalPlaces">小數點位數</param>
+            <param name="warningRange">警告範圍(+/-)</param>
+            <returns>回傳 NumBox</returns>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumBox.BtnColorChange(System.Windows.Forms.Control)">
+            <summary> 改變元件的文字顏色
+            
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumBox.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)">
+            <summary>
+            處理指令鍵事件
+            </summary>
+            <param name="msg">訊息資料</param>
+            <param name="keyData">鍵盤按鈕資料</param>
+            <returns>回傳指令是否處理</returns>
+        </member>
+        <member name="F:WHD.BaseControl.WhdNumBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdNumBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdSetupProperty">
+            <summary> 設定 WHD NsNumeric Property
+            
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdSetupProperty.#ctor">
+            <summary> 建構式
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdSetupProperty._SetupProperty">
+            <summary> SetupProperty Singleton
+            
+            </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdSetupProperty.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdSetupProperty.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WHD.BaseControl.WhdSetupProperty.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WHD.BaseControl.WhdThread">
+            <summary> WHD 的 Thread 擴充類別，可以提高優先權 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdThread.timeBeginPeriod(System.UInt32)">
+            <summary>
+            設置Thread 執行最小週期時間
+            </summary>
+            <param name="uMilliseconds">最小週期時間(ms)</param>
+            <returns></returns>
+        </member>
+        <member name="M:WHD.BaseControl.WhdThread.GetProcessAffinityMask(System.IntPtr,System.UIntPtr@,System.UIntPtr@)">
+            <summary>
+            取得程序運作的CPU核心
+            </summary>
+            <param name="hProcess"></param>
+            <param name="lpProcessAffinityMask">程序運作核心 核1= 1， 核2=2， 核3=4， 核4=8, 如果用核1、核3 => 1+4 =5</param>
+            <param name="lpSystemAffinityMask">系統運作核心 核1= 1， 核2=2， 核3=4， 核4=8, 如果用核1、核3 => 1+4 =5</param>
+            <returns>是否執行成功</returns>
+        </member>
+        <member name="M:WHD.BaseControl.WhdThread.#ctor">
+            <summary> WhdThread建構式 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdThread._Thread">
+            <summary> Flow Chart 使用的 Thread 一個元件一個 Thread </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdThread._Core">
+            <summary> 要綁定的 Core </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdThread._CoreNum">
+            <summary> Cpu有幾個Core </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdThread._IsLock">
+            <summary> 是否要綁定Cpu </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdThread._RunThread">
+            <summary> 控制執行緒的 whild 迴圈 </summary>
+        </member>
+        <member name="F:WHD.BaseControl.WhdThread._DoWork">
+            <summary> 要在執行緒內重複執行的函式 </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdThread.Core">
+            <summary> 取得或設定Thread要綁定的Core </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdThread.IsLock">
+            <summary> 取得或設定是否要綁定Cpu </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdThread.CoreNum">
+            <summary> 取得 Cpu 有幾個 Core </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdThread.IsAlive">
+            <summary> 取得值，指出目前執行緒的執行狀態。
+            如果這個執行緒已經啟動但還沒有正常結束或者中止，則為 true，否則為 false。
+            </summary>
+        </member>
+        <member name="P:WHD.BaseControl.WhdThread.DoWork">
+            <summary> 取得或設定要加入執行緒執行的函式 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdThread.Start">
+            <summary> 開始執行緒 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdThread.Stop">
+            <summary> 停止執行緒 </summary>
+        </member>
+        <member name="M:WHD.BaseControl.WhdThread.OnStop">
+            <summary> 停止執行緒 </summary>
+        </member>
+        <member name="E:WHD.BaseControl.WhdThread.InitEvent">
+            <summary> 執行緒開始執行時的初始化事件 </summary>
+        </member>
+        <member name="E:WHD.BaseControl.WhdThread.StopedEvent">
+            <summary> 執行緒停止後觸發的事件 </summary>
+        </member>
+    </members>
+</doc>
