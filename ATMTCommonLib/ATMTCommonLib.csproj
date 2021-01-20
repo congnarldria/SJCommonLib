@@ -56,12 +56,6 @@
   <ItemGroup>
     <Compile Include="ATExtension.cs" />
     <Compile Include="ATMTCamera.cs" />
-    <Compile Include="ATMTComboBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ATMTComboBox.Designer.cs">
-      <DependentUpon>ATMTComboBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="ATMTLogIn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -74,9 +68,6 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ATMTComboBox.resx">
-      <DependentUpon>ATMTComboBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ATMTLogIn.resx">
       <DependentUpon>ATMTLogIn.cs</DependentUpon>
     </EmbeddedResource>

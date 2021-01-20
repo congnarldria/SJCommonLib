@@ -21,6 +21,7 @@ namespace ATMTCommonLib
         public uint ImageWidth;
         public uint ImageHeight;
         public string PixelFormat;
+        public bool IsColor;
     }
     public class HikImage
     {
@@ -64,6 +65,16 @@ namespace ATMTCommonLib
         /// <param name="Index"></param>
         public abstract HikImage OneShot(int Index);
         /// <summary>
+        /// 連續取像開始取像
+        /// </summary>
+        /// <param name="Index"></param>
+        public abstract void GrabStart(int Index);
+        /// <summary>
+        /// 連續取像停止
+        /// </summary>
+        /// <param name="Index"></param>
+        public abstract void GrabStop(int Index);
+        /// <summary>
         /// 單張取像 Live中
         /// </summary>
         /// <param name="Index"></param>
@@ -91,7 +102,7 @@ namespace ATMTCommonLib
         /// </summary>
         public event OnImageGrab ImageGrabbedNotify;
         private List<IntPtr> Ptrs = new List<IntPtr>();
-        private List<MyCamera> deviceList { get; set; } = new List<MyCamera>();
+        public List<MyCamera> deviceList { get; set; } = new List<MyCamera>();
         private List<MyCamera.MV_CC_DEVICE_INFO> deviceInfoList = new List<MyCamera.MV_CC_DEVICE_INFO>();
         private MyCamera.MV_CC_DEVICE_INFO_LIST stDevList = new MyCamera.MV_CC_DEVICE_INFO_LIST();
         public MyCamera.cbOutputExdelegate EventCallback;
@@ -252,6 +263,23 @@ namespace ATMTCommonLib
                 return;
             }
         }
+        public override void GrabStart(int Index)
+        {
+            int nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("GrabStart Fail" + nRet.ToString());
+            }
+        }
+
+        public override void GrabStop(int Index)
+        {
+            int nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("GrabStop Fail" + nRet.ToString());
+            }
+        }
         public override HikImage OneShot(int Index)
         {
             try
@@ -260,10 +288,10 @@ namespace ATMTCommonLib
                 int nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
                 if (MyCamera.MV_OK != nRet)
                 {
-                    LogMgr.SendLog("Grab Fail" + nRet.ToString());
+                    LogMgr.SendLog("Start Grab Fail" + nRet.ToString());
                     return new HikImage(IntPtr.Zero, false, 0, 0);
                 }
-                nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
+                nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 1000);
                 if (nRet == MyCamera.MV_OK)
                 {
                     if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_HB_Mono8)
@@ -278,6 +306,12 @@ namespace ATMTCommonLib
                 else
                 {
                     LogMgr.SendLog("Grab Time Out");
+                    return new HikImage(IntPtr.Zero, false, 0, 0);
+                }
+                nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
                     return new HikImage(IntPtr.Zero, false, 0, 0);
                 }
             }
@@ -356,16 +390,28 @@ namespace ATMTCommonLib
             Marshal.PtrToStructure(pUser, data);
             //    }
             //}
+            bool IsImageColor = false;
+            if (pFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
+            {
+                IsImageColor = false;
+            }
+            else
+            {
+                IsImageColor = true;
+            }
             ATMTImageGrabbedEventArgs arg = new ATMTImageGrabbedEventArgs()
             {
                 CameraIndex = data.Index,
                 ImagePtr = pData,
                 ImageWidth = pFrameInfo.nWidth,
                 ImageHeight = pFrameInfo.nHeight,
-                PixelFormat = pFrameInfo.enPixelType.ToString()
+                PixelFormat = pFrameInfo.enPixelType.ToString(),
+                IsColor = IsImageColor
             };
             ImageGrabbedNotify?.Invoke(new object(), arg);
         }
+
+
     }
 
     #endregion
