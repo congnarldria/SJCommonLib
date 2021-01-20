@@ -12,7 +12,7 @@ namespace ATMTCommonLib
 	/// <summary>
 	/// ATMT Extended functions
 	/// </summary>
-    public static class ATExtension
+    public static class ATExtensions
     {
 		/// <summary>
 		/// Binary深層複製的泛型方法

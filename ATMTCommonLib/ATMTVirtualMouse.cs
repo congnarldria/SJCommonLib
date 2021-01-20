@@ -12,6 +12,9 @@ using System.Drawing;
 
 namespace ATMTCommonLib
 {
+    /// <summary>
+    /// 虛擬鍵盤滑鼠移動按下
+    /// </summary>
     public static class ATMTVirtualMouse
     {
         [DllImport("user32.dll")]
