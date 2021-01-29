@@ -56,7 +56,6 @@ namespace ATMTCommonLib
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         private static StackTrace st = new StackTrace(true);
-        private static Exception ex = null;
         private static void PostLogMethod(string log, Exception e = null)
         {
             StackFrame[] sfs = st.GetFrames();
@@ -97,7 +96,6 @@ namespace ATMTCommonLib
             long result = PostMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
-            ex = null;
         }
         /// <summary>
         /// SendLog
@@ -151,7 +149,6 @@ namespace ATMTCommonLib
             long result = SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
-            ex = null;
         }
         /// <summary>
         /// Test Post , Currrent Invalid
@@ -214,7 +211,6 @@ namespace ATMTCommonLib
             _ = SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
-            ex = null;
         }
     }
 }

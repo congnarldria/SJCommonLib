@@ -9,3 +9,5 @@
 *.exe
 /ATMTCommonLib.xml
 /ATMTLog.exe
+/MvCameraControl.Net.dll
+/MvCameraControl.Net.xml
