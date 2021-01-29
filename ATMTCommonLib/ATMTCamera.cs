@@ -48,7 +48,13 @@ namespace ATMTCommonLib
         /// <returns></returns>
         public abstract List<string> EnumerateCamea();
         /// <summary>
-        /// 開啟相機
+        ///  開啟相機 by SerailNumber or IP
+        /// </summary>
+        /// <param name="SerailNumber"></param>
+        /// <returns>對應的Index</returns>
+        public abstract int OpenCamera(string SerailNumber);
+        /// <summary>
+        /// 開啟相機 by Index
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
@@ -84,7 +90,7 @@ namespace ATMTCommonLib
 
     #region CameraImplementation
     public delegate void OnImageGrab(Object sender, ATMTImageGrabbedEventArgs e);
-
+    [StructLayout(LayoutKind.Sequential)]
     public struct CamUserData
     {
         /// <summary>
@@ -102,9 +108,9 @@ namespace ATMTCommonLib
         /// </summary>
         public event OnImageGrab ImageGrabbedNotify;
         private List<IntPtr> Ptrs = new List<IntPtr>();
-        public List<MyCamera> deviceList { get; set; } = new List<MyCamera>();
         private List<MyCamera.MV_CC_DEVICE_INFO> deviceInfoList = new List<MyCamera.MV_CC_DEVICE_INFO>();
         private MyCamera.MV_CC_DEVICE_INFO_LIST stDevList = new MyCamera.MV_CC_DEVICE_INFO_LIST();
+        public List<MyCamera> deviceList { get; set; } = new List<MyCamera>();
         public MyCamera.cbOutputExdelegate EventCallback;
         public Dictionary<int, MyCamera> DicCamera = new Dictionary<int, MyCamera>();
         public List<string> SerialNumbers = new List<string>();
@@ -171,7 +177,34 @@ namespace ATMTCommonLib
             Ini(Index);
             return true;
         }
-        public void SetIsColor(int Index , bool IsColor)
+        public override int OpenCamera(string SerialNumber)
+        {
+            bool IsSerialNumberExist = false;
+            int Index = 0;
+            for(int i = 0; i < deviceInfoList.Count; i++)
+            {
+                if(SerialNumber == SerialNumbers[i])
+                {
+                    Index = i;
+                    IsSerialNumberExist = true;
+                }
+            }
+            if (!IsSerialNumberExist)
+            {
+                LogMgr.SendLog("SerailNumber Not Found.");
+                return -1;
+            }
+            MyCamera.MV_CC_DEVICE_INFO Info = deviceInfoList[Index];
+            int nRet = deviceList[Index].MV_CC_CreateDevice_NET(ref Info);
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Create device failed:" + nRet.ToString());
+                return -1;
+            }
+            Ini(Index);
+            return Index;
+        }
+        public void SetIsColor(int Index, bool IsColor)
         {
             if (IsColor)
             {
@@ -227,7 +260,7 @@ namespace ATMTCommonLib
         {
             bool bValue = true;
             int nRet = deviceList[Index].MV_CC_SetBoolValue_NET("ReverseX", bValue);
-            nRet += deviceList[Index].MV_CC_SetEnumValue_NET("ReverseX" , (uint)MyCamera.MV_IMG_FLIP_TYPE.MV_FLIP_HORIZONTAL);
+            nRet += deviceList[Index].MV_CC_SetEnumValue_NET("ReverseX", (uint)MyCamera.MV_IMG_FLIP_TYPE.MV_FLIP_HORIZONTAL);
             if (MyCamera.MV_OK != nRet)
             {
                 Console.WriteLine("Set ReverseX Value failed:" + nRet.ToString());
@@ -363,18 +396,26 @@ namespace ATMTCommonLib
         public bool RegisterCallBack(int Index)
         {
             // ch:注册回调函数 | en:Register image callback
-            EventCallback = new MyCamera.cbOutputExdelegate(ImageCallbackFunc);
-            CamUserData userdata = new CamUserData();
-            IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(userdata));
-            userdata.Index = (byte)Index;
-            Marshal.StructureToPtr(userdata, ptr, true);
-            int nRet = deviceList[Index].MV_CC_RegisterImageCallBackEx_NET(EventCallback, ptr);
-            if (MyCamera.MV_OK != nRet)
+            try
             {
-                LogMgr.SendLog("Create device failed:" + nRet.ToString());
+                EventCallback = new MyCamera.cbOutputExdelegate(ImageCallbackFunc);
+                CamUserData userdata = new CamUserData();
+                IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(userdata));
+                userdata.Index = (byte)Index;
+                Marshal.StructureToPtr(userdata, ptr, true);
+                int nRet = deviceList[Index].MV_CC_RegisterImageCallBackEx_NET(EventCallback, ptr);
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("Create device failed:" + nRet.ToString());
+                    return false;
+                }
+                return true;
+            }
+            catch(Exception e)
+            {
+                LogMgr.SendLog(e.Message, e.ToString());
                 return false;
             }
-            return true;
         }
         //if lock needs
         //private static readonly object cblockobj = new object(); 
