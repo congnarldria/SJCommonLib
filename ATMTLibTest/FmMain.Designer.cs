@@ -30,7 +30,6 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.atmtComboBox1 = new ATMTCommonLib.ATMTComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -51,14 +50,6 @@
             this.textBox1.Size = new System.Drawing.Size(235, 22);
             this.textBox1.TabIndex = 3;
             // 
-            // atmtComboBox1
-            // 
-            this.atmtComboBox1.Align = ATMTCommonLib.ATMTComboBox.EAlign.center;
-            this.atmtComboBox1.Location = new System.Drawing.Point(296, 107);
-            this.atmtComboBox1.Name = "atmtComboBox1";
-            this.atmtComboBox1.Size = new System.Drawing.Size(128, 31);
-            this.atmtComboBox1.TabIndex = 4;
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(341, 195);
@@ -75,7 +66,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 431);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.atmtComboBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Name = "FmMain";
@@ -89,7 +79,6 @@
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
-        private ATMTCommonLib.ATMTComboBox atmtComboBox1;
         private System.Windows.Forms.Button button2;
     }
 }
