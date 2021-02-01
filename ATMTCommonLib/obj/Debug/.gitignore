@@ -12,3 +12,4 @@
 *.AssemblyAttributes.cs
 /ATMTCommonLib.ATMTComboBox.resources
 *.cache
+/build.force
