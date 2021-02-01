@@ -46,7 +46,7 @@ namespace ATMTCommonLib
         /// 列舉相機序號
         /// </summary>
         /// <returns></returns>
-        public abstract List<string> EnumerateCamea();
+        public abstract List<string> EnumerateCamera();
         /// <summary>
         ///  開啟相機 by SerailNumber or IP
         /// </summary>
@@ -118,7 +118,24 @@ namespace ATMTCommonLib
         {
 
         }
-        public override List<string> EnumerateCamea()
+        public void SortCameraIndice(List<int> Indices)
+        {
+            MyCamera.MV_CC_DEVICE_INFO_LIST TempDevList = new MyCamera.MV_CC_DEVICE_INFO_LIST();
+            TempDevList.nDeviceNum = stDevList.nDeviceNum;
+            TempDevList.pDeviceInfo = new IntPtr[stDevList.nDeviceNum];
+            for (int i = 0; i < Indices.Count; i++)
+            {
+                if (i < stDevList.nDeviceNum)
+                {
+                    TempDevList.pDeviceInfo[i] = stDevList.pDeviceInfo[Indices[i]];
+                }
+            }
+            for (int i = 0; i < stDevList.nDeviceNum; i++)
+            {
+                stDevList.pDeviceInfo[i] = TempDevList.pDeviceInfo[i];
+            }
+        }
+        public override List<string> EnumerateCamera()
         {
             int nRet = MyCamera.MV_OK;
             nRet = MyCamera.MV_CC_EnumDevices_NET(MyCamera.MV_GIGE_DEVICE | MyCamera.MV_USB_DEVICE, ref stDevList);
@@ -211,7 +228,7 @@ namespace ATMTCommonLib
                 int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("PixelFormat", (uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_RGB8_Planar);
                 if (MyCamera.MV_OK != nRet)
                 {
-                    LogMgr.SendLog("Set Mono8 failed:" + nRet.ToString());
+                    LogMgr.SendLog("Set Color failed:" + nRet.ToString());
                 }
             }
             else
