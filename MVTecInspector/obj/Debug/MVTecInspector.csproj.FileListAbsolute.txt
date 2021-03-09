@@ -1,0 +1,5 @@
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\MVTecInspector.dll
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\MVTecInspector.pdb
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.csproj.CoreCompileInputs.cache
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.dll
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.pdb

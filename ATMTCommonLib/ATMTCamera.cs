@@ -111,8 +111,7 @@ namespace ATMTCommonLib
         private List<MyCamera.MV_CC_DEVICE_INFO> deviceInfoList = new List<MyCamera.MV_CC_DEVICE_INFO>();
         private MyCamera.MV_CC_DEVICE_INFO_LIST stDevList = new MyCamera.MV_CC_DEVICE_INFO_LIST();
         public List<MyCamera> deviceList { get; set; } = new List<MyCamera>();
-        public MyCamera.cbOutputExdelegate EventCallback;
-        public Dictionary<int, MyCamera> DicCamera = new Dictionary<int, MyCamera>();
+        public MyCamera.cbOutputExdelegate[] ImageCallback = new MyCamera.cbOutputExdelegate[4];
         public List<string> SerialNumbers = new List<string>();
         public HikCameras()
         {
@@ -155,7 +154,7 @@ namespace ATMTCommonLib
                 Ptrs.Clear();
                 deviceInfoList.Clear();
                 MyCamera.MV_CC_DEVICE_INFO stDevInfo;
-                for (int i = 0; i < stDevList.pDeviceInfo.Length; i++)
+                for (int i = 0; i < stDevList.nDeviceNum; i++)
                 {
                     Ptrs.Add(stDevList.pDeviceInfo[i]);
                     stDevInfo = (MyCamera.MV_CC_DEVICE_INFO)Marshal.PtrToStructure(stDevList.pDeviceInfo[i], typeof(MyCamera.MV_CC_DEVICE_INFO));
@@ -176,6 +175,7 @@ namespace ATMTCommonLib
                         MyCamera.MV_USB3_DEVICE_INFO stUsb3DeviceInfo = (MyCamera.MV_USB3_DEVICE_INFO)MyCamera.ByteToStruct(stDevInfo.SpecialInfo.stUsb3VInfo, typeof(MyCamera.MV_USB3_DEVICE_INFO));
                         LogMgr.SendLog("[device " + i.ToString() + "]:");
                         SerialNumbers.Add(stUsb3DeviceInfo.chSerialNumber);
+                        deviceList.Add(new MyCamera());
                         LogMgr.SendLog("UserDefineName:" + stUsb3DeviceInfo.chUserDefinedName + "\n");
                     }
                 }
@@ -198,9 +198,9 @@ namespace ATMTCommonLib
         {
             bool IsSerialNumberExist = false;
             int Index = 0;
-            for(int i = 0; i < deviceInfoList.Count; i++)
+            for (int i = 0; i < deviceInfoList.Count; i++)
             {
-                if(SerialNumber == SerialNumbers[i])
+                if (SerialNumber == SerialNumbers[i])
                 {
                     Index = i;
                     IsSerialNumberExist = true;
@@ -218,6 +218,12 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("Create device failed:" + nRet.ToString());
                 return -1;
             }
+            nRet = deviceList[Index].MV_CC_OpenDevice_NET();
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Open device failed:" + nRet.ToString());
+                return -1;
+            }
             Ini(Index);
             return Index;
         }
@@ -225,7 +231,8 @@ namespace ATMTCommonLib
         {
             if (IsColor)
             {
-                int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("PixelFormat", (uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_RGB8_Planar);
+
+                int nRet = deviceList[Index].MV_CC_SetPixelFormat_NET((uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_RGB8_Planar);
                 if (MyCamera.MV_OK != nRet)
                 {
                     LogMgr.SendLog("Set Color failed:" + nRet.ToString());
@@ -233,7 +240,7 @@ namespace ATMTCommonLib
             }
             else
             {
-                int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("PixelFormat", (uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8);
+                int nRet = deviceList[Index].MV_CC_SetPixelFormat_NET((uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8);
                 if (MyCamera.MV_OK != nRet)
                 {
                     LogMgr.SendLog("Set Mono8 failed:" + nRet.ToString());
@@ -242,9 +249,9 @@ namespace ATMTCommonLib
         }
         private void Ini(int Index)
         {
-            deviceList[Index].MV_CC_SetEnumValue_NET("ExposureAuto", 0);
-            deviceList[Index].MV_CC_SetEnumValue_NET("GainAuto", 0);
-            int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImagesOnly);
+            int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("ExposureAuto", 0);
+            nRet = deviceList[Index].MV_CC_SetEnumValue_NET("GainAuto", 0);
+            nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_OneByOne);
             if (MyCamera.MV_OK != nRet)
             {
                 LogMgr.SendLog("Set number of image node fail:", nRet.ToString());
@@ -334,6 +341,7 @@ namespace ATMTCommonLib
         {
             try
             {
+                bool IsColor = false;
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
                 if (MyCamera.MV_OK != nRet)
@@ -344,13 +352,27 @@ namespace ATMTCommonLib
                 nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 1000);
                 if (nRet == MyCamera.MV_OK)
                 {
-                    if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_HB_Mono8)
+                    if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
                     {
-                        return new HikImage(stFrameInfo.pBufAddr, false, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
+                        IsColor = false;
+                        nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                        if (MyCamera.MV_OK != nRet)
+                        {
+                            LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
+                            return new HikImage(IntPtr.Zero, false, 0, 0);
+                        }
+                        return new HikImage(stFrameInfo.pBufAddr, IsColor, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                     else
                     {
-                        return new HikImage(stFrameInfo.pBufAddr, true, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
+                        IsColor = true;
+                        nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                        if (MyCamera.MV_OK != nRet)
+                        {
+                            LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
+                            return new HikImage(IntPtr.Zero, false, 0, 0);
+                        }
+                        return new HikImage(stFrameInfo.pBufAddr, IsColor, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                 }
                 else
@@ -358,15 +380,16 @@ namespace ATMTCommonLib
                     LogMgr.SendLog("Grab Time Out");
                     return new HikImage(IntPtr.Zero, false, 0, 0);
                 }
-                nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+
+            }
+            catch (Exception e)
+            {
+                int nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
                 if (MyCamera.MV_OK != nRet)
                 {
                     LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
                     return new HikImage(IntPtr.Zero, false, 0, 0);
                 }
-            }
-            catch (Exception e)
-            {
                 LogMgr.SendLog(e.Message, e);
                 return new HikImage(IntPtr.Zero, false, 0, 0);
             }
@@ -375,27 +398,37 @@ namespace ATMTCommonLib
         {
             try
             {
-                if (!m_IsGrabbing)
-                {
-                    LogMgr.SendLog("m_IsGrabbing = " + m_IsGrabbing.ToString());
-                    return new HikImage(IntPtr.Zero, false, 0, 0);
-                }
+                //if (!m_IsGrabbing)
+                //{
+                //    LogMgr.SendLog("m_IsGrabbing = " + m_IsGrabbing.ToString());
+                //    return new HikImage(IntPtr.Zero, false, 0, 0);
+                //}
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
                 if (nRet == MyCamera.MV_OK)
                 {
                     if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
                     {
+                        nRet = deviceList[Index].MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
+                        if (MyCamera.MV_OK != nRet)
+                        {
+                            Console.WriteLine("Free Image Buffer fail:{0:x8}", nRet);
+                        }
                         return new HikImage(stFrameInfo.pBufAddr, false, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                     else
                     {
+                        nRet = deviceList[Index].MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
+                        if (MyCamera.MV_OK != nRet)
+                        {
+                            Console.WriteLine("Free Image Buffer fail:{0:x8}", nRet);
+                        }
                         return new HikImage(stFrameInfo.pBufAddr, true, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                 }
                 else
                 {
-                    LogMgr.SendLog("Grab Time Out");
+                    LogMgr.SendLog("Camera " + (Index + 1).ToString() +  "Grab Time Out");
                     return new HikImage(IntPtr.Zero, false, 0, 0);
                 }
             }
@@ -410,25 +443,31 @@ namespace ATMTCommonLib
         {
 
         }
+        /// <summary>
+        ///  Attention::  Hik 註冊 CallBack後  就只能用非同步CallBack  不能同步取像了 ， 而且無法取消註冊
+        /// </summary>
+        /// <param name="Index"></param>
+        /// <returns></returns>
         public bool RegisterCallBack(int Index)
         {
             // ch:注册回调函数 | en:Register image callback
             try
             {
-                EventCallback = new MyCamera.cbOutputExdelegate(ImageCallbackFunc);
-                CamUserData userdata = new CamUserData();
-                IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(userdata));
-                userdata.Index = (byte)Index;
-                Marshal.StructureToPtr(userdata, ptr, true);
-                int nRet = deviceList[Index].MV_CC_RegisterImageCallBackEx_NET(EventCallback, ptr);
+                ImageCallback[Index] = new MyCamera.cbOutputExdelegate(ImageCallbackFunc);
+                //CamUserData userdata = new CamUserData();
+                //IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(userdata));
+                //userdata.Index = (byte)Index;
+                //Marshal.StructureToPtr(userdata, ptr, true);
+                int nRet = deviceList[Index].MV_CC_RegisterImageCallBackEx_NET(ImageCallback[Index], IntPtr.Zero);
                 if (MyCamera.MV_OK != nRet)
                 {
                     LogMgr.SendLog("Create device failed:" + nRet.ToString());
                     return false;
                 }
+                Ini(Index);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogMgr.SendLog(e.Message, e.ToString());
                 return false;
@@ -445,7 +484,7 @@ namespace ATMTCommonLib
             //{
             //    lock (cblockobj)
             //    {
-            Marshal.PtrToStructure(pUser, data);
+            //        Marshal.PtrToStructure(pUser, data);
             //    }
             //}
             bool IsImageColor = false;
@@ -468,8 +507,6 @@ namespace ATMTCommonLib
             };
             ImageGrabbedNotify?.Invoke(new object(), arg);
         }
-
-
     }
 
     #endregion

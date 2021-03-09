@@ -42,9 +42,6 @@
     <Reference Include="MvCameraControl.Net">
       <HintPath>..\Dll\MvCameraControl.Net.dll</HintPath>
     </Reference>
-    <Reference Include="NModbus.Serial">
-      <HintPath>..\Dll\NModbus.Serial.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
