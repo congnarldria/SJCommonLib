@@ -3,3 +3,7 @@ C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\MVTecInspect
 C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.csproj.CoreCompileInputs.cache
 C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.dll
 C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.pdb
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\halcondotnetxl.dll
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\halcondotnetxl.xml
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.csproj.CopyComplete
+C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\MVTecInspector.csprojAssemblyReference.cache
