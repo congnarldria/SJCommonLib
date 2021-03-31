@@ -507,7 +507,18 @@ namespace ATMTCommonLib
             };
             ImageGrabbedNotify?.Invoke(new object(), arg);
         }
+        public void CloseAndDestroy()
+        {
+            for(int i = 0; i < deviceList.Count; i++)
+            {
+                _ = deviceList[i].MV_CC_CloseDevice_NET();
+            }
+            for (int i = 0; i < deviceList.Count; i++)
+            {
+                _ = deviceList[i].MV_CC_DestroyDevice_NET();
+            }
+        }
     }
-
+   
     #endregion
 }
