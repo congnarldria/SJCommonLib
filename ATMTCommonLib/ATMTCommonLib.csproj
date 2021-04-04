@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATExtension.cs" />
-    <Compile Include="ATMTCamera.cs" />
+    <Compile Include="ATMTHikCamera.cs" />
     <Compile Include="ATMTLogIn.cs">
       <SubType>UserControl</SubType>
     </Compile>

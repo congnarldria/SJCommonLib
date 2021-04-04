@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 namespace ATMTCommonLib
 {
-    class ATMTCamera
+    class ATMTHikCamera
     {
     }
     /// <summary>
@@ -298,7 +298,7 @@ namespace ATMTCommonLib
             nRet += deviceList[Index].MV_CC_SetEnumValue_NET("ReverseY", (uint)MyCamera.MV_IMG_FLIP_TYPE.MV_FLIP_VERTICAL);
             if (MyCamera.MV_OK != nRet)
             {
-                Console.WriteLine("Set ReverseY Value failed:" + nRet.ToString());
+                LogMgr.SendLog("Set ReverseY Value failed: ErrorCode = " + nRet.ToString());
                 return;
             }
         }
@@ -307,7 +307,7 @@ namespace ATMTCommonLib
             int nRet = deviceList[Index].MV_CC_SetFloatValue_NET("ExposureTime", Value);
             if (MyCamera.MV_OK != nRet)
             {
-                Console.WriteLine("Set ExposureTime Value failed:" + nRet.ToString());
+                LogMgr.SendLog("Set Exposure Time Fail! ErrorCode = " + nRet.ToString());
                 return;
             }
         }
@@ -317,6 +317,15 @@ namespace ATMTCommonLib
             if (MyCamera.MV_OK != nRet)
             {
                 Console.WriteLine("Set Gain Value failed:" + nRet.ToString());
+                return;
+            }
+        }
+        public void SetGamma(int Index, float Value)
+        {
+            int nRet = deviceList[Index].MV_CC_SetFloatValue_NET("Gamma", Value);
+            if (MyCamera.MV_OK != nRet)
+            {
+                Console.WriteLine("Set Gamma Value failed:" + nRet.ToString());
                 return;
             }
         }
@@ -437,11 +446,6 @@ namespace ATMTCommonLib
                 LogMgr.SendLog(e.Message, e);
                 return new HikImage(IntPtr.Zero, false, 0, 0);
             }
-        }
-        private bool m_IsGrabbing = false;
-        private void LiveContext()
-        {
-
         }
         /// <summary>
         ///  Attention::  Hik 註冊 CallBack後  就只能用非同步CallBack  不能同步取像了 ， 而且無法取消註冊
