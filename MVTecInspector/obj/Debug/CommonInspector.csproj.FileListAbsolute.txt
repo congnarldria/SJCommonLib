@@ -1,8 +1,0 @@
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\CommonInspector.dll
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\CommonInspector.pdb
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\halcondotnetxl.dll
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\bin\Debug\halcondotnetxl.xml
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\CommonInspector.csproj.CoreCompileInputs.cache
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\CommonInspector.csproj.CopyComplete
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\CommonInspector.dll
-C:\Users\仁杰\source\repos\ATMTCommonLib\MVTecInspector\obj\Debug\CommonInspector.pdb

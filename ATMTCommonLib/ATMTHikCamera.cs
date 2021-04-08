@@ -111,6 +111,7 @@ namespace ATMTCommonLib
         private List<MyCamera.MV_CC_DEVICE_INFO> deviceInfoList = new List<MyCamera.MV_CC_DEVICE_INFO>();
         private MyCamera.MV_CC_DEVICE_INFO_LIST stDevList = new MyCamera.MV_CC_DEVICE_INFO_LIST();
         public List<MyCamera> deviceList { get; set; } = new List<MyCamera>();
+        public List<MyCamera> TempdeviceList { get; set; } = new List<MyCamera>();
         public MyCamera.cbOutputExdelegate[] ImageCallback = new MyCamera.cbOutputExdelegate[4];
         public List<string> SerialNumbers = new List<string>();
         public HikCameras()
@@ -127,11 +128,13 @@ namespace ATMTCommonLib
                 if (i < stDevList.nDeviceNum)
                 {
                     TempDevList.pDeviceInfo[i] = stDevList.pDeviceInfo[Indices[i]];
+                    TempdeviceList[i] = deviceList[Indices[i]];
                 }
             }
             for (int i = 0; i < stDevList.nDeviceNum; i++)
             {
                 stDevList.pDeviceInfo[i] = TempDevList.pDeviceInfo[i];
+                deviceList[Indices[i]] = TempdeviceList[i];
             }
         }
         public override List<string> EnumerateCamera()
@@ -176,6 +179,7 @@ namespace ATMTCommonLib
                         LogMgr.SendLog("[device " + i.ToString() + "]:");
                         SerialNumbers.Add(stUsb3DeviceInfo.chSerialNumber);
                         deviceList.Add(new MyCamera());
+                        TempdeviceList.Add(null);
                         LogMgr.SendLog("UserDefineName:" + stUsb3DeviceInfo.chUserDefinedName + "\n");
                     }
                 }
@@ -280,22 +284,20 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("Create device failed:" + nRet.ToString());
             }
         }
-        public void SetReverseX(int Index)
+        public void SetReverseX(int Index, bool IsReverse)
         {
-            bool bValue = true;
+            bool bValue = IsReverse;
             int nRet = deviceList[Index].MV_CC_SetBoolValue_NET("ReverseX", bValue);
-            nRet += deviceList[Index].MV_CC_SetEnumValue_NET("ReverseX", (uint)MyCamera.MV_IMG_FLIP_TYPE.MV_FLIP_HORIZONTAL);
             if (MyCamera.MV_OK != nRet)
             {
                 Console.WriteLine("Set ReverseX Value failed:" + nRet.ToString());
                 return;
             }
         }
-        public void SetReverseY(int Index)
+        public void SetReverseY(int Index , bool IsReverse)
         {
-            bool bValue = true;
+            bool bValue = IsReverse;
             int nRet = deviceList[Index].MV_CC_SetBoolValue_NET("ReverseY", bValue);
-            nRet += deviceList[Index].MV_CC_SetEnumValue_NET("ReverseY", (uint)MyCamera.MV_IMG_FLIP_TYPE.MV_FLIP_VERTICAL);
             if (MyCamera.MV_OK != nRet)
             {
                 LogMgr.SendLog("Set ReverseY Value failed: ErrorCode = " + nRet.ToString());
