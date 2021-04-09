@@ -195,7 +195,6 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("Create device failed:" + nRet.ToString());
                 return false;
             }
-            Ini(Index);
             return true;
         }
         public override int OpenCamera(string SerialNumber)
