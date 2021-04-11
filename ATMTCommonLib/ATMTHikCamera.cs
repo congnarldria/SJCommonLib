@@ -134,7 +134,7 @@ namespace ATMTCommonLib
             for (int i = 0; i < stDevList.nDeviceNum; i++)
             {
                 stDevList.pDeviceInfo[i] = TempDevList.pDeviceInfo[i];
-                deviceList[Indices[i]] = TempdeviceList[i];
+                deviceList[i] = TempdeviceList[i];
             }
         }
         public override List<string> EnumerateCamera()
@@ -195,6 +195,7 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("Create device failed:" + nRet.ToString());
                 return false;
             }
+            Ini(Index);
             return true;
         }
         public override int OpenCamera(string SerialNumber)
@@ -227,7 +228,6 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("Open device failed:" + nRet.ToString());
                 return -1;
             }
-            Ini(Index);
             return Index;
         }
         public void SetIsColor(int Index, bool IsColor)
@@ -293,7 +293,7 @@ namespace ATMTCommonLib
                 return;
             }
         }
-        public void SetReverseY(int Index , bool IsReverse)
+        public void SetReverseY(int Index, bool IsReverse)
         {
             bool bValue = IsReverse;
             int nRet = deviceList[Index].MV_CC_SetBoolValue_NET("ReverseY", bValue);
@@ -347,41 +347,45 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("GrabStop Fail" + nRet.ToString());
             }
         }
+        public bool[] IsGrabbing = new bool[] { false, false, false, false };
         public override HikImage OneShot(int Index)
         {
             try
             {
                 bool IsColor = false;
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
-                int nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
-                if (MyCamera.MV_OK != nRet)
-                {
-                    LogMgr.SendLog("Start Grab Fail" + nRet.ToString());
-                    return new HikImage(IntPtr.Zero, false, 0, 0);
-                }
+                int nRet = 0;
+                //if (IsGrabbing[Index])
+                //nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
+                //IsGrabbing[Index] = true;
+                //if (MyCamera.MV_OK != nRet)
+                //{
+                //    LogMgr.SendLog("Start Grab Fail" + nRet.ToString());
+                //    return new HikImage(IntPtr.Zero, false, 0, 0);
+                //}
                 nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 1000);
                 if (nRet == MyCamera.MV_OK)
                 {
                     if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
                     {
                         IsColor = false;
-                        nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
-                        if (MyCamera.MV_OK != nRet)
-                        {
-                            LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
-                            return new HikImage(IntPtr.Zero, false, 0, 0);
-                        }
+                        //nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                        //if (MyCamera.MV_OK != nRet)
+                        //{
+                        //    LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
+                        //    return new HikImage(IntPtr.Zero, false, 0, 0);
+                        //}
                         return new HikImage(stFrameInfo.pBufAddr, IsColor, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                     else
                     {
                         IsColor = true;
-                        nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
-                        if (MyCamera.MV_OK != nRet)
-                        {
-                            LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
-                            return new HikImage(IntPtr.Zero, false, 0, 0);
-                        }
+                        //nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                        //if (MyCamera.MV_OK != nRet)
+                        //{
+                        //    LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
+                        //    return new HikImage(IntPtr.Zero, false, 0, 0);
+                        //}
                         return new HikImage(stFrameInfo.pBufAddr, IsColor, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                 }
@@ -415,6 +419,13 @@ namespace ATMTCommonLib
                 //}
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
+                //if (nRet == MyCamera.MV_OK)
+                //    return new HikImage(stFrameInfo.pBufAddr, false, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
+                //else
+                //{
+                //    LogMgr.SendLog("Camera", "GrabError =" + nRet.ToString());
+                //    return new HikImage(IntPtr.Zero, false, 0, 0);
+                //}
                 if (nRet == MyCamera.MV_OK)
                 {
                     if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
@@ -438,8 +449,8 @@ namespace ATMTCommonLib
                 }
                 else
                 {
-                    LogMgr.SendLog("Camera " + (Index + 1).ToString() +  "Grab Time Out");
-                    return new HikImage(IntPtr.Zero, false, 0, 0);
+                    LogMgr.SendLog("Camera " + (Index + 1).ToString() + "Grab Time Out");
+                    return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
                 }
             }
             catch (Exception e)
@@ -469,7 +480,7 @@ namespace ATMTCommonLib
                     LogMgr.SendLog("Create device failed:" + nRet.ToString());
                     return false;
                 }
-                Ini(Index);
+                //Ini(Index);
                 return true;
             }
             catch (Exception e)
@@ -514,7 +525,7 @@ namespace ATMTCommonLib
         }
         public void CloseAndDestroy()
         {
-            for(int i = 0; i < deviceList.Count; i++)
+            for (int i = 0; i < deviceList.Count; i++)
             {
                 _ = deviceList[i].MV_CC_CloseDevice_NET();
             }
@@ -524,6 +535,6 @@ namespace ATMTCommonLib
             }
         }
     }
-   
+
     #endregion
 }
