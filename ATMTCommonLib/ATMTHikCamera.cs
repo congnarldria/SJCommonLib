@@ -88,7 +88,7 @@ namespace ATMTCommonLib
         public abstract HikImage GetLastOne(int Index);
     }
 
-    #region CameraImplementation
+    #region Hik
     public delegate void OnImageGrab(Object sender, ATMTImageGrabbedEventArgs e);
     [StructLayout(LayoutKind.Sequential)]
     public struct CamUserData
@@ -412,20 +412,8 @@ namespace ATMTCommonLib
         {
             try
             {
-                //if (!m_IsGrabbing)
-                //{
-                //    LogMgr.SendLog("m_IsGrabbing = " + m_IsGrabbing.ToString());
-                //    return new HikImage(IntPtr.Zero, false, 0, 0);
-                //}
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
-                //if (nRet == MyCamera.MV_OK)
-                //    return new HikImage(stFrameInfo.pBufAddr, false, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
-                //else
-                //{
-                //    LogMgr.SendLog("Camera", "GrabError =" + nRet.ToString());
-                //    return new HikImage(IntPtr.Zero, false, 0, 0);
-                //}
                 if (nRet == MyCamera.MV_OK)
                 {
                     if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)

@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATMTLog", "ATMTLog\ATMTLog.
 		{9C381AF8-2601-485A-8DEF-D884FB130CDA} = {9C381AF8-2601-485A-8DEF-D884FB130CDA}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVTecInspector", "MVTecInspector\MVTecInspector.csproj", "{FF6AC92B-25E2-4E5F-8208-7C7A7D372096}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonInspector", "MVTecInspector\CommonInspector.csproj", "{FF6AC92B-25E2-4E5F-8208-7C7A7D372096}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
