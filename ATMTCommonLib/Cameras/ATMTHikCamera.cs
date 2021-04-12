@@ -111,6 +111,7 @@ namespace ATMTCommonLib
         public List<MyCamera> TempdeviceList { get; set; } = new List<MyCamera>();
         public MyCamera.cbOutputExdelegate[] ImageCallback = new MyCamera.cbOutputExdelegate[4];
         public List<string> SerialNumbers = new List<string>();
+        public List<bool> IsGrabStart = new List<bool>();
         public HikCameras()
         {
 
@@ -177,6 +178,7 @@ namespace ATMTCommonLib
                         SerialNumbers.Add(stUsb3DeviceInfo.chSerialNumber);
                         deviceList.Add(new MyCamera());
                         TempdeviceList.Add(null);
+                        IsGrabStart.Add(false);
                         LogMgr.SendLog("UserDefineName:" + stUsb3DeviceInfo.chUserDefinedName + "\n");
                     }
                 }
@@ -327,7 +329,6 @@ namespace ATMTCommonLib
                 return;
             }
         }
-        private bool[] IsGrabStart = new bool[4] { false, false, false, false };
         public override void GrabStart(int Index)
         {
             try
@@ -335,6 +336,10 @@ namespace ATMTCommonLib
                 int nRet = 0;
                 if (!IsGrabStart[Index])
                     nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
+                else
+                {
+                    LogMgr.SendLog( "Camera" ,"Already Start" + Index.ToString());
+                }
                 IsGrabStart[Index] = true;
                 if (MyCamera.MV_OK != nRet)
                 {
@@ -357,6 +362,10 @@ namespace ATMTCommonLib
                     nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
                     IsGrabStart[Index] = false;
                 }
+                else
+                {
+                    LogMgr.SendLog("Already Stop" + Index.ToString());
+                }
                 if (MyCamera.MV_OK != nRet)
                 {
                     LogMgr.SendLog("GrabStop Fail" + nRet.ToString());
@@ -367,7 +376,7 @@ namespace ATMTCommonLib
                 LogMgr.SendLog(e.Message + "Cam" + Index.ToString(), e);
             }
         }
-        public bool[] IsGrabbing = new bool[] { false, false, false, false };
+        public bool[] IsGrabbing { get; set; } = new bool[] { false, false, false, false };
         public override HikImage OneShot(int Index)
         {
             try
@@ -432,6 +441,8 @@ namespace ATMTCommonLib
         {
             try
             {
+                if (!IsGrabbing[Index])
+                    GrabStart(Index);
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
                 if (nRet == MyCamera.MV_OK)
