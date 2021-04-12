@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATExtension.cs" />
-    <Compile Include="ATMTHikCamera.cs" />
+    <Compile Include="Cameras\ATMTHikCamera.cs" />
     <Compile Include="ATMTLogIn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -63,6 +63,7 @@
       <DependentUpon>ATMTLogIn.cs</DependentUpon>
     </Compile>
     <Compile Include="ATMTVirtualMouse.cs" />
+    <Compile Include="Cameras\HikCameraSD.cs" />
     <Compile Include="LogMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />

@@ -8,9 +8,6 @@ using System.Runtime.InteropServices;
 
 namespace ATMTCommonLib
 {
-    class ATMTHikCamera
-    {
-    }
     /// <summary>
     /// CallBack Args
     /// </summary>
@@ -208,6 +205,7 @@ namespace ATMTCommonLib
                 {
                     Index = i;
                     IsSerialNumberExist = true;
+                    break;
                 }
             }
             if (!IsSerialNumberExist)
@@ -330,21 +328,44 @@ namespace ATMTCommonLib
                 return;
             }
         }
+        private bool IsGrabStart = false;
         public override void GrabStart(int Index)
         {
-            int nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
-            if (MyCamera.MV_OK != nRet)
+            try
             {
-                LogMgr.SendLog("GrabStart Fail" + nRet.ToString());
+                int nRet = 0;
+                if (!IsGrabStart)
+                    nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
+                IsGrabStart = true;
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("GrabStart Fail" + nRet.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                LogMgr.SendLog(e.Message + "Cam" + Index.ToString(), e);
             }
         }
 
         public override void GrabStop(int Index)
         {
-            int nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
-            if (MyCamera.MV_OK != nRet)
+            try
             {
-                LogMgr.SendLog("GrabStop Fail" + nRet.ToString());
+                int nRet = 0;
+                if (IsGrabStart)
+                {
+                    nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                    IsGrabStart = false;
+                }
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("GrabStop Fail" + nRet.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                LogMgr.SendLog(e.Message + "Cam" + Index.ToString(), e);
             }
         }
         public bool[] IsGrabbing = new bool[] { false, false, false, false };
@@ -445,6 +466,22 @@ namespace ATMTCommonLib
             {
                 LogMgr.SendLog(e.Message, e);
                 return new HikImage(IntPtr.Zero, false, 0, 0);
+            }
+        }
+        /// <summary>
+        /// MV_GrabStrategy_OneByOne = 0,
+        /// MV_GrabStrategy_LatestImagesOnly = 1,
+        /// MV_GrabStrategy_LatestImages = 2,
+        /// MV_GrabStrategy_UpcomingImage = 3
+        /// </summary>
+        /// <param name="Index"></param>
+        /// <param name="GrabStrategy"></param>
+        public void SetGrabStrategy(int Index, int GrabStrategy)
+        {
+            int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImagesOnly);
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("SetStrategy Error = " + nRet.ToString());
             }
         }
         /// <summary>
