@@ -194,7 +194,7 @@ namespace ATMTCommonLib
                 LogMgr.SendLog("Create device failed:" + nRet.ToString());
                 return false;
             }
-            Ini(Index);
+            //Ini(Index);
             return true;
         }
         public override int OpenCamera(string SerialNumber)
@@ -253,7 +253,6 @@ namespace ATMTCommonLib
         {
             int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("ExposureAuto", 0);
             nRet = deviceList[Index].MV_CC_SetEnumValue_NET("GainAuto", 0);
-            nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_OneByOne);
             if (MyCamera.MV_OK != nRet)
             {
                 LogMgr.SendLog("Set number of image node fail:", nRet.ToString());
@@ -270,6 +269,14 @@ namespace ATMTCommonLib
         }
         private const int Off = 0;
         private const int On = 1;
+        public void SetStrategy(int Index)
+        {
+            int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImagesOnly);
+            if(nRet != 0)
+            {
+                LogMgr.SendLog("SetStrategy Fail = " + nRet,ToString());
+            }
+        }
         public override void SetTriggerMode(int Index, bool OnOff)
         {
             int nRet;
@@ -335,10 +342,13 @@ namespace ATMTCommonLib
             {
                 int nRet = 0;
                 if (!IsGrabStart[Index])
+                {
+                    IsGrabStart[Index] = true;
                     nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
+                }
                 else
                 {
-                    LogMgr.SendLog( "Camera" ,"Already Start" + Index.ToString());
+                    LogMgr.SendLog("Camera", "Already Start" + Index.ToString());
                 }
                 IsGrabStart[Index] = true;
                 if (MyCamera.MV_OK != nRet)
@@ -442,7 +452,10 @@ namespace ATMTCommonLib
             try
             {
                 if (!IsGrabbing[Index])
+                {
+                    IsGrabbing[Index] = true;
                     GrabStart(Index);
+                }
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
                 if (nRet == MyCamera.MV_OK)

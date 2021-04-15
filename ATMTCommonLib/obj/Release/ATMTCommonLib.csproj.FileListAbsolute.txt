@@ -31,3 +31,17 @@ C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonL
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.csproj.CopyComplete
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.dll
 C:\Users\仁杰\source\repos\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.pdb
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\ATMTCommonLib.dll
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\ATMTCommonLib.pdb
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\DotNetZip.dll
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\MvCameraControl.Net.dll
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\DotNetZip.pdb
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\DotNetZip.xml
+D:\XT200\ATMTCommonLib\ATMTCommonLib\bin\Release\MvCameraControl.Net.xml
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.csprojAssemblyReference.cache
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.ATMTLogIn.resources
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.csproj.GenerateResource.cache
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.csproj.CoreCompileInputs.cache
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.csproj.CopyComplete
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.dll
+D:\XT200\ATMTCommonLib\ATMTCommonLib\obj\Release\ATMTCommonLib.pdb
