@@ -234,7 +234,7 @@ namespace ATMTCommonLib
             if (IsColor)
             {
 
-                int nRet = deviceList[Index].MV_CC_SetPixelFormat_NET((uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_RGB8_Planar);
+                int nRet = deviceList[Index].MV_CC_SetPixelFormat_NET((uint)MyCamera.MvGvspPixelType.PixelType_Gvsp_BGR8_Packed);
                 if (MyCamera.MV_OK != nRet)
                 {
                     LogMgr.SendLog("Set Color failed:" + nRet.ToString());
@@ -353,12 +353,12 @@ namespace ATMTCommonLib
                 IsGrabStart[Index] = true;
                 if (MyCamera.MV_OK != nRet)
                 {
-                    LogMgr.SendLog("GrabStart Fail" + nRet.ToString());
+                    LogMgr.SendLog("Camera", "GrabStart Fail" + nRet.ToString());
                 }
             }
             catch (Exception e)
             {
-                LogMgr.SendLog(e.Message + "Cam" + Index.ToString(), e);
+                LogMgr.SendLog("Camera", e.Message + "Cam" + Index.ToString(), e);
             }
         }
 
@@ -394,44 +394,41 @@ namespace ATMTCommonLib
                 bool IsColor = false;
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = 0;
-                //if (IsGrabbing[Index])
-                //nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
-                //IsGrabbing[Index] = true;
-                //if (MyCamera.MV_OK != nRet)
-                //{
-                //    LogMgr.SendLog("Start Grab Fail" + nRet.ToString());
-                //    return new HikImage(IntPtr.Zero, false, 0, 0);
-                //}
+                if (IsGrabbing[Index])
+                {
+                    nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
+                    IsGrabbing[Index] = true;
+                }
                 nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 1000);
                 if (nRet == MyCamera.MV_OK)
                 {
                     if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
                     {
                         IsColor = false;
-                        //nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
-                        //if (MyCamera.MV_OK != nRet)
-                        //{
-                        //    LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
-                        //    return new HikImage(IntPtr.Zero, false, 0, 0);
-                        //}
+                        nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                        if (MyCamera.MV_OK != nRet)
+                        {
+                            LogMgr.SendLog("Stop Grab Fail" + Index.ToString() + nRet.ToString());
+                            return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
+                        }
                         return new HikImage(stFrameInfo.pBufAddr, IsColor, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                     else
                     {
                         IsColor = true;
-                        //nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
-                        //if (MyCamera.MV_OK != nRet)
-                        //{
-                        //    LogMgr.SendLog("Stop Grab Fail" + nRet.ToString());
-                        //    return new HikImage(IntPtr.Zero, false, 0, 0);
-                        //}
+                        nRet = deviceList[Index].MV_CC_StopGrabbing_NET();
+                        if (MyCamera.MV_OK != nRet)
+                        {
+                            LogMgr.SendLog("Stop Grab Fail" + Index.ToString() + nRet.ToString());
+                            return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
+                        }
                         return new HikImage(stFrameInfo.pBufAddr, IsColor, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                     }
                 }
                 else
                 {
-                    LogMgr.SendLog("Grab Time Out");
-                    return new HikImage(IntPtr.Zero, false, 0, 0);
+                    LogMgr.SendLog("Grab Time Out " + Index.ToString());
+                    return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
                 }
 
             }
@@ -488,7 +485,7 @@ namespace ATMTCommonLib
             catch (Exception e)
             {
                 LogMgr.SendLog(e.Message, e);
-                return new HikImage(IntPtr.Zero, false, 0, 0);
+                return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
             }
         }
         /// <summary>
@@ -501,10 +498,37 @@ namespace ATMTCommonLib
         /// <param name="GrabStrategy"></param>
         public void SetGrabStrategy(int Index, int GrabStrategy)
         {
-            int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImagesOnly);
-            if (MyCamera.MV_OK != nRet)
+            if (GrabStrategy == 0)
             {
-                LogMgr.SendLog("SetStrategy Error = " + nRet.ToString());
+                int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_OneByOne);
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("SetStrategy Error = " + nRet.ToString());
+                }
+            }
+            if (GrabStrategy == 1)
+            {
+                int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImagesOnly);
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("SetStrategy Error = " + nRet.ToString());
+                }
+            }
+            if (GrabStrategy == 2)
+            {
+                int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImages);
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("SetStrategy Error = " + nRet.ToString());
+                }
+            }
+            if (GrabStrategy == 3)
+            {
+                int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_UpcomingImage);
+                if (MyCamera.MV_OK != nRet)
+                {
+                    LogMgr.SendLog("SetStrategy Error = " + nRet.ToString());
+                }
             }
         }
         /// <summary>

@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ATMTCommonLib">
+      <HintPath>..\ATMTCommonLib\bin\Debug\ATMTCommonLib.dll</HintPath>
+    </Reference>
     <Reference Include="halcondotnetxl">
       <HintPath>..\..\..\..\..\..\Program Files\MVTec\HALCON-18.11-Steady\bin\dotnet35\halcondotnetxl.dll</HintPath>
     </Reference>
@@ -45,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="HwinEdit.cs" />
     <Compile Include="InsBase.cs" />
     <Compile Include="MeasurePrmTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

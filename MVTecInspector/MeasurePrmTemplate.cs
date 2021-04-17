@@ -12,32 +12,6 @@ namespace CommonInspector
     {
 
     }
-    public class Tc
-    {
-        public static bool IsValid(HObject obj)
-        {
-            if (obj == null) return false;
-            if (!obj.IsInitialized())
-            {
-                return false;
-            }
-            return true;
-        }
-        public static bool IsTupleNotEmptry(HTuple val)
-        {
-            if (val == null) return false;
-            HOperatorSet.TupleLength(val, out HTuple Count);
-            if (Count > 0)
-                return true;
-            else
-                return false;
-        }
-        public static void SafeDispose(HObject obj)
-        {
-            if (IsValid(obj))
-                obj.Dispose();
-        }
-    }
     public enum EmTransition { all, positive, negative, separate }
     public enum EmSelect { all, first, last, separate }
     [Serializable]
