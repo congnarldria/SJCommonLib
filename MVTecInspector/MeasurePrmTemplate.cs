@@ -137,7 +137,4 @@ namespace CommonInspector
             }
         }
     }
-    public enum EmMetrologyPrm { distance_threshold, instances_outside_measure_regions, max_num_iterations, measure_distance, measure_interpolation, measure_select, measure_transition, min_score, num_instances, num_measures, rand_seed }
-
 }
-

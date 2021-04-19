@@ -48,9 +48,9 @@ namespace CommonInspector
         {
 
         }
-        public TWindowInfoBase(InsType _type, double r1, double c1, double r2, double c2, bool IsUpSide)
+        public TWindowInfoBase(EmInsType _type, double r1, double c1, double r2, double c2, bool IsUpSide)
         {
-            insType = _type;
+            InsType = _type;
             Row1 = r1;
             Col1 = c1;
             Row2 = r2;
@@ -65,7 +65,9 @@ namespace CommonInspector
             Row2 = r2;
             Col2 = c2;
             UpSide = IsUpSide;
+            IsMeasure = true;
         }
+        public bool IsMeasure { get; set; } = false;
         [XmlIgnore]
         public TWindowInfoBase SubWin { get; set; } = null;
         public double DX { get; set; } = 0;
@@ -88,7 +90,7 @@ namespace CommonInspector
         }
         [XmlIgnore]
         public bool IsXXMark = false;
-        public InsType insType { get; set; }
+        public EmInsType InsType { get; set; }
         public EmMeasureType MeasureType { get; set; }
         public EmAlignType AlignType { get; set; }
         [XmlIgnore]
@@ -100,14 +102,11 @@ namespace CommonInspector
                 {
                     return EmWindowEditType.Rec2;
                 }
-                else if (MeasureType == EmMeasureType.MeasureLine)
+                if (MeasureType == EmMeasureType.MeasureLine)
                 {
                     return EmWindowEditType.Line;
                 }
-                else
-                {
-                    return EmWindowEditType.Rec;
-                }
+                return EmWindowEditType.Rec;
             }
         }
         public bool UpSide { get; set; } = true;
@@ -144,6 +143,9 @@ namespace CommonInspector
         public double Row2 { get; set; } = 0;
         public double Col1 { get; set; } = 10;
         public double Col2 { get; set; } = 10;
+        /// <summary>
+        /// Clear non Rectangle Aligned
+        /// </summary>
         public void ClearAligned()
         {
             dr = 0;
@@ -562,39 +564,91 @@ namespace CommonInspector
         {
             ID = Index;
         }
-        public List<TWindowInfoBase> Wins { get; set; } = new List<TWindowInfoBase>();
+        public virtual List<TWindowInfoBase> Wins { get; set; } = new List<TWindowInfoBase>();
     }
     [Serializable]
     public class TRecipeBase
     {
-        public  virtual  T  Load<T>(string FileName)
+        public TRecipeBase()
         {
-            T rcp;
-            XmlSerializer mySerializer = new XmlSerializer(typeof(T));
+
+        }
+        public List<TViewBase> Views = new List<TViewBase>();
+        public static TRecipeBase Load(string FileName)
+        {
+            TRecipeBase rcp = null;
+            XmlSerializer mySerializer = new XmlSerializer(typeof(TRecipeBase));
             try
             {
                 if (File.Exists(FileName))
                 {
                     using (FileStream myFileStream = new FileStream(FileName, FileMode.Open))
                     {
-                        rcp = (T)mySerializer.Deserialize(myFileStream);
+                        rcp = (TRecipeBase)mySerializer.Deserialize(myFileStream);
                     }
                 }
                 else
                 {
-                    if (File.Exists(Environment.CurrentDirectory+ "\\Recipe\\Default.rcp"))
+                    if (File.Exists(Environment.CurrentDirectory + "\\Recipe\\Default.rcp"))
                     {
-                        rcp = Load<T>(Environment.CurrentDirectory + "\\Recipe\\Default.rcp");
+                        rcp = Load(Environment.CurrentDirectory + "\\Recipe\\Default.rcp");
                     }
                 }
             }
             catch (Exception e)
             {
-                return default(T);
+                LogMgr.SendLog("Recipe", e.Message, e);
+                return new TRecipeBase();
             }
-            return default(T);
+            return rcp;
+        }
+        public virtual void Save()
+        {
+
         }
     }
+    public class TSystemBase
+    {
+        public TSystemBase()
+        {
+
+        }
+    }
+    public class TSystemSDBase
+    {
+        public TCameraSDBase cameraSD { get; set; } = new TCameraSDBase();
+        public string LastRecipeName { get; set; } = string.Empty;
+        public string SaveImagePath { get; set; } = Environment.CurrentDirectory + "\\ImageLog";
+        public string ReportPath { get; set; } = Environment.CurrentDirectory + "\\Report";
+        public static TSystemSDBase Load()
+        {
+            TSystemSDBase sys;
+            XmlSerializer mySerializer = new XmlSerializer(typeof(TSystemSDBase));
+            try
+            {
+                using (FileStream myFileStream = new FileStream(Environment.CurrentDirectory + "\\System.xml", FileMode.Open))
+                {
+                    sys = (TSystemSDBase)mySerializer.Deserialize(myFileStream);
+                }
+            }
+            catch
+            {
+                sys = new TSystemSDBase();
+            }
+            return sys;
+        }
+        public void Save()
+        {
+            XmlSerializer ser = new XmlSerializer(typeof(TSystemSDBase));
+            using (TextWriter writer = new StreamWriter(Environment.CurrentDirectory + "\\System.xml"))
+            {
+                ser.Serialize(writer, this);
+            }
+        }
+    }
+    /// <summary>
+    /// Common Use Halcon Static Function
+    /// </summary>
     public class Tc
     {
         public static bool IsValid(HObject obj)
@@ -621,4 +675,45 @@ namespace CommonInspector
                 obj.Dispose();
         }
     }
+    public class VDM
+    {
+        private static VDM _VDM = new VDM();
+        public static VDM Sgt
+        {
+            get
+            {
+                return _VDM;
+            }
+        }
+        public TRecipeBase rcp = new TRecipeBase();
+        public TSystemSDBase systemSD = new TSystemSDBase();
+    }
+    #region  AllClass
+    [Serializable]
+    public  class TCamInfoBase
+    {
+        public int Index { get; set; }
+        public int CamRealIndex { get; set; }
+        public string Description { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public string SerialNumber { get; set; }
+        public double ExposureTime { get; set; } = 10000;
+        public double Resolution { get; set; } = 1;
+        public double Gain { get; set; } = 0;
+        public double Gamma { get; set; } = 1;
+        public int LineDebounceTime { get; set; } = 0;
+        [XmlIgnore]
+        public bool IsGrabbing { get; set; } = false;
+        [XmlIgnore]
+        public bool IsAvailable { get; set; } = false;
+        [XmlIgnore]
+        public bool IsOpen { get; set; } = false;
+    }
+    [Serializable]
+    public class TCameraSDBase
+    {
+        public List<TCamInfoBase> CamInfo = new List<TCamInfoBase>();
+    }
+    #endregion
 }
