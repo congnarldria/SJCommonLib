@@ -485,7 +485,18 @@ namespace ATMTCommonLib
                 lock (GrabLockObj)
                 {
                     MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
-                    int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
+                    int nRet;
+                    long CNT = 0;
+                    while (true)
+                    {
+                         nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 0);
+                        if (nRet == MyCamera.MV_OK)
+                            break;
+                        CNT++;
+                        SpinWait.SpinUntil(() => false, 10);
+                        if (CNT > 500)
+                            break;
+                    }
                     if (nRet == MyCamera.MV_OK)
                     {
                         if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
