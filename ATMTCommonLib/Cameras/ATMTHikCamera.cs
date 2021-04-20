@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MvCamCtrl.NET;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace ATMTCommonLib
 {
@@ -111,7 +112,7 @@ namespace ATMTCommonLib
         public List<MyCamera> TempdeviceList { get; set; } = new List<MyCamera>();
         public MyCamera.cbOutputExdelegate[] ImageCallback = new MyCamera.cbOutputExdelegate[4];
         public List<string> SerialNumbers = new List<string>();
-        public List<bool> IsGrabStart = new List<bool>();
+        public List<bool> IsGrabStart { get; set; } = new List<bool>();
         public HikCameras()
         {
 
@@ -252,10 +253,14 @@ namespace ATMTCommonLib
         private void Ini(int Index)
         {
             int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("ExposureAuto", 0);
-            nRet = deviceList[Index].MV_CC_SetEnumValue_NET("GainAuto", 0);
+            int mRet = deviceList[Index].MV_CC_SetEnumValue_NET("GainAuto", 0);
             if (MyCamera.MV_OK != nRet)
             {
-                LogMgr.SendLog("Set number of image node fail:", nRet.ToString());
+                LogMgr.SendLog("Set ExposureAuto fail:", nRet.ToString());
+            }
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set GainAuto node fail:", mRet.ToString());
             }
             SetTriggerMode(Index, false);
         }
@@ -269,12 +274,26 @@ namespace ATMTCommonLib
         }
         private const int Off = 0;
         private const int On = 1;
-        public void SetStrategy(int Index)
+        public void SetStrategyLatestImagesOnly(int Index)
         {
             int nRet = deviceList[Index].MV_CC_SetGrabStrategy_NET(MyCamera.MV_GRAB_STRATEGY.MV_GrabStrategy_LatestImagesOnly);
-            if(nRet != 0)
+            if (nRet != 0)
             {
-                LogMgr.SendLog("SetStrategy Fail = " + nRet,ToString());
+                LogMgr.SendLog("SetStrategyLatestImagesOnly Fail = " + nRet, ToString());
+            }
+        }
+        /// <summary>
+        ///  MV_ACQ_MODE_SINGLE = 0,
+        ///  MV_ACQ_MODE_MUTLI = 1,
+        ///  MV_ACQ_MODE_CONTINUOUS = 2
+        /// </summary>
+        public void SetAcquisitionMode(int Index , uint Mode)
+        {
+            // ch:设置采集连续模式 | en:Set Continues Aquisition Mode
+            int nRet = deviceList[Index].MV_CC_SetEnumValue_NET("AcquisitionMode", Mode);
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set AcquisitionMode failed:" + nRet.ToString());
             }
         }
         public override void SetTriggerMode(int Index, bool OnOff)
@@ -386,7 +405,11 @@ namespace ATMTCommonLib
                 LogMgr.SendLog(e.Message + "Cam" + Index.ToString(), e);
             }
         }
-        public bool[] IsGrabbing { get; set; } = new bool[] { false, false, false, false };
+        /// <summary>
+        ///  It Takes Too Much Time When Stop Camera
+        /// </summary>
+        /// <param name="Index"></param>
+        /// <returns></returns>
         public override HikImage OneShot(int Index)
         {
             try
@@ -394,10 +417,10 @@ namespace ATMTCommonLib
                 bool IsColor = false;
                 MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
                 int nRet = 0;
-                if (IsGrabbing[Index])
+                if (IsGrabStart[Index])
                 {
                     nRet = deviceList[Index].MV_CC_StartGrabbing_NET();
-                    IsGrabbing[Index] = true;
+                    IsGrabStart[Index] = true;
                 }
                 nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 1000);
                 if (nRet == MyCamera.MV_OK)
@@ -444,42 +467,51 @@ namespace ATMTCommonLib
                 return new HikImage(IntPtr.Zero, false, 0, 0);
             }
         }
+        private static readonly object GrabLockObj = new object();
+        /// <summary>
+        ///  Grab Stategy Set GetLastImagesOnly that may Effective
+        /// </summary>
+        /// <param name="Index">Camera Index</param>
+        /// <returns></returns>
         public override HikImage GetLastOne(int Index)
         {
             try
             {
-                if (!IsGrabbing[Index])
+                if (!IsGrabStart[Index])
                 {
-                    IsGrabbing[Index] = true;
+                    IsGrabStart[Index] = true;
                     GrabStart(Index);
                 }
-                MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
-                int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
-                if (nRet == MyCamera.MV_OK)
+                lock (GrabLockObj)
                 {
-                    if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
+                    MyCamera.MV_FRAME_OUT stFrameInfo = new MyCamera.MV_FRAME_OUT();
+                    int nRet = deviceList[Index].MV_CC_GetImageBuffer_NET(ref stFrameInfo, 2000);
+                    if (nRet == MyCamera.MV_OK)
                     {
-                        nRet = deviceList[Index].MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
-                        if (MyCamera.MV_OK != nRet)
+                        if (stFrameInfo.stFrameInfo.enPixelType == MyCamera.MvGvspPixelType.PixelType_Gvsp_Mono8)
                         {
-                            Console.WriteLine("Free Image Buffer fail:{0:x8}", nRet);
+                            nRet = deviceList[Index].MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
+                            if (MyCamera.MV_OK != nRet)
+                            {
+                                Console.WriteLine("Free Image Buffer fail:{0:x8}", nRet);
+                            }
+                            return new HikImage(stFrameInfo.pBufAddr, false, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
                         }
-                        return new HikImage(stFrameInfo.pBufAddr, false, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
+                        else
+                        {
+                            nRet = deviceList[Index].MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
+                            if (MyCamera.MV_OK != nRet)
+                            {
+                                Console.WriteLine("Free Image Buffer fail:{0:x8}", nRet);
+                            }
+                            return new HikImage(stFrameInfo.pBufAddr, true, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
+                        }
                     }
                     else
                     {
-                        nRet = deviceList[Index].MV_CC_FreeImageBuffer_NET(ref stFrameInfo);
-                        if (MyCamera.MV_OK != nRet)
-                        {
-                            Console.WriteLine("Free Image Buffer fail:{0:x8}", nRet);
-                        }
-                        return new HikImage(stFrameInfo.pBufAddr, true, stFrameInfo.stFrameInfo.nWidth, stFrameInfo.stFrameInfo.nHeight);
+                        LogMgr.SendLog("Camera " + (Index + 1).ToString() + "GetLastOne Grab Error = " + nRet.ToString());
+                        return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
                     }
-                }
-                else
-                {
-                    LogMgr.SendLog("Camera " + (Index + 1).ToString() + "GetLastOne Grab Error = " + nRet.ToString());
-                    return new HikImage(IntPtr.Zero, false, (uint)Index, (uint)Index);
                 }
             }
             catch (Exception e)
@@ -489,10 +521,81 @@ namespace ATMTCommonLib
             }
         }
         /// <summary>
+        /// default 5
+        /// </summary>
+        private uint ImageBufferCount = 5;
+        /// <summary>
+        ///  UInt32 nImageNodeNum = 5;
+        //    en:Set number of image node
+        /// </summary>
+        /// <param name="Index"></param>
+        /// <param name="Count"></param>
+        public void SetImageBufferCount(int Index, uint Count)
+        {
+            int nRet = deviceList[Index].MV_CC_SetImageNodeNum_NET(Count);
+            ImageBufferCount = Count;
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set Buffer Fail = " + nRet.ToString());
+            }
+        }
+        public uint GetBufferCount()
+        {
+            return ImageBufferCount;
+        }
+        /// <summary>
+        /// en:Set Trigger Mode and Set Trigger Source
+        /// </summary>
+        /// <param name="Index"></param>
+        public void SetSoftwareTriggerModeOn(int Index)
+        {
+            int nRet = deviceList[Index].MV_CC_SetEnumValueByString_NET("TriggerMode", "On");
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set Trigger Mode failed:{0:x8}" + nRet.ToString());
+            }
+            nRet = deviceList[Index].MV_CC_SetEnumValueByString_NET("TriggerSource", "Software");
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set Trigger Source failed:{0:x8}" + nRet.ToString());
+            }
+        }
+        /// <summary>
+        /// en:Set Trigger Mode and Set Trigger Source
+        /// </summary>
+        /// <param name="Index"></param>
+        public void ReSetSoftwareTriggerModeOn(int Index)
+        {
+            int nRet = deviceList[Index].MV_CC_SetEnumValueByString_NET("TriggerMode", "Off");
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set Trigger Mode failed:{0:x8}" + nRet.ToString());
+            }
+            nRet = deviceList[Index].MV_CC_SetEnumValueByString_NET("TriggerSource", "Software");
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Set Trigger Source failed:{0:x8}" + nRet.ToString());
+            }
+        }
+        /// <summary>
+        ///  en:Send Trigger Software command
+        /// </summary>
+        public void SendSoftwareTriggerCommand(int Index)
+        {
+            int nRet = deviceList[Index].MV_CC_SetCommandValue_NET("TriggerSoftware");
+            if (MyCamera.MV_OK != nRet)
+            {
+                LogMgr.SendLog("Send Trigger Software command fail:{0:x8}" + nRet.ToString());
+
+            }
+            Thread.Sleep(0);//如果帧率过小或TriggerDelay很大，可能会出现软触发命令没有全部起效而导致取不到数据的情况
+        }
+        /// <summary>
         /// MV_GrabStrategy_OneByOne = 0,
         /// MV_GrabStrategy_LatestImagesOnly = 1,
         /// MV_GrabStrategy_LatestImages = 2,
         /// MV_GrabStrategy_UpcomingImage = 3
+        /// en:U3V device not support UpcomingImage
         /// </summary>
         /// <param name="Index"></param>
         /// <param name="GrabStrategy"></param>
