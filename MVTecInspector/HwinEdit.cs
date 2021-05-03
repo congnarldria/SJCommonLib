@@ -10,6 +10,6 @@ namespace CommonInspector
 {
     class ThWinEdit
     {
-
+        
     }
 }

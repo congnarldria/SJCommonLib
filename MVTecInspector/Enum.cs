@@ -12,4 +12,6 @@ namespace CommonInspector
     public enum EmWindowEditType { Rec, Rec2, Line, Polygon }
     public  enum PreType { 無, 高斯平滑, 中值, 灰階閉運算 , 灰階開運算 }
     public enum EmMetrologyPrm { distance_threshold, instances_outside_measure_regions, max_num_iterations, measure_distance, measure_interpolation, measure_select, measure_transition, min_score, num_instances, num_measures, rand_seed }
+
+    //public enum 
 }

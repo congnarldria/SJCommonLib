@@ -19,10 +19,7 @@ namespace CommonInspector
     [Serializable]
     public class TAlignInfoBase : ICloneable
     {
-        public TAlignInfoBase()
-        {
-
-        }
+        public TAlignInfoBase() { }
         public double Row { get; set; }
         public double Col { get; set; }
         public double Angle { get; set; }
@@ -41,35 +38,188 @@ namespace CommonInspector
             return MemberwiseClone();
         }
     }
-    [Serializable]
-    public class TWindowInfoBase : ICloneable, IDisposable
+    public partial class TWindowEditor
     {
-        public TWindowInfoBase()
+        private double HX = 0, HY = 0;
+        private double MX = 0, MY = 0;
+        HTuple DrawID = 0;
+        public bool bIsDrawing = false;
+        public int ZoomIndex = 2;
+        private double[] ZoomFactor = new double[10] { 0.125, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64 };
+        public TWindowEditor() { }
+        private HWindow hWin
         {
-
+            get
+            {
+                return hWinX.HalconWindow;
+            }
         }
-        public TWindowInfoBase(EmInsType _type, double r1, double c1, double r2, double c2, bool IsUpSide)
+        private static HWindowControl hWinX;
+        private void AddAnyMeasure<T>(EmMeasureType _type, int InspectIndex, HTuple PartRow, HTuple PartCol, HTuple PartWidth, HTuple PartHeight)
+        {
+            EmMeasureType mes = _type;
+            hWinX.Focus();
+            HTuple Row1, Row2, Col1, Col2;
+            HOperatorSet.SetColor(hWinX.HalconWindow, "red");
+            HOperatorSet.SetFont(hWinX.HalconWindow, "Verdana-Normal-14");
+            HOperatorSet.DispText(hWinX.HalconWindow, "滑鼠左鍵編輯，按右鍵結束編輯", "image", PartRow, PartCol, "black", "box", "true");
+            hWinX.Focus();
+            if (mes == EmMeasureType.MeasureLine | mes == EmMeasureType.MeasurePoint | mes == EmMeasureType.MeasurePair)
+            {
+                bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                HOperatorSet.DrawLine(hWin, out Row1, out Col1, out Row2, out Col2);
+                ATMTVirtualMouse.UnLockCursor();
+                TWindow NewWindow = new TWindow(mes, Row1, Col1, Row2, Col2);
+                NewWindow.AddMetrologyObjectLineMeasurePrm.RowBegin = Row1;
+                NewWindow.AddMetrologyObjectLineMeasurePrm.ColumnBegin = Col1;
+                NewWindow.AddMetrologyObjectLineMeasurePrm.RowEnd = Row2;
+                NewWindow.AddMetrologyObjectLineMeasurePrm.ColumnEnd = Col2;
+                NewWindow.Row = (Row1 + Row2) / 2.0f;
+                NewWindow.Col = (Col1 + Col2) / 2.0f;
+                HOperatorSet.AngleLx(Row1, Col1, Row2, Col2, out HTuple Phi);
+                NewWindow.Phi = Phi;
+                HOperatorSet.DistancePp(Row1, Col1, Row2, Col2, out HTuple Distance);
+                NewWindow.L1 = Distance / 2;
+                NewWindow.L2 = Distance / 10 + 1.5;
+                HOperatorSet.GenRectangle2(out HObject Rect, NewWindow.Row, NewWindow.Col, NewWindow.Phi, NewWindow.L1, NewWindow.L2);
+                HOperatorSet.SmallestRectangle1(Rect, out Row1, out Col1, out Row2, out Col2);
+                NewWindow.Row1 = Row1;
+                NewWindow.Row2 = Row2;
+                NewWindow.Col1 = Col1;
+                NewWindow.Col2 = Col2;
+                NewWindow.MeasureType = mes;
+                VDM.Sgt.rcp.Views[InspectIndex].Wins.Add(NewWindow);
+                Rect.Dispose();
+            }
+            else
+            {
+                bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                HOperatorSet.DrawRectangle1Mod(hWinX.HalconWindow, MY, MX, MY + 100 / ZoomFactor[ZoomIndex], MX + 100 / ZoomFactor[ZoomIndex], out Row1, out Col1, out Row2, out Col2);
+                ATMTVirtualMouse.UnLockCursor();
+                HOperatorSet.GenRectangle1(out HObject Rec, Row1, Col1, Row2, Col2);
+                HOperatorSet.SmallestRectangle1(Rec, out Row1, out Col1, out Row2, out Col2);
+                TWindow w = new TWindow(mes, Row1, Col1, Row2, Col2);
+                if (mes == EmMeasureType.NccModel)
+                    w.AlignType = EmAlignType.NccModel;
+                else
+                    w.AlignType = EmAlignType.ShapeModel;
+                w.MeasureType = mes;
+                VDM.Sgt.rcp.Views[InspectIndex].Wins.Add(w);
+                Rec.Dispose();
+            }
+        }
+        private void EditWin(int InspectIndex, int WindowIndex, HTuple PartRow, HTuple PartCol)
+        {
+            hWinX.Focus();
+            if (WindowIndex > -1)
+            {
+                HTuple Row1, Row2, Col1, Col2;
+                if (VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].WindowEditType == EmWindowEditType.Rec)
+                {
+                    HOperatorSet.SetColor(hWinX.HalconWindow, "red");
+                    HOperatorSet.SetFont(hWinX.HalconWindow, "Verdana-Normal-14");
+                    HOperatorSet.DispText(hWinX.HalconWindow, "滑鼠左鍵編輯，按右鍵結束編輯", "image", PartRow, PartCol, "black", "box", "true");
+                    hWinX.Focus();
+                    bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                    HOperatorSet.DrawRectangle1Mod(hWinX.HalconWindow, VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row1
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col1
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row2
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col2, out Row1, out Col1, out Row2, out Col2);
+                    ATMTVirtualMouse.UnLockCursor();
+                    HOperatorSet.GenRectangle1(out HObject Rec, Row1, Col1.D, Row2, Col2);
+                    HOperatorSet.SmallestRectangle1(Rec, out Row1, out Col1, out Row2, out Col2);
+                    Rec.Dispose();
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row1 = Row1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col1 = Col1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row2 = Row2;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col2 = Col2;
+                }
+                else if (VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].WindowEditType == EmWindowEditType.Rec2)
+                {
+                    HOperatorSet.SetColor(hWinX.HalconWindow, "red");
+                    HOperatorSet.SetFont(hWinX.HalconWindow, "Verdana-Normal-14");
+                    HOperatorSet.DispText(hWinX.HalconWindow, "滑鼠左鍵編輯，按右鍵結束編輯", "image", PartRow, PartCol, "black", "box", "true");
+                    hWinX.Focus();
+                    bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                    HOperatorSet.DrawRectangle2Mod(hWinX.HalconWindow, VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Phi
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].L1
+                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].L2
+                        , out HTuple Row, out HTuple Col, out HTuple Phi, out HTuple L1, out HTuple L2);
+                    ATMTVirtualMouse.UnLockCursor();
+                    HOperatorSet.GenRectangle2(out HObject Rec2, Row, Col, Phi, L1, L2);
+                    HOperatorSet.SmallestRectangle1(Rec2, out Row1, out Col1, out Row2, out Col2);
+                    Rec2.Dispose();
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row1 = Row1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col1 = Col1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row2 = Row2;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col2 = Col2;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row = Row;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col = Col;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Phi = Phi;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].L1 = L1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].L2 = L2;
+                }
+                else
+                {
+                    HOperatorSet.DrawLineMod(hWinX.HalconWindow
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.RowBegin
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.ColumnBegin
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.RowEnd
+                        , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.ColumnEnd
+                        , out HTuple RowBegin, out HTuple ColBegin, out HTuple RowEnd, out HTuple ColEnd);
+                    HOperatorSet.GenRegionLine(out HObject Line, RowBegin, ColBegin, RowEnd, ColEnd);
+                    HOperatorSet.SmallestRectangle1(Line, out Row1, out Col1, out Row2, out Col2);
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.RowBegin = RowBegin;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.ColumnBegin = ColBegin;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.RowEnd = RowEnd;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].AddMetrologyObjectLineMeasurePrm.ColumnEnd = ColEnd;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row1 = Row1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col1 = Col1;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row2 = Row2;
+                    VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col2 = Col2;
+                }
+            }
+        }
+
+    }
+    public interface IHWindow
+    {
+        void IHWindow(HWindowControl wc , double r1, double c1, double r2, double c2);
+    }
+    [Serializable]
+    public class TWindow : ICloneable, IDisposable
+    {
+        public TWindow() { }
+        public TWindow(EmInsType _type, double r1, double c1, double r2, double c2)
         {
             InsType = _type;
             Row1 = r1;
             Col1 = c1;
             Row2 = r2;
             Col2 = c2;
-            UpSide = IsUpSide;
         }
-        public TWindowInfoBase(EmMeasureType _type, double r1, double c1, double r2, double c2, bool IsUpSide)
+        public TWindow(EmMeasureType _type, double r1, double c1, double r2, double c2)
         {
             MeasureType = _type;
             Row1 = r1;
             Col1 = c1;
             Row2 = r2;
             Col2 = c2;
-            UpSide = IsUpSide;
             IsMeasure = true;
         }
+        private HWindow hWin
+        {
+            get
+            {
+                return hWinX.HalconWindow;
+            }
+        }
+        private HWindowControl hWinX { get; set; }
         public bool IsMeasure { get; set; } = false;
         [XmlIgnore]
-        public TWindowInfoBase SubWin { get; set; } = null;
+        public TWindow SubWin { get; set; } = null;
         public double DX { get; set; } = 0;
         public double DY { get; set; } = 0;
         [XmlIgnore]
@@ -88,28 +238,10 @@ namespace CommonInspector
                 return Row2 - Row1 + 1;
             }
         }
-        [XmlIgnore]
-        public bool IsXXMark = false;
-        public EmInsType InsType { get; set; }
-        public EmMeasureType MeasureType { get; set; }
-        public EmAlignType AlignType { get; set; }
-        [XmlIgnore]
-        public EmWindowEditType WindowEditType
-        {
-            get
-            {
-                if (MeasureType == EmMeasureType.MeasurePair || MeasureType == EmMeasureType.MeasurePoint)
-                {
-                    return EmWindowEditType.Rec2;
-                }
-                if (MeasureType == EmMeasureType.MeasureLine)
-                {
-                    return EmWindowEditType.Line;
-                }
-                return EmWindowEditType.Rec;
-            }
-        }
-        public bool UpSide { get; set; } = true;
+        public EmInsType InsType { get; set; } = EmInsType.NA;
+        public EmMeasureType MeasureType { get; set; } = EmMeasureType.MeasurePoint;
+        public EmAlignType AlignType { get; set; } = EmAlignType.ShapeModel;
+        public EmWindowEditType WindowEditType { get; set; } = EmWindowEditType.Rec;
         private TAlignInfoBase _AlignInfo = new TAlignInfoBase();
         public TAlignInfoBase AlignInfo
         {
@@ -134,8 +266,6 @@ namespace CommonInspector
                 }
             }
         }
-        public TMeasurePosPrm MeasurePosPrm { get; set; } = new TMeasurePosPrm();
-        public TAddMetrologyObjectLineMeasurePrm AddMetrologyObjectLineMeasurePrm { get; set; } = new TAddMetrologyObjectLineMeasurePrm();
         public bool DeepClone { get; set; } = false;
         public string AlignTo { get; set; } = string.Empty;
         public string GoldenAlignTo { get; set; } = string.Empty;
@@ -193,55 +323,18 @@ namespace CommonInspector
         }
         public double L1 { get; set; } = 100;
         public double L2 { get; set; } = 5;
-        public int UnitX { get; set; } = 1;
-        public int UnitY { get; set; } = 1;
-        public int RealX { get; set; } = 1;
-        public int RealY { get; set; } = 1;
-        public int BlockX { get; set; } = 1;
-        public int BlockY { get; set; } = 1;
-        public int RealBlockX { get; set; } = 1;
-        public int RealBlockY { get; set; } = 1;
         public int SearchW { get; set; } = 300;
-        public int SearchH { get; set; } = 100;
-        public bool UseTh { get; set; } = false;
-        public bool UseMTh { get; set; } = false;
-        public bool UseMorth { get; set; } = false;
-        public int Range { get; set; } = 3;
-        public bool MorphDark { get; set; } = false;
-        public int DynTh { get; set; } = 30;
-        public double MinArea { get; set; } = 0;
-        public double Diameter { get; set; } = 0;
-        public double Ratio { get; set; } = 1;
-        public bool UseSingle { get; set; } = false;
-        public bool PrintThUse { get; set; } = false;
-        public int PrintTh { get; set; } = 0;
-        public int Circulity { get; set; } = 80;
-        public double Rectangularity { get; set; } = 5;
-        [XmlIgnore]
-        public double MeasureRectangularity { get; set; } = 0;
-        public int Erosion { get; set; } = 0;
-        public int DefectGray { get; set; } = 0;
-        public bool IsGraySmaller { get; set; } = false;
+        public int SearchH { get; set; } = 300;
         public string PreImage { get; set; } = PreType.無.ToString();
         public int PreMask { get; set; } = 3;
-        public bool PinDirRight { get; set; } = true;
-        public int Score { get; set; } = 60;
         public bool IsAlignSuccess = false;
         public bool IsGoldenAlignSuccess = false;
+        public int Score { get; set; } = 60;
+        //Additional Declare
+        public TMeasurePosPrm MeasurePosPrm { get; set; } = new TMeasurePosPrm();
+        public TAddMetrologyObjectLineMeasurePrm AddMetrologyObjectLineMeasurePrm { get; set; } = new TAddMetrologyObjectLineMeasurePrm();
         [XmlIgnore]
         public int FindScore { get; set; } = 0;
-        public int ThL { get; set; } = 0;
-        public int ThH { get; set; } = 10;
-        public int VarTh { get; set; } = 15;
-        public int VarArea { get; set; } = 25;
-        public bool Darker { get; set; } = true;
-        public int Dilate { get; set; } = 0;
-        //GlueOverFlow
-        public double GlueSpurMin { get; set; } = 0;
-        //PinDip
-        public double GlueWMax { get; set; } = 0;
-        public double GlueWMin { get; set; } = 0;
-        public double GlueHMin { get; set; } = 0;
         [XmlIgnore]
         public bool IsMirrDisplay = false;
         [XmlIgnore]
@@ -393,7 +486,7 @@ namespace CommonInspector
                 _AffineGolenObj = value;
             }
         }
-        public void SaveHalconAlign(HTuple AlignHandle)
+        public void SeriallizeHalconAlign(HTuple AlignHandle)
         {
             HTuple hhandle = null;
             try
@@ -416,7 +509,7 @@ namespace CommonInspector
                 LogMgr.SendLog(ex.ToString(), ex);
             }
         }
-        public void LoadHalconAlign()
+        public void DeSeriallizeHalconAlign()
         {
             try
             {
@@ -452,7 +545,7 @@ namespace CommonInspector
                 LogMgr.SendLog(ex.ToString());
             }
         }
-        public void SaveHalconGolenObject(HObject obj)
+        public void SeriallizeHalconGolenObject(HObject obj)
         {
             try
             {
@@ -468,7 +561,7 @@ namespace CommonInspector
                 LogMgr.SendLog(e.ToString(), e);
             }
         }
-        public void LoadHalconObject()
+        public void DeSeriallizeHalconObject()
         {
             try
             {
@@ -510,16 +603,17 @@ namespace CommonInspector
             if (!obj.IsInitialized()) return false;
             return true;
         }
-        public object Clone()
+        public virtual object Clone()
         {
-            TWindowInfoBase win = this.MemberwiseClone() as TWindowInfoBase;
+            DeepClone = true;
+            TWindow win = this.MemberwiseClone() as TWindow;
             win.NccAlignModelID = new HTuple();
             win.ShapeAlignModelID = new HTuple();
             return win;
         }
         [XmlIgnore]
         private bool _disposed = false;
-        ~TWindowInfoBase() => Dispose(false);
+        ~TWindow() => Dispose(false);
         public void Dispose()
         {
             Dispose(true);
@@ -547,7 +641,7 @@ namespace CommonInspector
             if (IsValid(AffineCountour)) AffineCountour.Dispose();
             if (IsValid(GolenObj)) GolenObj.Dispose();
             if (IsValid(AffineGolenObj)) AffineGolenObj.Dispose();
-            if (IsValid(Rec)) Rec.Dispose();
+            if (IsValid(_Rec)) _Rec.Dispose();
             _disposed = true;
         }
     }
@@ -564,7 +658,7 @@ namespace CommonInspector
         {
             ID = Index;
         }
-        public virtual List<TWindowInfoBase> Wins { get; set; } = new List<TWindowInfoBase>();
+        public virtual List<TWindow> Wins { get; set; } = new List<TWindow>();
     }
     [Serializable]
     public class TRecipeBase
@@ -671,8 +765,15 @@ namespace CommonInspector
         }
         public static void SafeDispose(HObject obj)
         {
-            if (IsValid(obj))
-                obj.Dispose();
+            try
+            {
+                if (IsValid(obj))
+                    obj.Dispose();
+            }
+            catch(Exception e)
+            {
+                LogMgr.SendLog("Dispose Error! " + e.Message , e);
+            }
         }
     }
     public class VDM
@@ -690,7 +791,7 @@ namespace CommonInspector
     }
     #region  AllClass
     [Serializable]
-    public  class TCamInfoBase
+    public class TCamInfoBase
     {
         public int Index { get; set; }
         public int CamRealIndex { get; set; }

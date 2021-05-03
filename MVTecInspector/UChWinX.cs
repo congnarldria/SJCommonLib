@@ -16,8 +16,8 @@ namespace CommonInspector
     public partial class UChWinX : UserControl
     {
         #region Declare
-        private TWindowInfoBase NAWindow = new TWindowInfoBase();
-        private TWindowInfoBase ClipBoardWinInfo = null;
+        private TWindow NAWindow = new TWindow();
+        private TWindow ClipBoardWinInfo = null;
 
         public Label lbSelected;
         public GroupBox gbMeaurePos;
@@ -384,7 +384,7 @@ namespace CommonInspector
                     cbAlignTo.Items.Add(string.Format("{0:00}", i) + "." + VDM.Sgt.rcp.Views[InspectIndex].Wins[i].InsType);
                 }
             }
-            cbAlignTo.Items.Add(string.Format("{0:00}", -1) + "." + "NA");
+            cbAlignTo.Items.Add(string.Format("{0:00}", -1) + "." + NA);
 
             //======================================
             if (LastIndex.Count == 1)

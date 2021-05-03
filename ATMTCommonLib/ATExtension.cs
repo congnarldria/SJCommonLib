@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-//using System.Text.Json .net 5.0
+using System.Runtime.InteropServices;
 
 namespace ATMTCommonLib
 {
@@ -20,6 +20,14 @@ namespace ATMTCommonLib
     /// </summary>
     public static class ATExtensions
     {
+        /// <summary>
+        /// 無視小數點創建資料夾
+        /// </summary>
+        /// <param name="lpPathName"></param>
+        /// <param name="lpSecurityAttributes"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool CreateDirectory(string lpPathName, IntPtr lpSecurityAttributes);
         /// <summary>
         /// Binary深層複製的泛型方法 ， 用於所有成員都是可序列化時
         /// </summary>
