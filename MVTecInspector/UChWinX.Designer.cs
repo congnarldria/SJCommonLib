@@ -44,8 +44,6 @@ namespace CommonInspector
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmLoadImage = new System.Windows.Forms.ToolStripMenuItem();
             this.bsWindowInfo = new System.Windows.Forms.BindingSource(this.components);
-            this.saveFileDialog1 = new DevExpress.XtraEditors.XtraSaveFileDialog(this.components);
-            this.OpenFileDialog1 = new DevExpress.XtraEditors.XtraOpenFileDialog(this.components);
             this.cmsEditWondow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsWindowInfo)).BeginInit();
             this.SuspendLayout();
@@ -146,14 +144,6 @@ namespace CommonInspector
             this.tsmLoadImage.Size = new System.Drawing.Size(122, 22);
             this.tsmLoadImage.Text = "讀圖";
             // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.FileName = "xtraSaveFileDialog1";
-            // 
-            // OpenFileDialog1
-            // 
-            this.OpenFileDialog1.FileName = "xtraOpenFileDialog1";
-            // 
             // UChWinX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -183,7 +173,5 @@ namespace CommonInspector
         private System.Windows.Forms.ToolStripMenuItem tsmSave;
         private System.Windows.Forms.ToolStripMenuItem tsmLoadImage;
         private System.Windows.Forms.BindingSource bsWindowInfo;
-        private DevExpress.XtraEditors.XtraSaveFileDialog saveFileDialog1;
-        private DevExpress.XtraEditors.XtraOpenFileDialog OpenFileDialog1;
     }
 }
