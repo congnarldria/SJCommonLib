@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using SJCommonLib;
+using System.Windows.Forms;
+using System.Diagnostics;
+
+namespace SimpleQFP
+{
+    static class Program
+    {
+        /// <summary>
+        /// 應用程式的主要進入點。
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
+            using (var form = new FmMain())
+            {
+                var mutex = new System.Threading.Mutex(true, "OnlyRun");
+                if (mutex.WaitOne(0, false))
+                {
+                    bool IsOpenLog = false;
+                    var LogApp = Process.GetProcesses();
+                    for (int i = 0; i < LogApp.Length; i++)
+                    {
+                        if (LogApp[i].ToString().IndexOf("SJLog") != -1)
+                        {
+                            IsOpenLog = true;
+                            break;
+                        }
+                    }
+                    if (!System.IO.File.Exists(Application.StartupPath + "//SJLog.exe"))
+                    {
+                        MessageBox.Show("SJLog.exe not exist");
+                    }
+                    else
+                    {
+                        if (!IsOpenLog)
+                        {
+                            _ = Process.Start("SJLog.exe");
+                        }
+                    }
+                    Application.Run(form);
+                    //aLog.Kill();
+                }
+                else
+                    MessageBox.Show("already run");
+            }
+
+        }
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            LogMgr.SendLog("Unexpect", "CurrentDomain_UnhandledException exception. " + e.ToString());
+        }
+        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            LogMgr.SendLog("Unexpect", "Application_ThreadException exception. " + e.ToString());
+        }
+    }
+}
