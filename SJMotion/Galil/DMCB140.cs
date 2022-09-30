@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
-using MUTECHCommonLib;
+using SJCommonLib;
 
-namespace MUTECHMotion
+namespace SJMotion
 {
     /// <summary>
     /// Galil 通訊非串列式 4軸Full Function控制器

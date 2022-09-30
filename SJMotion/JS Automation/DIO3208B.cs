@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace MUTECHMotion
+namespace SJMotion
 {
     public class DIO3208B
     {

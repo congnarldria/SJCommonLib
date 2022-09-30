@@ -6,7 +6,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 
 
-namespace MUTECHMotion
+namespace SJMotion
 {
 	
 	//ADLINK Structure++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

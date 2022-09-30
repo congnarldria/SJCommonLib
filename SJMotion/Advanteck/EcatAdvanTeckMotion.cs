@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Advantech.Motion;
-using MUTECHCommonLib;
+using SJCommonLib;
 using System.Threading;
 using System.Runtime.InteropServices;
 
-namespace MUTECHMotion
+namespace SJMotion
 {
 
     #region CommonDefine

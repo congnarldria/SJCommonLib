@@ -1,0 +1,10 @@
+C:\Users\88698\source\repos\SJCommonLib\SJLog\bin\Debug\SJLog.exe.config
+C:\Users\88698\source\repos\SJCommonLib\SJLog\bin\Debug\SJLog.exe
+C:\Users\88698\source\repos\SJCommonLib\SJLog\bin\Debug\SJLog.pdb
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.FmLog.resources
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.Properties.Resources.resources
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.csproj.GenerateResource.cache
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.csproj.CoreCompileInputs.cache
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.csproj.CopyComplete
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.exe
+C:\Users\88698\source\repos\SJCommonLib\SJLog\obj\Debug\SJLog.pdb

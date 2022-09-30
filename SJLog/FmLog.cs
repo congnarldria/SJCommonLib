@@ -65,12 +65,13 @@ namespace SJLog
                 lc.Category = logs[0];
                 lc.Date = DateTime.Now.ToString("yyyyMMdd");
                 lc.Time = DateTime.Now.ToString("HH:mm:ss.ffff");
-                lc.Function = logs[2];
-                lc.Line = logs[3];
+                lc.FileName = logs[2];
+                lc.Function = logs[3];
+                lc.Line = logs[4];
                 lc.Content = logs[1];
                 if (!File.Exists(LogPath + lc.Date.Replace("/", string.Empty) + ".csv"))
                 {
-                    string ToTitle = ("Category" + "," + "Date" + "," + "Time" + "," + " Function" + "," + "Line" + "," + "Content");
+                    string ToTitle = ("Category" + "," + "Date" + "," + "Time" + "," + "File" + "," + " Function" + "," + "Line" + "," + "Content");
                     sw = new StreamWriter(LogPath + lc.Date.Replace("/", string.Empty) + ".csv", true, Encoding.Unicode);
                     ToTitle = ToTitle.Replace("\r\n", " ↲ ");
                     sw.WriteLine(ToTitle);
@@ -78,7 +79,7 @@ namespace SJLog
                 }
                 if (LogList.Count > 6000) LogList.Clear();
                 LogList.Insert(0, lc);
-                string ToLine = (lc.Category + "," + lc.Date + "," + lc.Time + "," + lc.Function + "," + lc.Line + "," + lc.Content);
+                string ToLine = (lc.Category + "," + lc.Date + "," + lc.Time + "," + lc.FileName + lc.Function + "," + lc.Line + "," + lc.Content);
 
                 sw = new StreamWriter(LogPath + lc.Date.Replace("/", string.Empty) + ".csv", true, Encoding.Unicode);
                 ToLine = ToLine.Replace("\r\n", " ↲ ");

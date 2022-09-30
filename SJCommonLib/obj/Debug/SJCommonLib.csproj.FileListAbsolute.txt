@@ -1,8 +1,6 @@
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\SJCommonLib.SJLogIn.resources
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\SJCommonLib.csproj.GenerateResource.cache
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\SJCommonLib.csproj.CoreCompileInputs.cache
-C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\ATMTCommonLib.dll
-C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\ATMTCommonLib.pdb
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\DotNetZip.dll
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\MvCameraControl.Net.dll
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\Newtonsoft.Json.dll
@@ -11,5 +9,7 @@ C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\DotNetZip.xml
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\MvCameraControl.Net.xml
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\Newtonsoft.Json.xml
 C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\SJCommonLib.csproj.CopyComplete
-C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\ATMTCommonLib.dll
-C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\ATMTCommonLib.pdb
+C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\SJCommonLib.dll
+C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\bin\Debug\SJCommonLib.pdb
+C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\SJCommonLib.dll
+C:\Users\88698\source\repos\SJCommonLib\SJCommonLib\obj\Debug\SJCommonLib.pdb

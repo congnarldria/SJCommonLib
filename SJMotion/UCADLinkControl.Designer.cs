@@ -1,5 +1,5 @@
 ﻿
-namespace MUTECHMotion
+namespace SJMotion
 {
     partial class UCADLinkControl
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MUTECHCommonLib;
+using SJCommonLib;
 using System.Threading;
 
-namespace MUTECHMotion
+namespace SJMotion
 {
     public class TCardADLinkMotion : PCBase
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 
-namespace MUTECHMotion
+namespace SJMotion
 {
     #region Parent
     public enum EmMotorType { Servo, Stepping, EncoderStepping, Linear, DC, AC, Torqe, DirectDrive, Coil, Piezo }

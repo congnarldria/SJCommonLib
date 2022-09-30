@@ -19,6 +19,7 @@ namespace SJLog
         public string Category { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
+        public string FileName { get; set; }
         public string Function { get; set; }
         public string Line { get; set; }
         public string Content { get; set; }

@@ -7,8 +7,8 @@
     <ProjectGuid>{B4D09D36-7B6F-472C-8142-0AE4F7EE5582}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MUTECHMotion</RootNamespace>
-    <AssemblyName>MUTECHMotion</AssemblyName>
+    <RootNamespace>SJMotion</RootNamespace>
+    <AssemblyName>SJMotion</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -58,8 +58,8 @@
     <Reference Include="AdvMotAPI">
       <HintPath>Dll\AdvMotAPI.dll</HintPath>
     </Reference>
-    <Reference Include="MUTECHCommonLib">
-      <HintPath>..\MTM6070\MTM6070\Dll\MUTECHCommonLib.dll</HintPath>
+    <Reference Include="SJCommonLib">
+      <HintPath>..\SJCommonLib\bin\Debug\SJCommonLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
