@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ATMTCommonLib;
+using SJCommonLib;
 using System.IO;
 using HalconDotNet;
 
@@ -600,12 +600,12 @@ namespace CommonInspector
                     HOperatorSet.SetFont(hWinX.HalconWindow, "Verdana-Normal-14");
                     HOperatorSet.DispText(hWinX.HalconWindow, "滑鼠左鍵編輯，按右鍵結束編輯", "image", PartRow, PartCol, "black", "box", "true");
                     hWinX.Focus();
-                    bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                    bool ret = SJVirtualMouse.LockCursor(hWinX);
                     HOperatorSet.DrawRectangle1Mod(hWinX.HalconWindow, VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row1
                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col1
                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row2
                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col2, out Row1, out Col1, out Row2, out Col2);
-                    ATMTVirtualMouse.UnLockCursor();
+                    SJVirtualMouse.UnLockCursor();
                     HOperatorSet.GenRectangle1(out HObject Rec, Row1, Col1.D, Row2, Col2);
                     HOperatorSet.SmallestRectangle1(Rec, out Row1, out Col1, out Row2, out Col2);
                     Rec.Dispose();
@@ -620,14 +620,14 @@ namespace CommonInspector
                     HOperatorSet.SetFont(hWinX.HalconWindow, "Verdana-Normal-14");
                     HOperatorSet.DispText(hWinX.HalconWindow, "滑鼠左鍵編輯，按右鍵結束編輯", "image", PartRow, PartCol, "black", "box", "true");
                     hWinX.Focus();
-                    bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                    bool ret = SJVirtualMouse.LockCursor(hWinX);
                     HOperatorSet.DrawRectangle2Mod(hWinX.HalconWindow, VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Row
                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Col
                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].Phi
                         , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].L1
                          , VDM.Sgt.rcp.Views[InspectIndex].Wins[WindowIndex].L2
                         , out HTuple Row, out HTuple Col, out HTuple Phi, out HTuple L1, out HTuple L2);
-                    ATMTVirtualMouse.UnLockCursor();
+                    SJVirtualMouse.UnLockCursor();
                     HOperatorSet.GenRectangle2(out HObject Rec2, Row, Col, Phi, L1, L2);
                     HOperatorSet.SmallestRectangle1(Rec2, out Row1, out Col1, out Row2, out Col2);
                     Rec2.Dispose();
@@ -721,9 +721,9 @@ namespace CommonInspector
             hWinX.Focus();
             if (ins == EmMeasureType.MeasureLine | ins == EmMeasureType.MeasurePoint | ins == EmMeasureType.MeasurePair)
             {
-                bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                bool ret = SJVirtualMouse.LockCursor(hWinX);
                 HOperatorSet.DrawLine(hWinX, out Row1, out Col1, out Row2, out Col2);
-                ATMTVirtualMouse.UnLockCursor();
+                SJVirtualMouse.UnLockCursor();
                 TWindowInfo NewWindow = new TWindowInfo(ins, Row1, Col1, Row2, Col2, true);
                 NewWindow.AddMetrologyObjectLineMeasurePrm.RowBegin = Row1;
                 NewWindow.AddMetrologyObjectLineMeasurePrm.ColumnBegin = Col1;
@@ -748,9 +748,9 @@ namespace CommonInspector
             }
             else
             {
-                bool ret = ATMTVirtualMouse.LockCursor(hWinX);
+                bool ret = SJVirtualMouse.LockCursor(hWinX);
                 HOperatorSet.DrawRectangle1Mod(hWinX.HalconWindow, MY, MX, MY + 100 / ZoomFactor[ZoomIndex], MX + 100 / ZoomFactor[ZoomIndex], out Row1, out Col1, out Row2, out Col2);
-                ATMTVirtualMouse.UnLockCursor();
+                SJVirtualMouse.UnLockCursor();
                 HOperatorSet.GenRectangle1(out HObject Rec, Row1, Col1, Row2, Col2);
                 HOperatorSet.SmallestRectangle1(Rec, out Row1, out Col1, out Row2, out Col2);
                 TWindowInfo w = new TWindowInfo(ins, Row1, Col1, Row2, Col2);

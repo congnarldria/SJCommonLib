@@ -1,0 +1,17 @@
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\MUTECHMotion.dll
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\MUTECHMotion.pdb
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\AdvMotAPI.dll
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\MUTECHCommonLib.dll
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\MvCameraControl.Net.dll
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\DotNetZip.dll
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\Newtonsoft.Json.dll
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\MUTECHCommonLib.pdb
+C:\Users\user\source\repos\MUTECHMotion\bin\x64\Debug\MvCameraControl.Net.xml
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.UCADLinkControl.resources
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.UCTemplate.resources
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.csproj.GenerateResource.cache
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.csproj.CopyComplete
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.dll
+C:\Users\user\source\repos\MUTECHMotion\obj\x64\Debug\MUTECHMotion.pdb
