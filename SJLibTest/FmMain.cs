@@ -35,14 +35,14 @@ namespace SJLibTest
         {
             try
             {
-                LogMgr.PostLog("this is post");
+               // LogMgr.PostLog("this is post");
                 LogMgr.SendLog("this is send");
                 LogMgr.SendLog(logs.App, "this is Page");
                 throw new Exception("xxxxx");
             }
             catch(Exception ex)
             {
-                LogMgr.PostLog("this is post", ex);
+                LogMgr.SendLog("this is post", ex.ToString());
             }
         }
     }

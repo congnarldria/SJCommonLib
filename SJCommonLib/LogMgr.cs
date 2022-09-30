@@ -56,6 +56,16 @@ namespace SJCommonLib
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         private static StackTrace st = new StackTrace(true);
+#if PostCanWork
+        /// <summary>
+        /// Test Post , Currrent Invalid
+        /// </summary>
+        /// <param name="log"></param>
+        /// <param name="e"></param>
+        public static void PostLog(string log, Exception e = null)
+        {
+            PostLogMethod(log, e);
+        }
         private static void PostLogMethod(string log, Exception e = null)
         {
             StackFrame[] sfs = st.GetFrames();
@@ -97,6 +107,7 @@ namespace SJCommonLib
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
         }
+#endif
         /// <summary>
         /// SendLog
         /// </summary>
@@ -150,15 +161,6 @@ namespace SJCommonLib
             long result = SendMessage(maindHwnd, WM_COPYDATA, IntPtr.Zero, structurePtr);
             Marshal.FreeHGlobal(ptr);
             Marshal.FreeHGlobal(structurePtr);
-        }
-        /// <summary>
-        /// Test Post , Currrent Invalid
-        /// </summary>
-        /// <param name="log"></param>
-        /// <param name="e"></param>
-        public static void PostLog(string log, Exception e = null)
-        {
-            PostLogMethod(log, e);
         }
         /// <summary>
         /// SendLog

@@ -42,14 +42,14 @@
             this.tpApp = new System.Windows.Forms.TabPage();
             this.dgvApp = new System.Windows.Forms.DataGridView();
             this.tcLog = new System.Windows.Forms.TabControl();
-            this.bsLogList = new System.Windows.Forms.BindingSource(this.components);
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FileColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.functionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bsLogList = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.tpApp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApp)).BeginInit();
@@ -66,7 +66,7 @@
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1108, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1802, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -130,7 +130,7 @@
             this.tpApp.Location = new System.Drawing.Point(4, 25);
             this.tpApp.Name = "tpApp";
             this.tpApp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpApp.Size = new System.Drawing.Size(1100, 459);
+            this.tpApp.Size = new System.Drawing.Size(1794, 594);
             this.tpApp.TabIndex = 0;
             this.tpApp.Text = "運行紀錄";
             this.tpApp.UseVisualStyleBackColor = true;
@@ -145,7 +145,7 @@
             this.categoryDataGridViewTextBoxColumn,
             this.dateDataGridViewTextBoxColumn,
             this.timeDataGridViewTextBoxColumn,
-            this.FileColumn,
+            this.fileNameDataGridViewTextBoxColumn,
             this.functionDataGridViewTextBoxColumn,
             this.lineDataGridViewTextBoxColumn,
             this.contentDataGridViewTextBoxColumn});
@@ -156,7 +156,7 @@
             this.dgvApp.Name = "dgvApp";
             this.dgvApp.RowHeadersVisible = false;
             this.dgvApp.RowTemplate.Height = 24;
-            this.dgvApp.Size = new System.Drawing.Size(1094, 453);
+            this.dgvApp.Size = new System.Drawing.Size(1788, 588);
             this.dgvApp.TabIndex = 0;
             // 
             // tcLog
@@ -167,12 +167,8 @@
             this.tcLog.Location = new System.Drawing.Point(0, 24);
             this.tcLog.Name = "tcLog";
             this.tcLog.SelectedIndex = 0;
-            this.tcLog.Size = new System.Drawing.Size(1108, 488);
+            this.tcLog.Size = new System.Drawing.Size(1802, 623);
             this.tcLog.TabIndex = 1;
-            // 
-            // bsLogList
-            // 
-            this.bsLogList.DataSource = typeof(SJLog.TLogContent);
             // 
             // categoryDataGridViewTextBoxColumn
             // 
@@ -192,16 +188,21 @@
             this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
             this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
             // 
-            // FileColumn
+            // fileNameDataGridViewTextBoxColumn
             // 
-            this.FileColumn.HeaderText = "File";
-            this.FileColumn.Name = "FileColumn";
+            this.fileNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
+            this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
+            this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
+            this.fileNameDataGridViewTextBoxColumn.Width = 87;
             // 
             // functionDataGridViewTextBoxColumn
             // 
+            this.functionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.functionDataGridViewTextBoxColumn.DataPropertyName = "Function";
             this.functionDataGridViewTextBoxColumn.HeaderText = "Function";
             this.functionDataGridViewTextBoxColumn.Name = "functionDataGridViewTextBoxColumn";
+            this.functionDataGridViewTextBoxColumn.Width = 81;
             // 
             // lineDataGridViewTextBoxColumn
             // 
@@ -211,16 +212,20 @@
             // 
             // contentDataGridViewTextBoxColumn
             // 
+            this.contentDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
             this.contentDataGridViewTextBoxColumn.HeaderText = "Content";
             this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
-            this.contentDataGridViewTextBoxColumn.Width = 5000;
+            // 
+            // bsLogList
+            // 
+            this.bsLogList.DataSource = typeof(SJLog.TLogContent);
             // 
             // FmLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1108, 512);
+            this.ClientSize = new System.Drawing.Size(1802, 647);
             this.Controls.Add(this.tcLog);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -260,7 +265,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FileColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fileNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn functionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
